@@ -1,0 +1,28 @@
+// FORMS
+.form-label{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: .5rem;
+
+    textarea {
+        height: 9rem;
+        width: 80%;
+    }
+}
+
+.form-label label {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: .5rem;
+    padding: 0.25rem; 
+    font-weight: bold;
+}
+
+.form {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+}
