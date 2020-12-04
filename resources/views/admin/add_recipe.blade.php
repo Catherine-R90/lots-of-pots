@@ -72,7 +72,10 @@
             <textarea type="text" id="description" name="description" placeholder="Recipe Description" required></textarea>
         </div>
 
-        <!-- PRODUCT CATEGORY -->
+    </div>
+
+    <div class="section-right">
+        <!-- RECIPE CATEGORY -->
         <div class="form-label">
             <label for="recipe_category">Recipe Category</label>
 
@@ -88,6 +91,24 @@
 
                 @endforeach
 
+            </select>
+        </div>
+
+        <!-- NUMBER OF INGREDIENTS -->
+        <div class="form-label">
+            <label>Number of ingredients</label>
+
+            <select name="num_of_ingredients">
+                <option value=1>1</option>
+                <option value=2>2</option>
+                <option value=3>3</option>
+                <option value=4>4</option>
+                <option value=5>5</option>
+                <option value=6>6</option>
+                <option value=7>7</option>
+                <option value=8>8</option>
+                <option value=9>9</option>
+                <option value=10>10</option>
             </select>
         </div>
 
@@ -115,8 +136,9 @@
             <input type="file" accept="image/*" name="image_three">
         </div>
 
+        <!-- PRODUCTS USED IN RECIPE -->
         <div class="form-label">
-            <label>Products used in recipe</label>
+            <label>Products used in recipe (ctrl and click to slect multiple)</label>
             <select name="product_id[]" multiple>
                 @foreach($products as $product)
                     <option value="{{ $product->id }}">
@@ -126,17 +148,10 @@
             </select>
         </div>
 
-    </div>
-
-    <div class="section-right">
-
-        <!-- INGREDIENTS -->
-        <x-add_ingredient/>
-
         <!-- SUBMIT -->
     <div class="form-label">
 
-    <input type="submit" value="Add">
+        <input type="submit" value="Add Recipe Details">
 
     </div>
     </form>

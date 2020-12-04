@@ -109,14 +109,16 @@ Route::get('/admin/recipes/overview', [App\Http\Controllers\RecipeController::Cl
 Route::get('/admin/recipes/add', [App\Http\Controllers\RecipeController::Class, 'AdminAddRecipeView']);
 
 // ADMIN ADD RECIPE INGREDIENTS VIEW
-Route::get('/admin/recipes/ingredients/add/$id', [App\Http\Controllers\RecipeController::Class, 'AdminAddIngredientsView'])->name('add-ingredients');
+Route::get('/admin/recipes/ingredients/add/{id}', [App\Http\Controllers\IngredientsController::Class, 'AdminAddIngredientsView']);
 
 // ADMIN DELETE RECIPE VIEW
 Route::get('/admin/recipes/delete', [App\Http\Controllers\RecipeController::Class, 'AdminDeleteRecipeView']);
 
-// ADMIN EDIT RECIPES VIEW
-Route::get('/admin/recipes/edit', [App\Http\Controllers\RecipeController::Class, 'AdminEditRecipeView']);
+// ADMIN SELECT RECIPE TO EDIT VIEW
+Route::get('/admin/recipes/edit', [App\Http\Controllers\RecipeController::Class, 'AdminSelectRecipeEditView']);
 
+// EDIT RECIPE VIEW
+Route::get('/admin/recipes/edit/{id}', [App\Http\Controllers\RecipeController::Class, 'AdminEditRecipeView']);
 
 // RECIPE CATEGORIES
 // ADMIN ACCOUNT PRODUCT CATEGORIES OVERVIEW
@@ -182,6 +184,9 @@ Route::post('/products/category/delete', [App\Http\Controllers\ProductCategoryCo
 // ADD RECIPE
 Route::post('/recipes/add', [App\Http\Controllers\RecipeController::Class, 'AdminAddRecipe']);
 
+// ADD INGREDIENTS
+Route::post('/recipes/ingredients/add', [App\Http\Controllers\IngredientsController::Class, 'AdminAddIngredients']);
+
 // EDIT RECIPE
 Route::post('/recipes/edit', [App\Http\Controllers\RecipeController::Class, 'AdminEditRecipe']);
 
@@ -203,3 +208,6 @@ Route::post('/recipes/category/delete', [App\Http\Controllers\RecipeCategoryCont
 // ORDERS
 // CHANGE ORDER STATUS
 Route::post('/orders/flag', [App\Http\Controllers\OrderController::class], 'FlagOrderStatus');
+Auth::routes();
+
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

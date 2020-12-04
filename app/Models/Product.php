@@ -23,7 +23,7 @@ class Product extends Model
     }
 
     public function recipes() {
-        return $this->belongsToMany('App\Models\Recipes', 'product_recipe_linker');
+        return $this->belongsToMany('App\Models\Recipe', 'product_recipe_linker');
     }
 
     public static function imagesInUse() {

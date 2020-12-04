@@ -24,7 +24,6 @@ class EditRecipe extends FormRequest
     public function rules()
     {
         return [
-            'recipe_id' => 'required',
             'name' => 'unique:App\Models\Recipe,name|nullable',
             'prep_time' => 'numeric|nullable',
             'cook_time' => 'numeric|nullable',

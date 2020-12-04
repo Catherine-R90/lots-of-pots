@@ -10,6 +10,8 @@ use App\Models\RecipeCategory;
     <title>Lots of Pots</title>
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
+    <script src="{{ asset('js/app.js') }}"></script>
+    
 </head>
 
 <body>

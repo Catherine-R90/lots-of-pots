@@ -7,8 +7,10 @@ use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\DB;
 use App\Models\Product;
+use App\Models\Recipe;
 use App\Models\ProductCategory;
 use App\Models\ProductImage;
+use App\Models\RecipeImage;
 use App\Models\CartItems;
 use App\Models\Cart;
 use App\Http\Requests\AddProduct;
@@ -30,6 +32,14 @@ class ProductController extends Controller
         $images = DB::table('product_images')
                     ->where('product_id', $id)
                     ->get();
+        $recipes = $product->recipes()->get();
+        if(count($recipes) > 0) {
+            foreach ($recipes as $recipe) {
+                $recipeImage = RecipeImage::where('recipe_id', $recipe->id)->first();
+            }
+        } else {
+            $recipeImage = null;
+        }
 
         foreach ($images as $image) {
             $imageOne = $image->image_one_name;
@@ -38,16 +48,14 @@ class ProductController extends Controller
             $imageFour = $image->image_four_name;
         }
 
-        $imageNames = [
-            $imageOne,
-            $imageTwo,
-            $imageThree,
-            $imageFour
-        ];
-
         return view('shop/product_page', [
             "product" => $product,
-            "imageNames" => $imageNames
+            "imageOne" => $imageOne,
+            "imageTwo" => $imageTwo,
+            "imageThree" => $imageThree,
+            "imageFour" => $imageFour,
+            "recipes" => $recipes,
+            "recipeImage" => $recipeImage
         ]);
     }
 

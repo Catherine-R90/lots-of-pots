@@ -12,9 +12,9 @@
 <div class="tile-groups">
 
     @foreach ($primaryCategories as $pCategory)
-        <a href="/product/category/{{ $pCategory->id }}">
+        <a href="/products/category/{{ $pCategory->id }}">
             <div class="large-tiles">
-                <img src="images/placeholder.png">
+                <img src="{{ asset('storage/app/productImage/'.$imageName) }}">
                 {{ $pCategory->category }}
             </div>
         </a>
@@ -25,7 +25,7 @@
 <div class="tile-groups">
 
     @foreach($secondaryCategories as $sCategory)
-        <a href="/product/category/{{ $sCategory->id }}">
+        <a href="/products/category/{{ $sCategory->id }}">
         <div class="small-tiles">
             <img src="images/placeholder-sml.png">
             {{ $sCategory->category }}
@@ -45,13 +45,11 @@
 @foreach($recipes as $recipe)
 
     <!-- RECIPE IMAGES -->
-    <?php
-    $imageName = DB::table('recipe_images')->where('recipe_id', $recipe->id)->value('image_one_name');
-    ?>
+    <?php $imageName = DB::table('recipe_images')->where('recipe_id', $recipe->id)->value('image_one_name'); ?>
 
     <a href="/recipes/{{ $recipe->id }}">
         <div class="small-tiles">
-            <img src=" {{asset('storage/app/recipeImages/'.$imageName) }}">
+            <img src=" {{asset('storage/app/recipeImages/'.$imageName) }}" alt="{{ $imageName }}">
             {{ $recipe->name }}
         </div>
     </a>
