@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Ingredients extends Model
 {
     protected $fillable = [
+        "recipes_id",
         "ingredient_one",
         "ingredient_quant_one",
         "ingredient_two",

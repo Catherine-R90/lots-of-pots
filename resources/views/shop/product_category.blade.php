@@ -41,10 +41,10 @@ use Illuminate\Support\Facades\DB;
     }
     ?>
 
-        <a href="/products/<?php echo $product->id; ?>">
+        <a href="/products/{{ $product->id }}">
             <div class="small-tiles">
                 <img src="{{ asset('storage/app/productImages/'.$imageName) }}">
-                <?php echo $product->name ." - £". $product->price; ?>
+                {{ $product->name}} - £{{ $product->price }}
             </div>
         </a>
 

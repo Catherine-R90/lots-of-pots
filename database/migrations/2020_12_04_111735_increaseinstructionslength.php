@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class Editcarts extends Migration
+class Increaseinstructionslength extends Migration
 {
     /**
      * Run the migrations.
@@ -13,8 +13,8 @@ class Editcarts extends Migration
      */
     public function up()
     {
-        Schema::table('cart_items', function (Blueprint $table){
-            $table->foreign('product_id')->references('id')->on('products');
+        Schema::table('recipes', function (Blueprint $table){
+            $table->string('instructions', 1000)->change();
         });
     }
 
@@ -25,8 +25,8 @@ class Editcarts extends Migration
      */
     public function down()
     {
-        Schema::table('cart_items', function (Blueprint $table){
-            $table->dropForeign('product_id');
+        Schema::table('recipes', function (Blueprint $table){
+            $table->string('instructions', 225)->change();
         });
     }
 }

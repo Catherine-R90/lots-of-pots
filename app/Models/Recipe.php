@@ -17,10 +17,6 @@ class Recipe extends Model
         "num_of_ingredients"
     ];
 
-    public function getRouteKey() {
-        return $this->slug;
-    }
-    
     // RECIPE CALCULATOR
     public function PortionCalculator($request){
 
@@ -29,5 +25,9 @@ class Recipe extends Model
     // COMMENTS
     public function comments() {
         return $this->hasMany('App\Models\Comment', 'comment_id');
+    }
+
+    public function products() {
+        return $this->belongsToMany('App\Models\Product', 'product_recipe_linker');
     }
 }

@@ -6,53 +6,24 @@
 
 <div class="boxed-header">
 
-    <h3>Add Recipe</h3>
+    <h3>Add or Update Ingredients for {{ $recipe->name }}</h3>
 
 </div>
 
-@if($numOfIngredients == 1) {
 <div class="form">
 
 <form method="POST" action="/recipes/ingredients/add">
 @csrf
+    <input type="hidden" name="recipes_id" value="{{ $recipe->id }}">
 
-    <label>Ingredient</label>
-    <input type="text" name="indredient_one">
+    <x-add_ingredient />
 
-    <label>Quantity FOR ONE PORTION</label>
-    <input type="number" name="ingredient_quant_one">
-
-    <input type="Add">
-
-</form>
-
-</div>
-}
-@elseif($numOfIngredients == 2) {
-<div class="form">
-
-<form method="POST" action="/recipes/ingredients/add">
-@csrf
-
-    <label>Ingredient</label>
-    <input type="text" name="indredient_one">
-
-    <label>Quantity FOR ONE PORTION</label>
-    <input type="number" name="ingredient_quant_one">
-
-    <label>Ingredient</label>
-    <input type="text" name="indredient_two">
-
-    <label>Quantity FOR ONE PORTION</label>
-    <input type="number" name="ingredient_quant_two">
-
-    <input type="Add">
+    <div class="form-label">
+        <input type="submit" value="Add ingredients to recipe">
+    </div>
 
 </form>
 
 </div>
-}
-@endif
-
 
 @endsection

@@ -10,16 +10,23 @@
                 <img class="recipe-image" src="{{ asset('storage/app/recipeImages/'.$image->image_one_name) }}">
             @endforeach
 
+        @if(count($products) > 0)
+
         <div class="border-title">
             <p>Products featured in this recipe</p>
         </div>
 
-        <a href="products/15">
+        @foreach($products as $product)
+
+        <a href="/products/{{ $product->id }}">
             <div class="grey-link">
-                <img src="{{ asset('storage/app/productImages/Shiny Knives') }}">
-                <p>Product</p>
+                <img src="{{ asset('storage/app/productImages/'.$productImage->image_one_name) }}">
+                <p>{{ $product->name }}</p>                
             </div>
         </a>
+
+        @endforeach
+        @endif
 
     </div>
 
@@ -54,7 +61,7 @@
             <ul>
                 <div class="ingredient-col">
                     @foreach($ingredients as $ingredient)
-                        @if($ingredient != null && $ingredient != " ")
+                        @if($ingredient != null && $ingredient != " " && $ingredient != "  ")
                             <li>{{ $ingredient }}</li>
                         @endif
                     @endforeach

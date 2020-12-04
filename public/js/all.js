@@ -86,45 +86,6 @@
 /************************************************************************/
 /******/ ({
 
-/***/ "./resources/js/all.js":
-/*!*****************************!*\
-  !*** ./resources/js/all.js ***!
-  \*****************************/
-/*! no static exports found */
-/***/ (function(module, exports) {
-
-$(function () {
-  document.getElementById('num_of_ingredients').onchange = function () {
-    var i = 1;
-    var ingredient = document.getElementById("ingredient".i);
-
-    while (ingredient) {
-      ingredient.style.display = 'none';
-      ingredient = add_recipe.getElementById(++i);
-    }
-
-    document.getElementById(this.value).style.display = 'block';
-  };
-});
-$(function () {
-  $("form").on("submit", function (e) {
-    var dataString = $(this).serialize; // alert(dataString); return false;
-
-    $.ajax({
-      type: "POST",
-      url: "/product/add/{id}",
-      data: dataString,
-      success: function success() {
-        $("#add_to_cart").html("<div id='mesage'></div>");
-        $("#message").html("<h2>Product added!</h2>").hide();
-      }
-    });
-    e.preventDefault();
-  });
-});
-
-/***/ }),
-
 /***/ "./resources/sass/app.scss":
 /*!*********************************!*\
   !*** ./resources/sass/app.scss ***!
@@ -143,7 +104,7 @@ $(function () {
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /var/www/dev_lotsofpots_co_uk/resources/js/all.js */"./resources/js/all.js");
+!(function webpackMissingModule() { var e = new Error("Cannot find module '/var/www/dev_lotsofpots_co_uk/resources/js/all.js'"); e.code = 'MODULE_NOT_FOUND'; throw e; }());
 module.exports = __webpack_require__(/*! /var/www/dev_lotsofpots_co_uk/resources/sass/app.scss */"./resources/sass/app.scss");
 
 

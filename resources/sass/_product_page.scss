@@ -1,22 +1,19 @@
 // IMAGES
-.primary-image {
+// .carousel-item {
 
+    
+// }
+
+.product-image {
     margin-top: 1.5rem;
 
     img {
-        height: 10rem;
+        width: 80%;
         margin: .5rem;
         box-shadow: 0px 4px 6px 0px #404040;
     }
 }
 
-.secondary-image {
-    img {
-        height: 5rem;
-        margin: .5rem;
-        box-shadow: 0px 4px 6px 0px #404040;
-    }
-}
 
 // PRICE AND QUANTITY
 .price-form-label {
