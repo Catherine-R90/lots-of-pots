@@ -17,16 +17,12 @@ class Recipe extends Model
         "num_of_ingredients"
     ];
 
-    // RECIPE CALCULATOR
-    public function PortionCalculator($request){
-
-    }
-
     // COMMENTS
     public function comments() {
         return $this->hasMany('App\Models\Comment', 'comment_id');
     }
 
+    // PRODUCTS
     public function products() {
         return $this->belongsToMany('App\Models\Product', 'product_recipe_linker');
     }

@@ -1,7 +1,6 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -44,10 +43,10 @@ Route::get('/products/{id}', [App\Http\Controllers\ProductController::Class, 'Pr
 
 // RECIPES
 // RECIPE VIEW
-Route::get('/recipes/{id}', [App\Http\Controllers\RecipeController::Class, 'RecipeView']);
+Route::get('/recipes/{id}/{portion?}', [App\Http\Controllers\RecipeController::Class, 'RecipeView']);
 
 // RECIPE CATEGORY VIEW
-Route::get('/recipes/category/{id}', [App\Http\Controllers\RecipeCategoryController::Class, 'RecipeCategoryView']);
+Route::get('/recipe-category/{id}', [App\Http\Controllers\RecipeCategoryController::Class, 'RecipeCategoryView']);
 
 // LOGIN VIEW
 Route::get('/login', [App\Http\Controllers\UserController::Class, 'LoginView']);
@@ -65,13 +64,13 @@ Route::get('/orders/{customer_id}/{order_id}', [App\Http\Controllers\OrderContro
 
 
 // CART VIEW
-Route::get('/cart/{id}', [App\Http\Controllers\CartController::Class, 'CartView']);
+Route::get('/cart', [App\Http\Controllers\CartController::Class, 'CartView']);
 
 // CHECKOUT VIEW
-Route::get('/checkout/{id}', [App\Http\Controllers\CheckoutController::Class, 'CheckoutView']);
+Route::get('/checkout', [App\Http\Controllers\CheckoutController::Class, 'CheckoutView']);
 
 // CHECKOUT CONFIRMATION VIEW
-Route::get('/checkout/{id}/confirmation', [App\Http\Controllers\CheckoutController::Class, 'CheckoutConfirmationView']);
+Route::get('/checkout/confirmation/{id}', [App\Http\Controllers\CheckoutController::Class, 'CheckoutConfirmationView']);
 
 // SEARCH RESULTS VIEW
 Route::get('/search/{search}', [App\Http\Controllers\SearchController::Class, 'SearchResultView']);
@@ -91,8 +90,11 @@ Route::get('/admin/products/overview', [App\Http\Controllers\ProductController::
 // ADMIN ADD PRODUCT VIEW
 Route::get('/admin/products/add', [App\Http\Controllers\ProductController::Class, 'AdminAddProductView']);
 
+// ADMIN EDIT PRODUCT OVERVIEW VIEW
+Route::get('/admin/products/edit/overview', [App\Http\Controllers\ProductController::Class, 'AdminEditProductOverviewView']);
+
 // ADMIN EDIT PRODUCT VIEW
-Route::get('/admin/products/edit', [App\Http\Controllers\ProductController::Class, 'AdminEditProductView']);
+Route::get('/admin/products/edit/{id}', [App\Http\Controllers\ProductController::Class, 'AdminEditProductView']);
 
 // ADMIN DELETE PRODUCT
 Route::get('/admin/products/delete', [App\Http\Controllers\ProductController::Class, 'AdminDeleteProductView']);
@@ -108,6 +110,9 @@ Route::get('/admin/recipes/overview', [App\Http\Controllers\RecipeController::Cl
 // ADMIN ADD RECIPES VIEW
 Route::get('/admin/recipes/add', [App\Http\Controllers\RecipeController::Class, 'AdminAddRecipeView']);
 
+// ADMIN ADD RECIPE PRODUCTS VIEW
+Route::get('/admin/recipes/product/add/{id}', [App\Http\Controllers\RecipeController::Class, 'AdminAddRecipeProductView']);
+
 // ADMIN ADD RECIPE INGREDIENTS VIEW
 Route::get('/admin/recipes/ingredients/add/{id}', [App\Http\Controllers\IngredientsController::Class, 'AdminAddIngredientsView']);
 
@@ -120,6 +125,12 @@ Route::get('/admin/recipes/edit', [App\Http\Controllers\RecipeController::Class,
 // EDIT RECIPE VIEW
 Route::get('/admin/recipes/edit/{id}', [App\Http\Controllers\RecipeController::Class, 'AdminEditRecipeView']);
 
+// EDIT RECIPE PRODUCTS VIEW
+Route::get('/admin/recipes/ingredients/edit/{id}', [App\Http\Controllers\IngredientsController::Class, 'AdminEditIngredientsView']);
+
+// EDIT INGREDIENTS VIEW
+Route::get('/admin/recipes/product/edit/{id}', [App\Http\Controllers\RecipeController::Class, 'AdminEditRecipeProductView']);
+
 // RECIPE CATEGORIES
 // ADMIN ACCOUNT PRODUCT CATEGORIES OVERVIEW
 Route::get('/admin/recipes/categories/edit', [App\Http\Controllers\RecipeCategoryController::Class, 'AdminEditRecipeCategoryView']);
@@ -130,8 +141,6 @@ Route::get('/account/admin/orders/overview', [App\Http\Controllers\OrderControll
 
 // ORDER VIEW
 Route::get('/account/admin/orders/{id}', [App\Http\Controllers\OrderController::Class, 'AdminOrderView']);
-
-
 
 
 // POST
@@ -147,9 +156,21 @@ Route::post('/account/{id}/edit-address', [App\Http\Controllers\UserController::
 
 // CUSTOMER
 // PRODUCTS
-Route::post('/product/add/', [App\Http\Controllers\ProductController::class, 'addToCart']);
+Route::post('/cart/product/add/{id}', [App\Http\Controllers\CartController::class, 'AddToCart']);
 
-Route::post('/product/{id}/delete', [App\Http\Controllers\ProductController::class, 'CustomerDeleteProduct']);
+Route::post('/cart/product/adjust', [App\Http\Controllers\CartController::Class, 'AdjustCartQuantity']);
+
+Route::post('/cart/product/remove', [App\Http\Controllers\CartController::class, 'RemoveItemCart']);
+
+Route::post('/cart/clear', [App\Http\Controllers\CartController::Class, 'ClearCart']);
+
+Route::post('/cart/delivery', [App\Http\Controllers\CartController::class, 'AddDelivery']);
+
+// CHECKOUT
+Route::post('/checkout/confirm', [App\Http\Controllers\CheckoutController::class, 'ConfirmPayment']);
+
+// PORTION CALCULATOR FOR RECIPE
+Route::post('/portion-calculator', [App\Http\Controllers\RecipeController::Class, 'PortionCalculator']);
 
 // CONTACT
 Route::post('/contact', [App\Http\Controllers\ContactController::class, 'MailContactForm']);
@@ -184,11 +205,20 @@ Route::post('/products/category/delete', [App\Http\Controllers\ProductCategoryCo
 // ADD RECIPE
 Route::post('/recipes/add', [App\Http\Controllers\RecipeController::Class, 'AdminAddRecipe']);
 
+// ADD RECIPE PRODUCTS
+Route::post('/recipes/products/add', [App\Http\Controllers\RecipeController::Class, 'AdminAddRecipeProduct']);
+
 // ADD INGREDIENTS
 Route::post('/recipes/ingredients/add', [App\Http\Controllers\IngredientsController::Class, 'AdminAddIngredients']);
 
 // EDIT RECIPE
 Route::post('/recipes/edit', [App\Http\Controllers\RecipeController::Class, 'AdminEditRecipe']);
+
+// EDIT RECIPE PRODUCTS
+Route::post('/recipes/products/edit', [App\Http\Controllers\RecipeController::Class, 'AdminEditRecipeProduct']);
+
+// EDIT INGREDIENTS
+Route::post('/recipes/ingredients/edit', [App\Http\Controllers\IngredientsController::Class, 'AdminEditIngredients']);
 
 // DELETE RECIPE
 Route::post('/recipes/delete', [App\Http\Controllers\RecipeController::Class, 'AdminDeleteRecipe']);

@@ -6,6 +6,8 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\ProductCategory;
 use App\Models\ProductImage;
+use App\Models\Product;
+use App\Models\Order;
 
 class Product extends Model
 {
@@ -26,6 +28,10 @@ class Product extends Model
         return $this->belongsToMany('App\Models\Recipe', 'product_recipe_linker');
     }
 
+    public function orders() {
+        return $this->belongsToMany('App\Models\Order', 'order_product_linker');
+    }
+
     public static function imagesInUse() {
         return Product::has('images')->get();
     }
@@ -35,7 +41,7 @@ class Product extends Model
     } 
 
     public static function StockLevel() {
-        $stock = DB::table('product')->pluck('stock');
+        $stock = Product::pluck('stock');
 
         return $stock;
     }

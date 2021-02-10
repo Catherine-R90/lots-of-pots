@@ -19,6 +19,10 @@
   font-weight: bold;
 }
 
+.form-label img {
+  width: 10rem;
+}
+
 .form {
   display: flex;
   flex-direction: row;
@@ -40,6 +44,22 @@
 }
 
 .form .edit-button input[type=submit]:hover {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.form .select-button input[type=submit] {
+  color: #ffffff;
+  font-weight: bold;
+  padding: 0.5rem;
+  border: 0.1rem solid #000000;
+  background-color: #858282;
+  text-align: center;
+  border-radius: 0.2rem;
+  width: 20rem;
+}
+
+.form .select-button input[type=submit]:hover {
   text-decoration: underline;
   cursor: pointer;
 }
@@ -401,10 +421,11 @@ nav #logo {
   padding-left: 2rem;
   padding-right: 2rem;
   padding-bottom: 0.5rem;
+  font-size: xx-large;
 }
 
 .large-tiles img {
-  height: 15rem;
+  height: 25rem;
   box-shadow: 0px 4px 6px 0px #404040;
 }
 
@@ -419,7 +440,7 @@ nav #logo {
 }
 
 .small-tiles img {
-  height: 8rem;
+  height: 15rem;
   box-shadow: 0px 4px 6px 0px #404040;
 }
 
@@ -495,12 +516,174 @@ a:hover {
 
 .grey-link p,
 .grey-link a,
-.grey-link button {
+.grey-link button,
+.grey-link input[type=submit] {
   padding: 0.5rem;
   border: 0.1rem solid #000000;
   background-color: #858282;
   text-align: center;
   border-radius: 0.2rem;
+  color: #ffffff;
+  font-weight: bold;
+}
+
+.whole-cart {
+  margin-left: auto;
+  margin-right: auto;
+  width: 90%;
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: flex-start;
+}
+
+.cart-left {
+  min-width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  flex-wrap: wrap;
+  border: 0.1rem solid #000000;
+  margin: 0.5rem;
+}
+
+.cart-left .item-image-group {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+}
+
+.cart-left .item-image-group img {
+  height: 10rem;
+}
+
+.cart-left .item-image-group .details-quant {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  justify-content: flex-start;
+  margin-bottom: 0.5rem;
+}
+
+.cart-left .item-image-group .details-quant p {
+  margin: 0;
+  padding: 0;
+}
+
+.cart-left .item-image-group .details-quant input[type=number] {
+  width: 4rem;
+}
+
+.cart-right {
+  min-width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  align-items: center;
+}
+
+.cart-right .del-options {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: space-around;
+  justify-content: center;
+}
+
+.cart-right .sub-total {
+  border: 0.1rem solid #000000;
+  padding: 0.5rem;
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  min-width: 50%;
+}
+
+.cart-right .sub-total .hr {
+  width: 90%;
+  border: 0.1rem solid #000000;
+}
+
+.cart-right .sub-total .total {
+  display: flex;
+  flex-direction: row;
+  align-items: space-around;
+  justify-content: center;
+}
+
+.cart-right .sub-total .total h3,
+.cart-right .sub-total .total h2 {
+  margin: 0.5rem;
+}
+
+.cart-right .sub-total .total h2 {
+  font-size: xx-large;
+}
+
+.checkout-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border: 0.1rem solid #000000;
+  padding: 0.5rem;
+  margin: 0.5rem;
+  min-width: 80%;
+}
+
+.checkout-section h3 {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.checkout-section .checkout-label {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 0.2rem;
+}
+
+.confirm input[type=submit] {
+  background-color: #858282;
+  border: 0.1rem solid #000000;
+  border-radius: 0.1rem;
+  font-size: x-large;
+  font-weight: bold;
+  font-family: inherit;
+  padding: 0.5rem;
+  color: #e7e2e2;
+}
+
+.order-confirm {
+  width: 90%;
+  border: 0.2rem solid #000000;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.order-confirm .hr {
+  width: 85%;
+  border: 0.1rem solid #000000;
+}
+
+.order-confirm .group {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+}
+
+.order-confirm .group p {
+  margin: 0.5rem;
 }
 
 body {

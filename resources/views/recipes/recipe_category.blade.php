@@ -12,7 +12,7 @@ use Illuminate\Support\Facades\DB;
     <nav>
 
     @foreach ($allCategories as $categoryLink)
-        <a href="/recipes/category/{{ $categoryLink->id }}">
+        <a href="/recipe-category/{{ $categoryLink->id }}">
             {{ $categoryLink->category }}
         </a>
     @endforeach
@@ -31,7 +31,15 @@ use Illuminate\Support\Facades\DB;
 
 @foreach($recipes as $recipe)
 
-<?php $cooking_time = ($recipe->prep_time + $recipe->cook_time); ?>
+<?php 
+$sum = ($recipe->prep_time + $recipe->cook_time);
+if($sum < 60) {
+    $cooking_time = $sum;
+} else {
+    $hour = floor($sum/60);
+    $minutes = ($sum%60);
+}
+?>
 
      <!-- RECIPE IMAGES -->
      <?php
@@ -42,7 +50,11 @@ use Illuminate\Support\Facades\DB;
         <div class="small-tiles">
             <img src=" {{asset('storage/app/recipeImages/'.$imageName) }}">
             <div>{{ $recipe->name }}</div>
-            <div>Cooking time - {{ $cooking_time }} minutes</div>
+            @if($sum < 60)
+                <div>Cooking time - {{ $cooking_time }} minutes</div>
+            @else
+                <div>Cooking time - {{ $hour }} hours and {{ $minutes }} minutes</div>
+            @endif
         </div>
     </a>
 

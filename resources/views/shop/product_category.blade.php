@@ -12,8 +12,8 @@ use Illuminate\Support\Facades\DB;
     <nav>
 
     @foreach ($allCategories as $categoryLink)
-        <a href="/products/category/<?php echo $categoryLink->id; ?>">
-            <?php echo $categoryLink->category; ?>
+        <a href="/products/category/{{ $categoryLink->id }}">
+            {{ $categoryLink->category }}
         </a>
     @endforeach
 
@@ -26,7 +26,7 @@ use Illuminate\Support\Facades\DB;
 <x-delivery_banner/>
 
 <div class="boxed-header">
-    <h3><?php echo $category->category; ?></h3>
+    <h3>{{ $category->category }}</h3>
 </div>
 
 @foreach($products as $product)

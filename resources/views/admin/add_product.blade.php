@@ -56,7 +56,7 @@
 
     <!-- PRODUCT DETAILS -->
     <div class="form-label">
-        <label for="details">Product Details</label>
+        <label for="details">Product Details (Seperate details with a semicolon ; )</label>
 
         <textarea type="text" id="details" name="details" placeholder="Product Details" required></textarea>
     </div>

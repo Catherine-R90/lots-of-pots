@@ -7,21 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cart extends Model
 {
-    protected $attributes = [
-        "subtotal",
-        "discount",
-        "discount_percentage",
-        "shipping_charges",
-        "net_total",
-        "tax",
-        "total",
-        "round_off",
-        "payable"
+    protected $fillable = [
+        "product_id",
+        "product_image",
+        "price",
+        "quantity",
+        "session_id"
     ];
 
-    protected $hidden = [
-        "cookie",
-        "auth_user",
-        "coupon_id",
-    ]; 
+    public function products() {
+        return $this->hasMany('App\Models\Product', 'product_id');
+    }
 }

@@ -6,7 +6,7 @@
 
 <div class="boxed-header">
 
-    <h3>Add or Update Ingredients for {{ $recipe->name }}</h3>
+    <h3>Add Ingredients for {{ $recipe->name }}</h3>
 
 </div>
 
@@ -19,7 +19,7 @@
     <x-add_ingredient />
 
     <div class="form-label">
-        <input type="submit" value="Add ingredients to recipe">
+        <input type="submit" value="Add Recipe">
     </div>
 
 </form>

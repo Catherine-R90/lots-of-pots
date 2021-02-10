@@ -18,7 +18,7 @@
 
 <div class="boxed-link">
 
-    <a href="/admin/products/edit">Edit Existing Products</a>
+    <a href="/admin/products/edit/overview">Edit Existing Products</a>
 
 </div>
 

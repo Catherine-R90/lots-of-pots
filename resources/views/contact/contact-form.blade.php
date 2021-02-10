@@ -37,7 +37,7 @@
         <textarea type="text" name="message" id="message" placeholder="Your message here" required></textarea>
     </div>
 
-    <div class="contact-label">
+    <div class="grey-link">
         <button>Send</button>
     </div>
 
