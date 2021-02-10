@@ -25,7 +25,7 @@
     <form action="/admin/recipes/edit/{{ $recipe->id }}">
     @csrf
 
-    <div class="edit-button">
+    <div class="select-button">
         <input type="submit" value="{{ $recipe->name }}">
     </div>
 

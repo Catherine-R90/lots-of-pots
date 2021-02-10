@@ -19,33 +19,70 @@ class RecipeController extends Controller
 {
     // VIEWS
     // RECIPE VIEW
-    public function RecipeView($id) {
+    public function RecipeView($id, $portion = null) {
         $recipe = Recipe::find($id);
         $images = DB::table('recipe_images')
                             ->where('recipe_id', $id)
                             ->get();
         $products = $recipe->products()->get();
         if (count($products) > 0) {
-            foreach ($products as $product) {
-                $productImage = ProductImage::where('product_id', $product->id)->first();
-            }
+            $productImages = ProductImage::all();
         } else {
-            $productImage = null;
+            $productImages = null;
+            $products = null;
         }
-        $data = Ingredients::where('recipes_id', $id)
-                            ->first();
+        
+        $data = Ingredients::where('recipes_id', $id)->first();
 
-            $ingredients = [
-            $data->ingredient_one." ".$data->ingredient_quant_one." ".$data->ingredient_one_type,
-            $data->ingredient_two." ".$data->ingredient_quant_two." ".$data->ingredient_two_type,
-            $data->ingredient_three." ".$data->ingredient_quant_three." ".$data->ingredient_three_type,
-            $data->ingredient_four." ".$data->ingredient_quant_four." ".$data->ingredient_four_type,
-            $data->ingredient_five." ".$data->ingredient_quant_five." ".$data->ingredient_five_type,
-            $data->ingredient_six." ".$data->ingredient_quant_six." ".$data->ingredient_six_type,
-            $data->ingredient_seven." ".$data->ingredient_quant_seven." ".$data->ingredient_seven_type,
-            $data->ingredient_eight." ".$data->ingredient_quant_eight." ".$data->ingredient_eight_type,
-            $data->ingredient_nine." ".$data->ingredient_quant_nine." ".$data->ingredient_nine_type,
-            $data->ingredient_ten." ".$data->ingredient_quant_ten." ".$data->ingredient_ten_type,
+        if($portion == null) {
+            $portion = 1;
+        } else {
+            $portion = $portion;
+        }
+
+        $ingredientOneQuant = $data->ingredient_quant_one * $portion;
+        $ingredientTwoQuant = $data->ingredient_quant_two * $portion;
+        $ingredientThreeQuant = $data->ingredient_quant_four * $portion;
+        $ingredientFourQuant = $data->ingredient_quant_four * $portion;
+        $ingredientFiveQuant = $data->ingredient_quant_five * $portion;
+        $ingredientSixQuant = $data->ingredient_quant_six * $portion;
+        $ingredientSevenQuant = $data->ingredient_quant_seven * $portion;
+        $ingredientEightQuant = $data->ingredient_quant_eight * $portion;
+        $ingredientNineQuant = $data->ingredient_quant_nine * $portion;
+        $ingredientTenQuant = $data->ingredient_quant_ten * $portion;
+        $ingredientElevenQuant = $data->ingredient_quant_eleven * $portion;
+        $ingredientTwelveQuant = $data->ingredient_quant_twelve * $portion;
+        $ingredientThirteenQuant = $data->ingredient_quant_thirteen * $portion;
+        $ingredientFourteenQuant = $data->ingredient_quant_fourteen * $portion;
+        $ingredientFifteenQuant = $data->ingredient_quant_fifteen * $portion;
+        $ingredientSixteenQuant = $data->ingredient_quant_sixteen * $portion;
+        $ingredientSeventeenQuant = $data->ingredient_quant_seventeen * $portion;
+        $ingredientEighteenQuant = $data->ingredient_quant_eighteen * $portion;
+        $ingredientNineteenQuant = $data->ingredient_quant_nineteen * $portion;
+        $ingredientTwentyQuant = $data->ingredient_quant_twenty * $portion;
+        
+
+        $ingredients = [
+        $data->ingredient_one." ".$ingredientOneQuant." ".$data->ingredient_one_type,
+        $data->ingredient_two." ".$ingredientTwoQuant." ".$data->ingredient_two_type,
+        $data->ingredient_three." ".$ingredientThreeQuant." ".$data->ingredient_three_type,
+        $data->ingredient_four." ".$ingredientFourQuant." ".$data->ingredient_four_type,
+        $data->ingredient_five." ".$ingredientFiveQuant." ".$data->ingredient_five_type,
+        $data->ingredient_six." ".$ingredientSixQuant." ".$data->ingredient_six_type,
+        $data->ingredient_seven." ".$ingredientSevenQuant." ".$data->ingredient_seven_type,
+        $data->ingredient_eight." ".$ingredientEightQuant." ".$data->ingredient_eight_type,
+        $data->ingredient_nine." ".$ingredientNineQuant." ".$data->ingredient_nine_type,
+        $data->ingredient_ten." ".$ingredientTenQuant." ".$data->ingredient_ten_type,
+        $data->ingredient_eleven." ".$ingredientElevenQuant." ".$data->ingredient_eleven_type,
+        $data->ingredient_twelve." ".$ingredientTwelveQuant." ".$data->ingredient_twelve_type,
+        $data->ingredient_thirteen." ".$ingredientThirteenQuant." ".$data->ingredient_thirteen_type,
+        $data->ingredient_fourteen." ".$ingredientFourteenQuant." ".$data->ingredient_fourteen_type,
+        $data->ingredient_fifteen." ".$ingredientFifteenQuant." ".$data->ingredient_fifteen_type,
+        $data->ingredient_sixteen." ".$ingredientSixteenQuant." ".$data->ingredient_sixteen_type,
+        $data->ingredient_seventeen." ".$ingredientSeventeenQuant." ".$data->ingredient_seventeen_type,
+        $data->ingredient_eighteen." ".$ingredientEighteenQuant." ".$data->ingredient_eighteen_type,
+        $data->ingredient_nineteen." ".$ingredientNineteenQuant." ".$data->ingredient_nineteen_type,
+        $data->ingredient_twenty." ".$ingredientTwentyQuant." ".$data->ingredient_twenty_type,
         ];
 
         $instructions = preg_split('/[:]/', $recipe->instructions);
@@ -54,9 +91,10 @@ class RecipeController extends Controller
             "recipe" => $recipe,
             "images" => $images,
             "products" => $products,
-            "productImage" => $productImage,
+            "productImages" => $productImages,
             "ingredients" => $ingredients,
-            "instructions" => $instructions
+            "instructions" => $instructions,
+            "portion" => $portion
         ]);
 }
 
@@ -70,6 +108,17 @@ class RecipeController extends Controller
         $products = Product::all();
         return view('/admin/add_recipe',[
             "categories" => $categories,
+            "products" => $products
+        ]);
+    }
+
+    // ADD RECIPE PRODUCTS VIEW
+    public function AdminAddRecipeProductView($id) {
+        $recipe = Recipe::find($id);
+        $products = Product::all();
+
+        return view('admin/add_recipe_product', [
+            "recipe" => $recipe,
             "products" => $products
         ]);
     }
@@ -105,44 +154,63 @@ class RecipeController extends Controller
         ]);
     }
 
+    // EDIT RECIPE PRODUCTS
+    public function AdminEditRecipeProductView($id) {
+        $recipe = Recipe::find($id);
+        $products = Product::all();
+
+        return view('/admin/edit_recipe_product', [
+            "recipe" => $recipe,
+            "products" => $products
+        ]);
+    } 
+
 
     // FUNCTIONS
+    // PORTION CALCULATOR
+    public function PortionCalculator(Request $request) {
+        $id = $request->input('id');
+        $portion = $request->input('portion');
+
+        return redirect()->action(
+            [RecipeController::class, 'RecipeView'], 
+            ['id' => $id, 
+            'portion' => $portion
+            ]);
+    }
+
     // ADD RECIPE
     public function AdminAddRecipe(AddRecipe $request) {
         
         // IMAGES
         $imageOneName = $request->input('image_one_name');
-        $imageTwoName = $request->input('image_two_name');
-        $imageThreeName = $request->input('image_three_name');
 
         $request->file('image_one')->storeAs('recipeImages', $imageOneName);
 
-        if ($request->file('image_two') != null) {
-            $request->file('image_two')->storeAs('recipeImages', $imageTwoName);
-        }
-        if ($request->file('image_three') != null) {
-            $request->file('image_three')->storeAs('recipeImages', $imageThreeName);
-        }
-
         // CREATE RECIPE
         $recipe = Recipe::create($request->all());
-        $id = $recipe->id;
+        $recipeId = $recipe->id;
     
         // CREATE RECIPE IMAGE
         $recipeImage = new RecipeImage;
-        $recipeImage->recipe_id = $id;
+        $recipeImage->recipe_id = $recipeId;
         $recipeImage->image_one_name = $imageOneName;
-        $recipeImage->image_two_name = $imageTwoName;
-        $recipeImage->image_three_name = $imageThreeName;
         $recipeImage->save();
 
-        // RECIPE PRODUCT
-        $productId[] = $request->input('product_id');
-        $products = Product::find([$productId]);
+        return redirect()->action(
+            [RecipeController::class, 'AdminAddRecipeProductView'], ['id' => $recipeId])
+            ->with('status', 'Recipe details and images added!');
+    }
+
+    // ADD PRODUCTS TO RECIPE
+    public function AdminAddRecipeProduct(Request $request) {
+        $recipe = Recipe::find($request->input('recipe_id'));
+        $products = $request->input('product_id');
+
         $recipe->products()->attach($products);
 
         return redirect()->action(
-            [IngredientsController::class, 'AdminAddIngredientsView'], ['id' => $id])
+            [IngredientsController::class, 'AdminAddIngredientsView'], ['id' => $recipe->id])
             ->with('status', 'Recipe details and images added!');
     }
 
@@ -189,12 +257,6 @@ class RecipeController extends Controller
             $description = $recipe->description;
         }
 
-        if($request->input('num_of_ingredients') != null) {
-            $num_of_ingredients = $request->input('num_of_ingredients');
-        } else {
-            $num_of_ingredients = $recipe->num_of_ingredients;
-        }
-
         // UPDATE RECIPE
         Recipe::updateOrInsert(
             ['id' => $recipeId], 
@@ -205,15 +267,7 @@ class RecipeController extends Controller
             'instructions' => $instructions,
             'recipe_category' => $recipe_category,
             'description' => $description,
-            'num_of_ingredients' => $num_of_ingredients
             ]);
-        
-        // RECIPE PRODUCT
-        if ($request->input('product_id') != null) {
-            $productId[] = $request->input('product_id');
-            $products = Product::find([$productId]);
-            $recipe->products()->sync($products);
-        }
 
         // UPDATE IMAGES
         if ($request->input('image_one_name')!= null) {
@@ -222,37 +276,31 @@ class RecipeController extends Controller
             $imageOneName = $image->image_one_name;
         }
 
-        if ($request->input('image_two_name')) {
-            $imageTwoName = $request->input('image_two_name');
-        } else {
-            $imageTwoName = $image->image_two_name;
-        }
-
-        if ($request->input('image_three_name')!= null) {
-            $imageThreeName = $request->input('image_three_name');
-        } else {
-            $imageThreeName = $image->image_three_name;
-        }
         RecipeImage::updateOrInsert(
             ['recipe_id' => $recipeId],
-            ['image_one_name' => $imageOneName,
-            'image_two_name' => $imageTwoName,
-            'image_three_name' => $imageThreeName]
+            ['image_one_name' => $imageOneName]
         );
         // SAVE IMAGES
         if ($request->file('image_one') != null) {
             $request->file('image_one')->storeAs('recipeImages', $imageOneName);
         }
-        if ($request->file('image_two') != null) {
-            $request->file('image_two')->storeAs('recipeImages', $imageTwoName);
-        }
-        if ($request->file('image_three') != null) {
-            $request->file('image_three')->storeAs('recipeImages', $imageThreeName);
+
+        return redirect()->action(
+            [RecipeController::class, 'AdminEditRecipeProductView'], ['id' => $recipeId])
+            ->with('status', 'Recipe details and images added!');
+    }
+
+    // EDIT PRODUCTS FOR RECIPE
+    public function AdminEditRecipeProduct(Request $request) {
+        $recipe = Recipe::find($request->input('recipe_id'));
+        $products = $request->input('product_id');
+
+        if ($products != null) {
+            $recipe->products()->sync($products);
         }
 
         return redirect()->action(
-            [IngredientsController::class, 'AdminAddIngredientsView'], ['id' => $recipeId])
-            ->with('status', 'Recipe details and images updated!');
+            [IngredientsController::class, 'AdminEditIngredientsView'], ['id' => $recipe->id]);
     }
 
     // DELETE RECIPE
@@ -260,8 +308,14 @@ class RecipeController extends Controller
         $id = $request->input('id');
         $recipe = Recipe::find($id);
         $recipe->products()->detach();
-        $recipeImages = DB::table('recipe_images')->where('id', $recipe->id)->get();
-        $recipeImages->delete();
+        $ingredients = Ingredients::where('recipes_id', $recipe->id)->first();
+        if ($ingredients != null) {
+            $ingredients->delete();
+        }
+        $recipeImageId = RecipeImage::where('recipe_id', $recipe->id)->first();
+        if ($recipeImageId != null) {
+            $recipeImageId->delete();
+        }
         $recipe->delete();
 
         return redirect()->back()->with('status', 'Recipe and images deleted!');

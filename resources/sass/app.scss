@@ -5,6 +5,9 @@
 @use"product_page";
 @use"recipe";
 @use"shop_pages";
+@use"cart";
+@use"checkout";
+@use"order_confirmation";
 
 body {
     padding: 0;
@@ -109,15 +112,15 @@ hr {
     display: flex;
     flex-direction: row;
     justify-content: center;
-}
 
-.notification p {
-    border: .25rem solid #af2121;
-    width: 40%;
-    text-align: center;   
-    text-decoration: none;
-    font-size: large;
-    padding: 1rem;
+    p { 
+        border: .25rem solid #af2121;
+        width: 40%;
+        text-align: center;   
+        text-decoration: none;
+        font-size: large;
+        padding: 1rem;
+    }
 }
 
 // FOOTER

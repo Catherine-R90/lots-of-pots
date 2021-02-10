@@ -10,7 +10,7 @@
                 <img class="recipe-image" src="{{ asset('storage/app/recipeImages/'.$image->image_one_name) }}">
             @endforeach
 
-        @if(count($products) > 0)
+        @if($products != null)
 
         <div class="border-title">
             <p>Products featured in this recipe</p>
@@ -20,7 +20,13 @@
 
         <a href="/products/{{ $product->id }}">
             <div class="grey-link">
-                <img src="{{ asset('storage/app/productImages/'.$productImage->image_one_name) }}">
+
+                @foreach($productImages as $productImage)
+                @if($productImage->product_id == $product->id)
+                    <img src="{{ asset('storage/app/productImages/'.$productImage->image_one_name) }}">
+                @endif
+                @endforeach
+
                 <p>{{ $product->name }}</p>                
             </div>
         </a>
@@ -46,29 +52,7 @@
             <p>Cooking Time: {{ $recipe->cook_time }} mins</p>
         </div>
 
-        <div class="ingredients">
-            <label>Number of portions </label>
-
-            <select name="portion">
-                <option value=1>1</option>
-                <option value=2>2</option>
-                <option value=3>3</option>
-                <option value=4>4</option>
-            </select>
-
-            <p>Ingredients:</p>
-
-            <ul>
-                <div class="ingredient-col">
-                    @foreach($ingredients as $ingredient)
-                        @if($ingredient != null && $ingredient != " " && $ingredient != "  ")
-                            <li>{{ $ingredient }}</li>
-                        @endif
-                    @endforeach
-                </div>
-            </ul>
-
-        </div>
+        <x-ingredient_portion :portion="$portion" :ingredients="$ingredients" :id="$recipe->id"/>
 
         <div class="instructions">
             <p>Instructions: </p>

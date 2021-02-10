@@ -7,17 +7,19 @@ use Illuminate\Database\Eloquent\Model;
 
 class Order extends Model
 {
-    protected $attributes = [
-        "order_status" => null,
-        "address_id" => null,
-        "user_id" => null
+    protected $fillable = [
+        "order_status",
+        "address_id",
+        "user_id",
+        "delivery_option",
+        "session_id"
     ];
 
-    public function user() {
+    public function users() {
         return $this->hasMany('App\Models\User', 'user_id');
     }
 
-    public function product() {
-        return $this->belongsToMany('App\Models\Product', 'product_id');
+    public function products() {
+        return $this->belongsToMany('App\Models\Product', 'order_product_linker')->withPivot('quantity', 'order_price');
     }
 }

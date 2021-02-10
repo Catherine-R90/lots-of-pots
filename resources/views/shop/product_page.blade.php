@@ -21,7 +21,7 @@
 
     @endif
 
-    @if(count($recipes) > 0)
+    @if($recipes != null)
 
     <div class="border-title">
         <p>Recipes featuring this product</p>
@@ -31,7 +31,13 @@
 
     <a href="/recipes/{{ $recipe->id }}">
         <div class="grey-link">
-            <img src="{{ asset('storage/app/recipeImages/'.$recipeImage->image_one_name) }}">
+
+            @foreach($recipeImages as $recipeImage)
+            @if($recipeImage->recipe_id == $recipe->id)
+                <img src="{{ asset('storage/app/recipeImages/'.$recipeImage->image_one_name) }}">
+            @endif
+            @endforeach
+
             <p>{{ $recipe->name }}</p>
         </div>
     </a>
@@ -55,16 +61,19 @@
 
             <div id="add_to_cart">
 
-                <form name="add_to_cart" action="">
-
-                    <input type="hidden" name="id" id="id" value="{{ $product->id }}">
+                <form name="add_to_cart" method="POST" action="/cart/product/add/{{ $product->id }}">
+                    @csrf
 
                     <div class="price-quant">
                         <div class="price-form-label">
 
+                        @if($product->stock > 0)
                             <label for="quantity">Quantity</label>
                             <input type="number" id="quantity" name="quantity" value="1">
                             In stock
+                        @else
+                            <p class="notification">Out of stock</p>
+                        @endif
                             
                         </div>
 
@@ -86,16 +95,21 @@
 
             <h3>About this product</h3>
 
+            <p>{{ $product->description }}</p>
+
             <ul>
-                <li>{{ $product->details }}
+                @foreach($details as $detail)
+                @if($detail != null)
+                    <li>{{ $detail }}</li>
+                @endif
+                @endforeach
             </ul>
 
-            <p>{{ $product->description }}</p>
 
         </div>
 
         <div class="grey-link">
-            <a href="/cart/{id}">Go to cart</a>
+            <a href="/cart">Go to cart</a>
         </div>
 </div>
 

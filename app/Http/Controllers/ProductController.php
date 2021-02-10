@@ -21,24 +21,17 @@ class ProductController extends Controller
     use Cartable;
 
     // VIEWS
-    public function AllProductsView() {
-        $products = Product::all();
-
-        return view('all-products');
-    }
-
     public function ProductView($id) {
         $product = Product::find($id);
-        $images = DB::table('product_images')
-                    ->where('product_id', $id)
+        $images = ProductImage::
+                    where('product_id', $id)
                     ->get();
         $recipes = $product->recipes()->get();
         if(count($recipes) > 0) {
-            foreach ($recipes as $recipe) {
-                $recipeImage = RecipeImage::where('recipe_id', $recipe->id)->first();
-            }
+            $recipeImages = RecipeImage::all();
         } else {
-            $recipeImage = null;
+            $recipes = null;
+            $recipeImages = null;
         }
 
         foreach ($images as $image) {
@@ -48,15 +41,18 @@ class ProductController extends Controller
             $imageFour = $image->image_four_name;
         }
 
-        return view('shop/product_page', [
-            "product" => $product,
-            "imageOne" => $imageOne,
-            "imageTwo" => $imageTwo,
-            "imageThree" => $imageThree,
-            "imageFour" => $imageFour,
-            "recipes" => $recipes,
-            "recipeImage" => $recipeImage
-        ]);
+        $details = preg_split('/[;]/', $product->details);
+
+            return view('shop/product_page', [
+                "product" => $product,
+                "details" => $details,
+                "imageOne" => $imageOne,
+                "imageTwo" => $imageTwo,
+                "imageThree" => $imageThree,
+                "imageFour" => $imageFour,
+                "recipes" => $recipes,
+                "recipeImages" => $recipeImages
+            ]);
     }
 
     // ADMIN PRODUCT CONTROLS
@@ -72,8 +68,23 @@ class ProductController extends Controller
         ]);
     }
 
+    public function AdminEditProductOverviewView() {
+        $products = Product::all();
+        return view('/admin/edit_product_overview', [
+            "products" => $products
+        ]);
+    }
+
     public function AdminEditProductView($id) {
-        return "Hello admin edit product view! $id";
+        $product = Product::find($id);
+        $categories = ProductCategory::all();
+        $images = ProductImage::where('product_id', $product->id)->get();
+
+        return view('/admin/edit_product', [
+            "product" => $product,
+            "categories" => $categories,
+            "images" => $images
+        ]);
     }
 
     public function AdminDeleteProductView() {
@@ -84,45 +95,6 @@ class ProductController extends Controller
             "products" => $products,
             "images" => $images
         ]);
-    }
-
-    
-    // CUSTOMER
-    // ADD TO CART
-    public function addToCart(Request $request) {
-        $id = $request->input('id');
-        $product = Product::find($id);
-        $image = ProductImage::where('product_id', $id)
-        ->first();
-        $cartItems = new CartItems;
-
-        $cartItems->product_id = $id;
-        $cartItems->name = $product->name;
-        $cartItems->price = $product->price;
-        $cartItems->image = $image->image_one_name;
-        $cartItems->quantity = $request->input('quantity');
-
-        return $cartItems->save();
-    }
-
-    // REMOVE FROM CART
-    public function CustomerDeleteProduct() {
-        return cart()->removeAt(request($cartIndex));
-    }
-
-    // INCREMENT CART CONTENTS
-    public function incrementCartItem() {
-        return cart()->incrementQuantityAt(request('cartItemIndex'));
-    }
-
-    // DECREMENT CART CONTENTS
-    public function decremenetCartData() {
-        return cart()->decrementQuantityAt(request('cartItemIndex'));
-    }
-
-    // CLEAR CART
-    public function clearCart() {
-        return cart()->clear();
     }
 
     // ADMIN
@@ -160,8 +132,69 @@ class ProductController extends Controller
     }
 
     // EDIT PRODUCT
-    public function AdminEditProduct($id, $request) {
-        
+    public function AdminEditProduct(Request $request) {
+        $product = Product::find($request->input('id'));
+
+        $name = $request->input('name');
+        $description = $request->input('description');
+        $price = $request->input('price');
+        $details = $request->input('details');
+        $category = $request->input('product_category_id');
+
+        if($name != null) {
+            $product->name = $name;
+        }
+        if($description != null) {
+            $product->description = $description;
+        }
+        if($price != null) {
+            $product->price = $price;
+        }
+        if($details != null) {
+            $product->details = $details;
+        }
+        if($category != null) {
+            $product->product_category_id = $category;
+        }
+
+        $product->save();
+
+        $imageOneName = $request->input('image_one_name');
+        $imageTwoName = $request->input('image_two_name');
+        $imageThreeName = $request->input('image_three_name');
+        $imageFourName = $request->input('image_four_name');
+
+        if ($request->file('image_one') != null) {
+            $imageOne = $request->file('image_one')->storeAs('productImages', $imageOneName);
+        }
+        if ($request->file('image_two') != null) {
+            $imageTwo = $request->file('image_two')->storeAs('productImages', $imageTwoName);
+        }
+        if ($request->file('image_three') != null) {
+            $imageThree = $request->file('image_three')->storeAs('productImages', $imageThreeName);
+        }
+        if ($request->file('image_four') != null) {
+            $imageFour = $request->file('image_four')->storeAs('productImages', $imageFourName);
+        }
+
+        $image = ProductImage::where('product_id', $request->input('id'))->first();
+
+        if($imageOneName != null) {
+            $image->image_one_name = $imageOneName;
+        }
+        if($imageTwoName != null) {
+            $image->image_two_name = $imageTwoName;
+        }
+        if($imageThreeName != null) {
+            $image->image_three_name = $imageThreeName;
+        }
+        if($imageFourName != null) {
+            $image->image_four_name = $imageFourName;
+        }
+
+        $image->save();
+
+        return redirect()->back();
     }
 
     // DELETE PRODUCT

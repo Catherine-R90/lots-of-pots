@@ -1,3 +1,9 @@
+<?php 
+use App\Models\ProductImage;
+use App\Models\Product;
+use App\Models\Cart;
+?>
+
 @extends('ui.whole_page')
 
 @section('main_content')
@@ -11,26 +17,50 @@
 
 <div class="tile-groups">
 
-    @foreach ($primaryCategories as $pCategory)
-        <a href="/products/category/{{ $pCategory->id }}">
+    @foreach ($categories as $category)
+        @if($category->id <= 2)
+        <?php
+        $products = Product::where('product_category_id', $category->id)->get();
+        foreach($products as $product) {
+            $images = ProductImage::where('product_id', $product->id)->get();
+        }
+        foreach($images as $image) {
+            $imageName = $image->image_one_name;
+        }
+        ?>
+
+        <a href="/products/category/{{ $category->id }}">
             <div class="large-tiles">
-                <img src="{{ asset('storage/app/productImage/'.$imageName) }}">
-                {{ $pCategory->category }}
+                <img src="{{ asset('storage/app/productImages/'.$imageName) }}">
+                {{ $category->category }}
             </div>
         </a>
+        @endif
     @endforeach
 
 </div>
 
 <div class="tile-groups">
 
-    @foreach($secondaryCategories as $sCategory)
-        <a href="/products/category/{{ $sCategory->id }}">
+    @foreach($categories as $category)
+        @if($category->id > 2)
+        <?php
+        $products = Product::where('product_category_id', $category->id)->get();
+        foreach($products as $product) {
+            $images = ProductImage::where('product_id', $product->id)->get();
+        }
+        foreach($images as $image) {
+            $imageName = $image->image_one_name;
+        }
+        ?>
+
+        <a href="/products/category/{{ $category->id }}">
         <div class="small-tiles">
-            <img src="images/placeholder-sml.png">
-            {{ $sCategory->category }}
+            <img src="{{ asset('storage/app/productImages/'.$imageName) }}">
+            {{ $category->category }}
         </div>
-    </a>
+        </a>
+        @endif
     @endforeach
 
 </div>

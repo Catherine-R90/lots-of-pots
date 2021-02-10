@@ -20,11 +20,30 @@ class IngredientsController extends Controller
         ]);
     }
 
-    // ADD OR UPDATE INGREDIENTS
+    // EDIT INGREDIENTS VIEW
+    public function AdminEditIngredientsView($id) {
+        $recipe = Recipe::find($id);
+
+        return view('/admin/edit_ingredients', [
+            "recipe" => $recipe
+        ]);
+    }
+
+    // ADD INGREDIENTS
     public function AdminAddIngredients(Request $request) {
+        $recipeId = $request->input('recipe_id');
+        $ingredients = Ingredients::create($request->all());
+
+        return redirect()->action(
+            [RecipeController::Class, 'AdminRecipeOverviewView'])
+            ->with('status', 'Ingredients added to recipe!');
+    }
+
+    // EDIT INGREDIENTS
+    public function AdminEditIngredients(Request $request) {
 
         $recipeId = $request->input('recipes_id');
-        $ingredients = DB::table('ingredients')->where('recipes_id', $recipeId)->first();
+        $ingredients = Ingredients::where('recipes_id', $recipeId)->first();
    
         if ($request->input('ingredient_one') != null) {
             $ingredientOne = $request->input('ingredient_one');
@@ -186,6 +205,166 @@ class IngredientsController extends Controller
             $ingredientTenType = $ingredients->ingredient_ten_type;
         }
 
+        if ($request->input('ingredient_eleven') != null) {
+            $ingredientEleven = $request->input('ingredient_eleven');
+        } else {
+             $ingredientEleven = $ingredients->ingredient_eleven;
+        }
+        if($request->input('ingredient_quant_eleven') != null) {
+            $ingredientQuantEleven = $request->input('ingredient_quant_eleven');
+        } else {
+            $ingredientQuantEleven = $ingredients->ingredient_quant_eleven;
+        }
+        if($request->input('ingredient_eleven_type') != null) {
+            $ingredientElevenType = $request->input('ingredient_eleven_type');
+        } else {
+            $ingredientElevenType = $ingredients->ingredient_eleven_type;
+        }
+
+        if ($request->input('ingredient_twelve') != null) {
+            $ingredientTwelve = $request->input('ingredient_twelve');
+        } else {
+             $ingredientTwelve = $ingredients->ingredient_twelve;
+        }
+        if($request->input('ingredient_quant_twelve') != null) {
+            $ingredientQuantTwelve = $request->input('ingredient_quant_twelve');
+        } else {
+            $ingredientQuantTwelve = $ingredients->ingredient_quant_twelve;
+        }
+        if($request->input('ingredient_twelve_type') != null) {
+            $ingredientTwelveType = $request->input('ingredient_twelve_type');
+        } else {
+            $ingredientTwelveType = $ingredients->ingredient_twelve_type;
+        }
+
+        if ($request->input('ingredient_thirteen') != null) {
+            $ingredientThirteen = $request->input('ingredient_thirteen');
+        } else {
+             $ingredientThirteen = $ingredients->ingredient_thirteen;
+        }
+        if($request->input('ingredient_quant_thirteen') != null) {
+            $ingredientQuantThirteen = $request->input('ingredient_quant_thirteen');
+        } else {
+            $ingredientQuantThirteen = $ingredients->ingredient_quant_thirteen;
+        }
+        if($request->input('ingredient_thirteen_type') != null) {
+            $ingredientThirteenType = $request->input('ingredient_thirteen_type');
+        } else {
+            $ingredientThirteenType = $ingredients->ingredient_thirteen_type;
+        }
+
+        if ($request->input('ingredient_fourteen') != null) {
+            $ingredientFourteen = $request->input('ingredient_fourteen');
+        } else {
+             $ingredientFourteen = $ingredients->ingredient_fourteen;
+        }
+        if($request->input('ingredient_quant_fourteen') != null) {
+            $ingredientQuantFourteen = $request->input('ingredient_quant_fourteen');
+        } else {
+            $ingredientQuantFourteen = $ingredients->ingredient_quant_fourteen;
+        }
+        if($request->input('ingredient_fourteen_type') != null) {
+            $ingredientFourteenType = $request->input('ingredient_fourteen_type');
+        } else {
+            $ingredientFourteenType = $ingredients->ingredient_fourteen_type;
+        }
+
+        if ($request->input('ingredient_fifteen') != null) {
+            $ingredientFifteen = $request->input('ingredient_fifteen');
+        } else {
+             $ingredientFifteen = $ingredients->ingredient_fifteen;
+        }
+        if($request->input('ingredient_quant_fifteen') != null) {
+            $ingredientQuantFifteen = $request->input('ingredient_quant_fifteen');
+        } else {
+            $ingredientQuantFifteen = $ingredients->ingredient_quant_fifteen;
+        }
+        if($request->input('ingredient_fifteen_type') != null) {
+            $ingredientFifteenType = $request->input('ingredient_fifteen_type');
+        } else {
+            $ingredientFifteenType = $ingredients->ingredient_fifteen_type;
+        }
+
+        if ($request->input('ingredient_sixteen') != null) {
+            $ingredientSixteen = $request->input('ingredient_sixteen');
+        } else {
+             $ingredientSixteen = $ingredients->ingredient_sixteen;
+        }
+        if($request->input('ingredient_quant_sixteen') != null) {
+            $ingredientQuantSixteen = $request->input('ingredient_quant_sixteen');
+        } else {
+            $ingredientQuantSixteen = $ingredients->ingredient_quant_sixteen;
+        }
+        if($request->input('ingredient_sixteen_type') != null) {
+            $ingredientSixteenType = $request->input('ingredient_sixteen_type');
+        } else {
+            $ingredientSixteenType = $ingredients->ingredient_sixteen_type;
+        }
+
+        if ($request->input('ingredient_seventeen') != null) {
+            $ingredientSeventeen = $request->input('ingredient_seventeen');
+        } else {
+             $ingredientSeventeen = $ingredients->ingredient_seventeen;
+        }
+        if($request->input('ingredient_quant_seventeen') != null) {
+            $ingredientQuantSeventeen = $request->input('ingredient_quant_seventeen');
+        } else {
+            $ingredientQuantSeventeen = $ingredients->ingredient_quant_seventeen;
+        }
+        if($request->input('ingredient_seventeen_type') != null) {
+            $ingredientSeventeenType = $request->input('ingredient_seventeen_type');
+        } else {
+            $ingredientSeventeenType = $ingredients->ingredient_seventeen_type;
+        }
+
+        if ($request->input('ingredient_eighteen') != null) {
+            $ingredientEighteen = $request->input('ingredient_eighteen');
+        } else {
+             $ingredientEighteen = $ingredients->ingredient_eighteen;
+        }
+        if($request->input('ingredient_quant_eighteen') != null) {
+            $ingredientQuantEighteen = $request->input('ingredient_quant_eighteen');
+        } else {
+            $ingredientQuantEighteen = $ingredients->ingredient_quant_eighteen;
+        }
+        if($request->input('ingredient_eighteen_type') != null) {
+            $ingredientEighteenType = $request->input('ingredient_eighteen_type');
+        } else {
+            $ingredientEighteenType = $ingredients->ingredient_eighteen_type;
+        }
+
+        if ($request->input('ingredient_nineteen') != null) {
+            $ingredientNineteen = $request->input('ingredient_nineteen');
+        } else {
+             $ingredientNineteen = $ingredients->ingredient_nineteen;
+        }
+        if($request->input('ingredient_quant_nineteen') != null) {
+            $ingredientQuantNineteen = $request->input('ingredient_quant_nineteen');
+        } else {
+            $ingredientQuantNineteen = $ingredients->ingredient_quant_nineteen;
+        }
+        if($request->input('ingredient_nineteen_type') != null) {
+            $ingredientNineteenType = $request->input('ingredient_nineteen_type');
+        } else {
+            $ingredientNineteenType = $ingredients->ingredient_nineteen_type;
+        }
+
+        if ($request->input('ingredient_twenty') != null) {
+            $ingredientTwenty = $request->input('ingredient_twenty');
+        } else {
+             $ingredientTwenty = $ingredients->ingredient_twenty;
+        }
+        if($request->input('ingredient_quant_twenty') != null) {
+            $ingredientQuantTwenty = $request->input('ingredient_quant_twenty');
+        } else {
+            $ingredientQuantTwenty = $ingredients->ingredient_quant_twenty;
+        }
+        if($request->input('ingredient_twenty_type') != null) {
+            $ingredientTwentyType = $request->input('ingredient_twenty_type');
+        } else {
+            $ingredientTwentyType = $ingredients->ingredient_twenty_type;
+        }
+
         Ingredients::updateOrInsert(
             ['id' => $ingredients->id ],
             [
@@ -221,10 +400,37 @@ class IngredientsController extends Controller
                 'ingredient_ten' => $ingredientTen,
                 'ingredient_quant_ten' => $ingredientQuantTen,
                 'ingredient_ten_type' => $ingredientTenType,
+                'ingredient_eleven' => $ingredientEleven,
+                'ingredient_quant_eleven' => $ingredientQuantEleven,
+                'ingredient_eleven_type' => $ingredientElevenType,
+                'ingredient_twelve' => $ingredientTwelve,
+                'ingredient_quant_twelve' => $ingredientQuantTwelve,
+                'ingredient_twelve_type' => $ingredientTwelveType,
+                'ingredient_thirteen' => $ingredientThirteen,
+                'ingredient_quant_thirteen' => $ingredientQuantThirteen,
+                'ingredient_thirteen_type' => $ingredientThirteenType,
+                'ingredient_fourteen' => $ingredientFourteen,
+                'ingredient_quant_fourteen' => $ingredientQuantFourteen,
+                'ingredient_fourteen_type' => $ingredientFourteenType,
+                'ingredient_fifteen' => $ingredientFifteen,
+                'ingredient_quant_fifteen' => $ingredientQuantFifteen,
+                'ingredient_fifteen_type' => $ingredientFifteenType,
+                'ingredient_sixteen' => $ingredientSixteen,
+                'ingredient_quant_sixteen' => $ingredientQuantSixteen,
+                'ingredient_sixteen_type' => $ingredientSixteenType,
+                'ingredient_eighteen' => $ingredientEighteen,
+                'ingredient_quant_eighteen' => $ingredientQuantEighteen,
+                'ingredient_eighteen_type' => $ingredientEighteenType,
+                'ingredient_nineteen' => $ingredientNineteen,
+                'ingredient_quant_nineteen' => $ingredientQuantNineteen,
+                'ingredient_nineteen_type' => $ingredientNineteenType,
+                'ingredient_twenty' => $ingredientTwenty,
+                'ingredient_quant_twenty' => $ingredientQuantTwenty,
+                'ingredient_twenty_type' => $ingredientTwentyType,
             ]);
 
         return redirect()->action(
             [RecipeController::Class, 'AdminRecipeOverviewView'])
-            ->with('status', 'Ingredients added to recipe!');
+            ->with('status', 'Ingredients updated on recipe!');
     }
 }

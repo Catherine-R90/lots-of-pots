@@ -94,24 +94,6 @@
             </select>
         </div>
 
-        <!-- NUMBER OF INGREDIENTS -->
-        <div class="form-label">
-            <label>Number of ingredients</label>
-
-            <select name="num_of_ingredients">
-                <option value=1>1</option>
-                <option value=2>2</option>
-                <option value=3>3</option>
-                <option value=4>4</option>
-                <option value=5>5</option>
-                <option value=6>6</option>
-                <option value=7>7</option>
-                <option value=8>8</option>
-                <option value=9>9</option>
-                <option value=10>10</option>
-            </select>
-        </div>
-
         <!-- FIRST IMAGE -->
         <div class="form-label">
             <label>First Image</label>
@@ -120,38 +102,10 @@
             <input type="file" name="image_one" accept="image/*" required>
         </div>
 
-        <!-- SECOND IMAGE -->
-        <div class="form-label">
-            <label>Second Image (optional)</label>
-            <input type="text" name="image_two_name" id="image_two_name" placeholder="Second Image Name">
-
-            <input type="file" accept="image/*" name="image_two">
-        </div>
-
-        <!-- THIRD IMAGE -->
-        <div class="form-label">
-            <label>Third Image (optional)</label>
-            <input type="text" name="image_three_name" id="image_three_name" placeholder="Third Image Name">
-
-            <input type="file" accept="image/*" name="image_three">
-        </div>
-
-        <!-- PRODUCTS USED IN RECIPE -->
-        <div class="form-label">
-            <label>Products used in recipe (ctrl and click to slect multiple)</label>
-            <select name="product_id[]" multiple>
-                @foreach($products as $product)
-                    <option value="{{ $product->id }}">
-                        {{ $product->name }}
-                    </option>
-                @endforeach
-            </select>
-        </div>
-
         <!-- SUBMIT -->
     <div class="form-label">
 
-        <input type="submit" value="Add Recipe Details">
+        <input type="submit" value="Continue to Products">
 
     </div>
     </form>

@@ -1,6 +1,7 @@
 <?php
 use App\Models\ProductCategory;
 use App\Models\RecipeCategory;
+use App\Models\Cart;
 ?>
 
 <hmtl>
@@ -28,17 +29,17 @@ use App\Models\RecipeCategory;
 
         <div class="dropdown-content">
 
-            <?php $categories = ProductCategory::all();
+            <?php $categories = ProductCategory::all(); ?>
 
-            foreach($categories as $category) { ?>
+            @foreach($categories as $category)
 
             <div class="dropdown-link">
-                <a href="/products/category/<?php echo $category->id; ?>">
-                    <?php echo $category->category; ?>
+                <a href="/products/category/{{ $category->id }}">
+                    {{ $category->category }}
                 </a>
             </div>
 
-            <?php } ?>
+            @endforeach
 
         </div>
 
@@ -55,17 +56,17 @@ use App\Models\RecipeCategory;
             <div class="dropdown-content">
 
                 <div class="dropdown-link">
-                    <?php $recipeCategories = RecipeCategory::all();
+                    <?php $recipeCategories = RecipeCategory::all(); ?>
 
-                    foreach($recipeCategories as $recipeCategory) { ?>
+                    @foreach($recipeCategories as $recipeCategory)
 
                     <div class="dropdown-link">
-                        <a href="/recipes/category/<?php echo $recipeCategory->id; ?>">
-                            <?php echo $recipeCategory->category; ?>
+                        <a href="/recipe-category/{{ $recipeCategory->id }}">
+                            {{ $recipeCategory->category }}
                         </a>
                     </div>
 
-                    <?php } ?>
+                    @endforeach
                 </div>
 
             </div>
@@ -90,12 +91,23 @@ use App\Models\RecipeCategory;
             </div>
         </a>
 
-        <a href="/cart/{id}">
+        <?php $cartItems = Cart::where('session_id', session()->getId())->get(); ?>
+        @if(count($cartItems) != 0)
+        <a href="/cart">
+            <div class="icon-text">
+                <img class="icon" src="/images/icons/basket.png" alt="Cart">
+                Cart:
+                {{count($cartItems)}}
+            </div>
+        </a>
+        @else
+        <a href="/cart">
             <div class="icon-text">
                 <img class="icon" src="/images/icons/basket.png" alt="Cart">
                 Cart
             </div>
         </a>
+        @endif
 
         <!-- SEARCH RECIPES -->
 
