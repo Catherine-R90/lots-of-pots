@@ -8,6 +8,7 @@
 @use"cart";
 @use"checkout";
 @use"order_confirmation";
+@use"admin_orders";
 
 body {
     padding: 0;

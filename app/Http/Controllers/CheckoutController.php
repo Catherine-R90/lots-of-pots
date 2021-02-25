@@ -6,18 +6,19 @@ use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\DeliveryAddress;
 use App\Models\BillingAddress;
-use App\Http\Requests\ConfirmPayment;
+use App\Http\Requests\AddDeliveryAddress;
 use App\Models\Order;
+use App\Models\PayPalPaymentController;
 use Sesson;
 
 class CheckoutController extends Controller
 {
     // VIEWS
-    public function CheckoutView() {
+    public function AddAddressView() {
         $sessionId = session()->getId();
         $cart = Cart::where('session_id', $sessionId)->get();
 
-        return view('checkout', [
+        return view('add_address', [
             "cart" => $cart
         ]);
     }
@@ -33,7 +34,7 @@ class CheckoutController extends Controller
     }
 
     // FUNCTIONS
-    public function ConfirmPayment(ConfirmPayment $request) {
+    public function AddDeliveryAddress(AddDeliveryAddress $request) {
         $cartId = $request->input('cart_id');
 
         foreach($cartId as $carts) {
@@ -48,7 +49,22 @@ class CheckoutController extends Controller
 
         $del_option = Cart::where('session_id', session()->getId())->value('delivery_option');
         
-        $address = DeliveryAddress::create($request->all());
+        $name = $request->input('name');
+        $firstLine = $request->input('first_line');
+        $secondLine = $request->input('second_line');
+        $city = $request->input('city');
+        $postcode = str_replace(' ', '',$request->input('postcode'));
+        $phone = str_replace(' ', '', $request->input('phone_number'));
+        $email = $request->input('email');
+        $address = DeliveryAddress::create([
+            'name' => $name,
+            'first_line' => $firstLine,
+            'second_line' => $secondLine,
+            'city' => $city,
+            'postcode' => $postcode,
+            'phone_number' => $phone,
+            'email' => $email
+        ]);
 
         $order = Order::create([
             'address_id' => $address->id,
@@ -65,9 +81,6 @@ class CheckoutController extends Controller
 
         $id = $order->id;
 
-        return redirect()->action(
-            [CheckoutController::class, 'CheckoutConfirmationView'], 
-            ['id' => $id]
-        );
+        return redirect('/handle-payment/'.$id);
     }
 }

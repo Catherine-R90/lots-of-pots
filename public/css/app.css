@@ -686,6 +686,47 @@ a:hover {
   margin: 0.5rem;
 }
 
+.order-box {
+  border: 0.2rem solid #000000;
+  margin: 1rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.order-box .order-items {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+}
+
+.order-box .order-items .order-text {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+}
+
+.order-box .img-container {
+  margin-left: 2rem;
+  height: 5rem;
+  width: 4rem;
+}
+
+.order-box .img-container img {
+  height: 5rem;
+  -o-object-fit: contain;
+     object-fit: contain;
+}
+
+.order-box .order-address {
+  list-style-type: none;
+}
+
 body {
   padding: 0;
   margin: 0;

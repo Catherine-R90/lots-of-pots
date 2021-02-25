@@ -22,4 +22,8 @@ class Order extends Model
     public function products() {
         return $this->belongsToMany('App\Models\Product', 'order_product_linker')->withPivot('quantity', 'order_price');
     }
+
+    public function address() {
+        return $this->belongsTo('App\Models\DeliveryAddress');
+    }
 }

@@ -204,9 +204,9 @@ use App\Models\Cart;
         </div>
         
         <div class="grey-link">
-            <form method="GET" action="/checkout">
+            <form method="GET" action="/address/add">
                 @csrf
-                <input type="submit" value="Continue to checkout">
+                <input type="submit" value="Continue to delivery">
             </form>
         </div>
         @endif

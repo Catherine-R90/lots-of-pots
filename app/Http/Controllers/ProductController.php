@@ -201,10 +201,12 @@ class ProductController extends Controller
     public function AdminDeleteProduct(Request $request) {
         $id = $request->input('id');
         $product = Product::find($id);
-        // $imageId = $request->input('imageId');
-        // $image = ProductImage::find($imageId);
+        $images = $product->images()->get();
         $product->delete();
-        // $image->delete();
+        foreach($images as $image) {
+            $id = ProductImage::find($image->id);
+            $id->delete();
+        }
         return redirect()->back();
     }
 

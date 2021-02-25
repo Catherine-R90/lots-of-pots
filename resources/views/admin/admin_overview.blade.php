@@ -12,6 +12,12 @@
 
 <div class="boxed-link">
 
+    <a href="/admin/orders/overview">View and Manage Orders</a>
+
+</div>
+
+<div class="boxed-link">
+
     <a href="/admin/products/overview">Manage Products</a>
 
 </div>
