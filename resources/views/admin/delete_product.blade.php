@@ -32,9 +32,9 @@
 
                 @foreach($products as $product)
 
-                <option value="<?php echo $product->id; ?>">
+                <option value="{{ $product->id }}">
 
-                    <?php echo $product->name; ?>
+                    {{ $product->name }}
 
                 </option>
 
@@ -51,36 +51,5 @@
 
 </form>
 @endif
-<!-- 
-<form method="POST" action="/products/images/delete">
-@csrf
-
-    <div class="form-label">
-        <label for="delete-images">Delete Images</label>
-    </div>
-
-        <div class="form-label">
-            <select name="imageId">
-
-                @foreach($images as $image)
-
-                <option value="<?php echo $image->id; ?>">
-
-                    <?php echo $image->image_one_name; ?>
-
-                </option>
-
-                @endforeach
-
-            </select>
-        </div>
-
-    
-
-    <div class="form-label">
-        <input type="submit" value="Delete">
-    </div>
-
-</form> -->
 
 @endsection

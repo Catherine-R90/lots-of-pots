@@ -67,7 +67,12 @@ Route::get('/orders/{customer_id}/{order_id}', [App\Http\Controllers\OrderContro
 Route::get('/cart', [App\Http\Controllers\CartController::Class, 'CartView']);
 
 // CHECKOUT VIEW
-Route::get('/checkout', [App\Http\Controllers\CheckoutController::Class, 'CheckoutView']);
+Route::get('/address/add', [App\Http\Controllers\CheckoutController::Class, 'AddAddressView']);
+
+// PAYMENTS
+Route::get('/handle-payment/{id}', [App\Http\Controllers\PayPalPaymentController::class, 'HandlePayment']);
+
+Route::get('/cancel-payment', [App\Http\Controllers\PayPalPaymentController::class, 'CancelPaymentView']);
 
 // CHECKOUT CONFIRMATION VIEW
 Route::get('/checkout/confirmation/{id}', [App\Http\Controllers\CheckoutController::Class, 'CheckoutConfirmationView']);
@@ -137,10 +142,10 @@ Route::get('/admin/recipes/categories/edit', [App\Http\Controllers\RecipeCategor
 
 // ORDERS
 // ORDERS OVERVIEW
-Route::get('/account/admin/orders/overview', [App\Http\Controllers\OrderController::Class, 'AdminOrderOverviewView']);
+Route::get('/admin/orders/overview', [App\Http\Controllers\OrderController::Class, 'AdminOrderOverviewView']);
 
 // ORDER VIEW
-Route::get('/account/admin/orders/{id}', [App\Http\Controllers\OrderController::Class, 'AdminOrderView']);
+Route::get('/admin/orders/{id}', [App\Http\Controllers\OrderController::Class, 'AdminOrderView']);
 
 
 // POST
@@ -155,7 +160,7 @@ Route::post('/account/{id}/edit-address', [App\Http\Controllers\UserController::
 
 
 // CUSTOMER
-// PRODUCTS
+// CART
 Route::post('/cart/product/add/{id}', [App\Http\Controllers\CartController::class, 'AddToCart']);
 
 Route::post('/cart/product/adjust', [App\Http\Controllers\CartController::Class, 'AdjustCartQuantity']);
@@ -167,7 +172,7 @@ Route::post('/cart/clear', [App\Http\Controllers\CartController::Class, 'ClearCa
 Route::post('/cart/delivery', [App\Http\Controllers\CartController::class, 'AddDelivery']);
 
 // CHECKOUT
-Route::post('/checkout/confirm', [App\Http\Controllers\CheckoutController::class, 'ConfirmPayment']);
+Route::post('/add-address', [App\Http\Controllers\CheckoutController::class, 'AddDeliveryAddress']);
 
 // PORTION CALCULATOR FOR RECIPE
 Route::post('/portion-calculator', [App\Http\Controllers\RecipeController::Class, 'PortionCalculator']);
@@ -237,7 +242,9 @@ Route::post('/recipes/category/delete', [App\Http\Controllers\RecipeCategoryCont
 
 // ORDERS
 // CHANGE ORDER STATUS
-Route::post('/orders/flag', [App\Http\Controllers\OrderController::class], 'FlagOrderStatus');
-Auth::routes();
+Route::post('/orders/flag', [App\Http\Controllers\OrderController::class, 'FlagOrderStatus']);
+
+// DELETE ORDER
+Route::post('/admin/delete-order', [App\Http\Controllers\OrderController::class, 'DeleteOrder']);
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

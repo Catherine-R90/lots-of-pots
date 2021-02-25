@@ -198,8 +198,7 @@ class RecipeController extends Controller
         $recipeImage->save();
 
         return redirect()->action(
-            [RecipeController::class, 'AdminAddRecipeProductView'], ['id' => $recipeId])
-            ->with('status', 'Recipe details and images added!');
+            [RecipeController::class, 'AdminAddRecipeProductView'], ['id' => $recipeId]);
     }
 
     // ADD PRODUCTS TO RECIPE
@@ -210,8 +209,7 @@ class RecipeController extends Controller
         $recipe->products()->attach($products);
 
         return redirect()->action(
-            [IngredientsController::class, 'AdminAddIngredientsView'], ['id' => $recipe->id])
-            ->with('status', 'Recipe details and images added!');
+            [IngredientsController::class, 'AdminAddIngredientsView'], ['id' => $recipe->id]);
     }
 
     // EDIT RECIPE
@@ -286,8 +284,7 @@ class RecipeController extends Controller
         }
 
         return redirect()->action(
-            [RecipeController::class, 'AdminEditRecipeProductView'], ['id' => $recipeId])
-            ->with('status', 'Recipe details and images added!');
+            [RecipeController::class, 'AdminEditRecipeProductView'], ['id' => $recipeId]);
     }
 
     // EDIT PRODUCTS FOR RECIPE
@@ -300,7 +297,8 @@ class RecipeController extends Controller
         }
 
         return redirect()->action(
-            [IngredientsController::class, 'AdminEditIngredientsView'], ['id' => $recipe->id]);
+            [IngredientsController::class, 'AdminEditIngredientsView'], 
+            ['id' => $recipe->id]);
     }
 
     // DELETE RECIPE

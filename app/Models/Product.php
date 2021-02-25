@@ -39,10 +39,4 @@ class Product extends Model
     public static function imagesNotInUse() {
         return Product::doesntHave('images')->get();
     } 
-
-    public static function StockLevel() {
-        $stock = Product::pluck('stock');
-
-        return $stock;
-    }
 }

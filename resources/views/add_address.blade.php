@@ -6,7 +6,7 @@ use App\Models\Product;
 @section('main_content')
 
 <div class="boxed-header">
-    <h3>Checkout</h3>
+    <h3>Delivery</h3>
 </div>
 
 @if($errors->any())
@@ -23,7 +23,7 @@ use App\Models\Product;
 
 @endif
 
-<form method="POST" action="/checkout/confirm">
+<form method="POST" action="/add-address">
 @csrf
 
 <div class="whole-section">
@@ -69,39 +69,7 @@ use App\Models\Product;
                 <input type="email" id="email" name="email">
             </div>
 
-        </div>
-
-        <div class="checkout-section">
-
-            <h3>Billing Address</h3>
-
-            <div class="checkout-label">
-                <label for="name">Full Name</label>
-                <input type="text" name="name" id="name">
-            </div>
-
-            <div class="checkout-label">
-                <label for="first_line">Line One</label>
-                <input type="text" id="first_line" name="first_line">
-            </div>
-
-            <div class="checkout-label">
-                <label for="second_line">Line Two (optional)</label>
-                <input type="text" id="line_two" name="second_line">
-            </div>
-
-            <div class="checkout-label">
-                <label for="city">City</label>
-                <input type="text" id="city" name="city">
-            </div>
-
-            <div class="checkout-label">
-                <label for="postcode">Postcode</label>
-                <input type="text" id="postcode" name="postcode">
-            </div>
-
-        </div>
-
+        </div>        
     </div>
 
     <div class="section-right">
@@ -147,20 +115,13 @@ use App\Models\Product;
 
         </div>
 
-        <div class="checkout-section">
-
-            <h3>Payment Details</h3>
-
-            
-
-        </div>
-
         <div class="confirm">
-            <input type="submit" value="Confirm Payment">
+            <input type="submit" value="Continue to payment">
         </div>
+
+        </form>
 
     </div>
 
 </div>
-</form>
 @endsection
