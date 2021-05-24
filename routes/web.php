@@ -143,6 +143,7 @@ Route::get('/admin/recipes/categories/edit', [App\Http\Controllers\RecipeCategor
 // ORDERS
 // ORDERS OVERVIEW
 Route::get('/admin/orders/overview', [App\Http\Controllers\OrderController::Class, 'AdminOrderOverviewView']);
+<<<<<<< HEAD
 
 // INCOMPLETE ORDERS VIEW
 Route::get('/admin/orders/incomplete', [App\Http\Controllers\OrderController::Class, 'AdminIncompleteOrdersView']);
@@ -155,6 +156,8 @@ Route::get('/admin/orders/sent', [App\Http\Controllers\OrderController::Class, '
 
 // COMPLETED ORDERS VIEW
 Route::get('/admin/orders/complete', [App\Http\Controllers\OrderController::Class, 'AdminCompleteOrdersView']);
+=======
+>>>>>>> 0831cf0753259b73cb3ece5f6b19efa2ed4e05e9
 
 // ORDER VIEW
 Route::get('/admin/orders/{id}', [App\Http\Controllers\OrderController::Class, 'AdminOrderView']);
@@ -264,9 +267,16 @@ Route::post('/recipes/category/delete', [App\Http\Controllers\RecipeCategoryCont
 
 // ORDERS
 // CHANGE ORDER STATUS
+<<<<<<< HEAD
 Route::post('/orders/flag/{id}', [App\Http\Controllers\OrderController::class, 'FlagOrderStatus']);
 
 // DELETE ORDER
 Route::post('/admin/delete-order/{id}', [App\Http\Controllers\OrderController::class, 'DeleteOrder']);
+=======
+Route::post('/orders/flag', [App\Http\Controllers\OrderController::class, 'FlagOrderStatus']);
+
+// DELETE ORDER
+Route::post('/admin/delete-order', [App\Http\Controllers\OrderController::class, 'DeleteOrder']);
+>>>>>>> 0831cf0753259b73cb3ece5f6b19efa2ed4e05e9
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

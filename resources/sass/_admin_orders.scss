@@ -3,6 +3,7 @@
     margin: 1rem;
     display: flex;
     flex-direction: column;
+<<<<<<< HEAD
     justify-content: center;
     align-items: center;
 
@@ -10,11 +11,20 @@
         list-style: none;
     }
 
+=======
+    justify-content: flex-start;
+    align-items: center;
+
+>>>>>>> 0831cf0753259b73cb3ece5f6b19efa2ed4e05e9
     .order-items {
         .order-text {
             display: flex;
             flex-direction: column;
+<<<<<<< HEAD
             justify-content: center;
+=======
+            justify-content: flex-start;
+>>>>>>> 0831cf0753259b73cb3ece5f6b19efa2ed4e05e9
             align-items: center;
             margin: 0;
             padding: 0;
@@ -34,4 +44,11 @@
             object-fit: contain;
         }
     }
+<<<<<<< HEAD
+=======
+
+    .order-address {
+        list-style-type: none;
+    }
+>>>>>>> 0831cf0753259b73cb3ece5f6b19efa2ed4e05e9
 }

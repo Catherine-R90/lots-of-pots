@@ -16,6 +16,7 @@ class CheckoutController extends Controller
 {
     // VIEWS
     public function AddAddressView() {
+<<<<<<< HEAD
         $agent = new Agent;
         $sessionId = session()->getId();
         $cart = Cart::where('session_id', $sessionId)->get();
@@ -32,6 +33,14 @@ class CheckoutController extends Controller
             ]);
         }
         
+=======
+        $sessionId = session()->getId();
+        $cart = Cart::where('session_id', $sessionId)->get();
+
+        return view('add_address', [
+            "cart" => $cart
+        ]);
+>>>>>>> 0831cf0753259b73cb3ece5f6b19efa2ed4e05e9
     }
 
     public function CheckoutConfirmationView($id) {
@@ -86,9 +95,12 @@ class CheckoutController extends Controller
             'phone_number' => $phone,
             'email' => $email
         ]);
+<<<<<<< HEAD
 
         $order_number = "lop".random_int(100000, 999999);;
 
+=======
+>>>>>>> 0831cf0753259b73cb3ece5f6b19efa2ed4e05e9
 
         $order = Order::create([
             'delivery_address_id' => $address->id,

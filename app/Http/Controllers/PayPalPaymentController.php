@@ -69,7 +69,11 @@ class PayPalPaymentController extends Controller
 
     public function paymentSuccessView(Request $request) {
         $paypalModule = new ExpressCheckout;
+<<<<<<< HEAD
         $response = $paypalModule->getExpressCheckoutDetails($request->token);
+=======
+        $response = $paypalModule->getExpressChecjoutDetails($request->token);
+>>>>>>> 0831cf0753259b73cb3ece5f6b19efa2ed4e05e9
 
         if(in_array(strtoupper($response['ACK']), ['SUCCESS', 'SUCCESSWITHWARNING'])) {
             return redirect()->action([

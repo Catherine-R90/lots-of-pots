@@ -9,6 +9,7 @@
 @use"checkout";
 @use"order_confirmation";
 @use"admin_orders";
+<<<<<<< HEAD
 @use"comments";
 @use"mobile_nav";
 @use"mobile_layout";
@@ -19,6 +20,8 @@
 @use"mobile_contact";
 @use"mobile_cart";
 @use"mobile_comments";
+=======
+>>>>>>> 0831cf0753259b73cb3ece5f6b19efa2ed4e05e9
 
 body {
     overflow-x: hidden;

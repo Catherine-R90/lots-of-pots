@@ -4,7 +4,11 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Order;
+<<<<<<< HEAD
 use App\Models\DeliveryAddress;
+=======
+// use App\Models\Address;
+>>>>>>> 0831cf0753259b73cb3ece5f6b19efa2ed4e05e9
 
 class OrderController extends Controller
 {
@@ -15,6 +19,7 @@ class OrderController extends Controller
         return view('admin/orders_overview',[
             "orders" => $orders,
         ]);
+<<<<<<< HEAD
     }
 
     public function AdminIncompleteOrdersView() {
@@ -47,6 +52,8 @@ class OrderController extends Controller
         return view('admin/complete_orders', [
             "orders" => $orders
         ]);
+=======
+>>>>>>> 0831cf0753259b73cb3ece5f6b19efa2ed4e05e9
     }
 
     public function AdminOrderView($id) {
@@ -78,6 +85,16 @@ class OrderController extends Controller
         $address = DeliveryAddress::find($order->delivery_address_id);
         $order->products()->detach();
         $address->orders()->delete();
+        $order->delete();
+
+        return redirect()->action([
+            OrderController::Class, 'AdminOrderOverviewView'
+        ]);
+    }
+
+    public function DeleteOrder(Request $request) {
+        $id = $request->input('id');
+        $order = Order::find($id);
         $order->delete();
 
         return redirect()->action([

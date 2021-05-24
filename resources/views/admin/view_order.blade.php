@@ -5,7 +5,11 @@
 <x-admin_nav/>
 
 <div class="boxed-header">
+<<<<<<< HEAD
     <h3>Order No: {{ $order->order_number }}</h3>
+=======
+    <h3>Order No: {{ $order->id }}</h3>
+>>>>>>> 0831cf0753259b73cb3ece5f6b19efa2ed4e05e9
 </div>
 
 <div class="order-box">
@@ -38,9 +42,12 @@
             @endif
             <li>{{ $a->city }}</li>
             <li>{{ $a->postcode }}</li>
+<<<<<<< HEAD
         </ul>
         Contact Details:
         <ul>
+=======
+>>>>>>> 0831cf0753259b73cb3ece5f6b19efa2ed4e05e9
             <li>{{ $a->phone_number }}</li>
             <li>{{ $a->email }}</li>
         </ul>
@@ -48,6 +55,7 @@
     </div>
 
     <div class="grey-link">
+<<<<<<< HEAD
         <form method="POST" action="/orders/flag/{{$order->id}}">
             @csrf
 
@@ -77,6 +85,14 @@
             <input type="submit" value="Delete Order">
         </form> 
     </div>
+=======
+    <form method="POST" action="/admin/delete-order">
+        @csrf
+        <input type="hidden" value="{{ $order->id }}" name="id">
+        <input type="submit" value="Delete Order">
+    </form> 
+</div>
+>>>>>>> 0831cf0753259b73cb3ece5f6b19efa2ed4e05e9
 
 </div>
 
