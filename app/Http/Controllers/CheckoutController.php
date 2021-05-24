@@ -6,34 +6,56 @@ use Illuminate\Http\Request;
 use App\Models\Cart;
 use App\Models\DeliveryAddress;
 use App\Models\BillingAddress;
-use App\Http\Requests\ConfirmPayment;
+use App\Http\Requests\AddDeliveryAddress;
 use App\Models\Order;
+use App\Models\PayPalPaymentController;
 use Sesson;
+use Jenssegers\Agent\Agent;
 
 class CheckoutController extends Controller
 {
     // VIEWS
-    public function CheckoutView() {
+    public function AddAddressView() {
+        $agent = new Agent;
         $sessionId = session()->getId();
         $cart = Cart::where('session_id', $sessionId)->get();
 
-        return view('checkout', [
-            "cart" => $cart
-        ]);
+        if($agent->isDesktop()) {
+            return view('add_address', [
+                "cart" => $cart
+            ]);
+        }
+        if($agent->isMobile()) {
+            return view('mobile_add_address', 
+            [
+                "cart" => $cart
+            ]);
+        }
+        
     }
 
     public function CheckoutConfirmationView($id) {
+        $agent = new Agent;
         $order = Order::find($id);
         $products = $order->products()->get();
 
-        return view('checkout_confirm', [
-            'order' => $order,
-            'products' => $products
-        ]);
+        if($agent->isDesktop()) {
+            return view('checkout_confirm', [
+                'order' => $order,
+                'products' => $products
+            ]);
+        }
+        if($agent->isMobile()) {
+            return view('mobile_checkout_confirm', [
+                'order' => $order,
+                'products' => $products
+            ]);
+        }
+        
     }
 
     // FUNCTIONS
-    public function ConfirmPayment(ConfirmPayment $request) {
+    public function AddDeliveryAddress(AddDeliveryAddress $request) {
         $cartId = $request->input('cart_id');
 
         foreach($cartId as $carts) {
@@ -48,12 +70,31 @@ class CheckoutController extends Controller
 
         $del_option = Cart::where('session_id', session()->getId())->value('delivery_option');
         
-        $address = DeliveryAddress::create($request->all());
+        $name = $request->input('name');
+        $firstLine = $request->input('first_line');
+        $secondLine = $request->input('second_line');
+        $city = $request->input('city');
+        $postcode = str_replace(' ', '',$request->input('postcode'));
+        $phone = str_replace(' ', '', $request->input('phone_number'));
+        $email = $request->input('email');
+        $address = DeliveryAddress::create([
+            'name' => $name,
+            'first_line' => $firstLine,
+            'second_line' => $secondLine,
+            'city' => $city,
+            'postcode' => $postcode,
+            'phone_number' => $phone,
+            'email' => $email
+        ]);
+
+        $order_number = "lop".random_int(100000, 999999);;
+
 
         $order = Order::create([
-            'address_id' => $address->id,
+            'delivery_address_id' => $address->id,
             'order_status' => 1,
-            'delivery_option' => $del_option
+            'delivery_option' => $del_option,
+            "order_number" => $order_number
         ]);
 
         foreach ($cart as $item) {
@@ -65,9 +106,6 @@ class CheckoutController extends Controller
 
         $id = $order->id;
 
-        return redirect()->action(
-            [CheckoutController::class, 'CheckoutConfirmationView'], 
-            ['id' => $id]
-        );
+        return redirect('/handle-payment/'.$id);
     }
 }

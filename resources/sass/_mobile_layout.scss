@@ -1,0 +1,193 @@
+// GLOBAL
+.mobile-banner {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-top: 5px;
+    margin-bottom: 5px;
+    img {
+        border: 10px double rgb(26, 25, 25);
+        width: 90%;
+    }
+}
+
+.mobile-header {
+    border: 10px groove rgb(26, 25, 25);
+    background-color: rgb(32, 31, 31);
+    color:rgb(218, 214, 214);
+    width: 80%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-size: 45px;
+}
+
+.mobile-subheader {
+    border: 8px double rgb(26, 25, 25);
+    background-color: rgb(173, 171, 171);
+    color: rgb(32, 31, 31);
+    width: 70%;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto; 
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-size: 40px;
+
+    a {
+        font-size: 40px;
+    }
+}
+
+.tile-groups-mobile {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .tile-mobile {
+        a {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            margin-top: 5px;
+            margin-bottom: 5px;
+
+            img {
+                width: 80%;
+            }
+        
+            h3 {
+                font-size: 50px;
+                font-weight: bold;
+                padding: 0;
+                margin: 0;
+            }
+        
+            p {
+                text-align: center;
+                font-size: 45px;
+                padding: 0;
+                margin: 0;
+            }
+        }
+    }
+}
+
+
+
+.mobile-form {
+    border: 5px solid rgb(26, 25, 25);
+    width: 80%;
+    font-size: 45px;
+    margin: 20px;
+    text-align: center;
+    margin-left: auto;
+    margin-right: auto;
+
+    input[type=submit],
+    input[type=file],
+    button {
+        font-family: serif;
+        padding: 20px;
+        margin: 10px;
+        font-size:50px;
+        border: 5px solid rgb(26, 25, 25);
+        color:rgb(173, 171, 171);
+        background-color: rgb(26, 25, 25);
+        border-radius: 5px;
+    }
+
+    h3 {
+        width: 100%;
+        font-size: 50px;
+        background-color: rgb(26, 25, 25);
+        color: rgb(218, 214, 214);
+        margin: 0;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .mobile-form-label {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    input[type=text],
+    input[type=tel],
+    input[type=number],
+    input[type=email],
+    textarea {
+        font-size: 45px;
+        border: 3px solid rgb(26, 25, 25);
+        width: 90%;
+        height: 80px;
+        padding: 20px;
+        margin: 20px;
+    }
+
+    textarea {
+        height: 300px;
+    }
+}
+
+
+.mobile-alert {
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    border: 5px solid rgba(226, 44, 44, 0.897);
+    background-color: rgba(248, 179, 179, 0.719);
+    ul {
+        font-size: 40px;;
+        list-style: none;
+    }
+}
+
+// FOOTER
+.mobile-footer-icon-group {
+    img {
+        height: 100px;
+        width: 100px;
+    }
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+
+.mobile-footer-links {
+    display: flex;
+    flex-direction: row;
+    justify-content: baseline;
+    align-items: baseline;
+    text-align: center;
+
+    a {
+        padding-top: 8px;
+        padding-right: 16px;
+        padding-left: 16px;
+        font-size: 50px;
+    }
+}
+
+.mobile-address {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: baseline;
+    font-size: 40px;    
+}
+
+// FAQS
+.mobile-faq {
+    margin: 30px;
+    padding: 20px;
+    font-size: 45px;
+    border-bottom: 2px solid rgb(26, 25, 25);
+}

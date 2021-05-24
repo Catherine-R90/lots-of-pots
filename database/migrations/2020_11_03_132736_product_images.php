@@ -15,10 +15,12 @@ class ProductImages extends Migration
     {
         Schema::create('product_images', function (Blueprint $table) {
             $table->id();
-            $table->binary('primary_image');
-            $table->binary('second_image');
-            $table->binary('third_image');
-            $table->foreignId('products_id')->constrained();
+            $table->string('image_one_name');
+            $table->string('image_two_name')->nullable();
+            $table->string('image_three_name')->nullable();
+            $table->string('image_four_name')->nullable();
+            $table->foreignId('product_id')->constrained();
+            $table->timestamps();
         });
     }
 
@@ -29,10 +31,6 @@ class ProductImages extends Migration
      */
     public function down()
     {
-        Schema::table('product_images', function (Blueprint $table){
-            $table->dropForeign(['products_id']);
-        });
-
-        Schema::dropIfExists('product_images');
+        Schema::drop('product_images');
     }
 }

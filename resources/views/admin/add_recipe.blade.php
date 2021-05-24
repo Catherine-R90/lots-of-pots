@@ -94,10 +94,17 @@
             </select>
         </div>
 
+        {{-- NUMBER OF INGREDIENTS --}}
+        <div class="form-label">
+            <label for="num_of_ingredients">Number of Ingredients</label>
+
+            <input type="number" name="num_of_ingredients">
+        </div>
+
         <!-- FIRST IMAGE -->
         <div class="form-label">
-            <label>First Image</label>
-            <input type="text" name="image_one_name" id="image_one_name" placeholder="First Image Name" required>
+            <label>Recipe Image</label>
+            <input type="text" name="image_name" id="image_name" placeholder="Image Name" required>
 
             <input type="file" name="image_one" accept="image/*" required>
         </div>

@@ -14,9 +14,11 @@
 
 <form method="POST" action="/recipes/ingredients/add">
 @csrf
-    <input type="hidden" name="recipes_id" value="{{ $recipe->id }}">
+    <input type="hidden" name="recipe_id" value="{{ $recipe->id }}">
 
-    <x-add_ingredient />
+    @foreach($iterations as $iteration)
+        <x-add_ingredient :i="$loop->index" />
+    @endforeach
 
     <div class="form-label">
         <input type="submit" value="Add Recipe">

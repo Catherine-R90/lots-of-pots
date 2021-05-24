@@ -4,6 +4,8 @@
 
         <nav>
 
+        <a href="/admin/orders/overview">Manage Orders</a>
+
         <a href="/admin/products/overview">Manage Products</a>
 
         <a href="/admin/products/categories/edit">Manage Product Categories</a>

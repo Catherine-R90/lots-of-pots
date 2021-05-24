@@ -21,7 +21,10 @@ class DeliveryAdresses extends Migration
             $table->string('city');
             $table->string('postcode');
             $table->integer('phone_number');
-            $table->foreignId('user_id')->constrained();
+            $table->string('email');
+            $table->foreignId('user_id')->nullable()->constrained();
+            $table->unsignedBigInteger('delivery_option')->nullable();
+            $table->timestamps();
         });
     }
 

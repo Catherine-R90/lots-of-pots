@@ -2,20 +2,28 @@
 use App\Models\ProductCategory;
 use App\Models\RecipeCategory;
 use App\Models\Cart;
+use Jenssegers\Agent\Agent;
+$agent = new Agent();
 ?>
 
-<hmtl>
+<html>
 
 <head>
 
     <title>Lots of Pots</title>
 
     <link rel="stylesheet" href="{{ asset('css/app.css') }}">
-    <script src="{{ asset('js/app.js') }}"></script>
+    <script src="https://kit.fontawesome.com/b6954c4ea5.js" crossorigin="anonymous"></script>
     
 </head>
 
 <body>
+
+<?php $cartItems = Cart::where('session_id', session()->getId())->get(); ?>
+<?php $categories = ProductCategory::all(); ?>
+<?php $recipeCategories = RecipeCategory::all(); ?>
+
+@if($agent->isDesktop() == true)
 
 <nav>
 
@@ -108,21 +116,30 @@ use App\Models\Cart;
             </div>
         </a>
         @endif
-
-        <!-- SEARCH RECIPES -->
-
 </nav>
 
     <hr>
 
+@else
+
+<x-mobile_nav :cartItems="$cartItems" :categories="$categories" :recipeCategories="$recipeCategories"/>
+
+@endif
+    
 @yield('page_type')
+
+<script src="{{ asset('js/app.js') }}"></script>
+
 
 </body>
 
+<hr>
+
 <!-- FOOTER -->
+@if($agent->isDesktop())
 <footer>
 
-    <hr>
+    
 
     <!-- SOCIAL MEDIA LINKS -->
     <div class="footer-icon-group">
@@ -157,5 +174,10 @@ use App\Models\Cart;
     </div>
 
 </footer>
+@elseif($agent->isMobile())
+
+<x-mobile_footer />
+
+@endif
 
 </html>

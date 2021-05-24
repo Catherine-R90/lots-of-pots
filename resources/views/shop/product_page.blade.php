@@ -12,7 +12,7 @@
     @if($imageTwo == null)
 
     <div class="product-image">
-        <img src="{{ asset('storage/app/productImages/'.$imageOne) }}">
+        <img src="{{ asset('storage/app/'.$imageOne) }}">
     </div>
 
     @else
@@ -77,8 +77,9 @@
                             
                         </div>
 
-                        <input class="grey-link" type="submit" value="Add to cart">
-
+                        <div class="grey-link">
+                            <input  type="submit" value="Add to cart">
+                        </div>
                     </div>
                 </form>
             </div>

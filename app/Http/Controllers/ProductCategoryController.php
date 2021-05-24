@@ -6,20 +6,30 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use App\Models\ProductCategory;
 use App\Models\Product;
+use Jenssegers\Agent\Agent;
 
 class ProductCategoryController extends Controller
 {
     public function ProductCategoryView($id) {
         $allCategories = ProductCategory::all();
         $category = ProductCategory::find($id);
-        $products = DB::table('products')->where('product_category_id', $id)->get();
+        $products = Product::where('product_category_id', $id)->get();
+        $agent = new Agent;
 
-
-        return view('/shop/product_category', [
-            "allCategories" => $allCategories,
-            "category" => $category,
-            "products" => $products,
-        ]);
+        if($agent->isDesktop()) {
+            return view('/shop/product_category', [
+                "allCategories" => $allCategories,
+                "category" => $category,
+                "products" => $products,
+            ]);
+        }
+        if($agent->isMobile()) {
+            return view('/shop/product_category_mobile', [
+                "allCategories" => $allCategories,
+                "category" => $category,
+                "products" => $products,
+            ]);
+        }
     }
 
     // ADMIN PRODUCT CATEGORY CONTROLS

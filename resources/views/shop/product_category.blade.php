@@ -1,6 +1,5 @@
 <?php 
-use App\Models\ProductImages;
-use Illuminate\Support\Facades\DB;
+use App\Models\ProductImage;
 ?>
 
 @extends('ui.whole_page')
@@ -29,26 +28,24 @@ use Illuminate\Support\Facades\DB;
     <h3>{{ $category->category }}</h3>
 </div>
 
-@foreach($products as $product)
+
 
 <div class="tile-groups">
     
-    <!-- PRODUCT IMAGES -->
-    <?php
-    $images = DB::table('product_images')->where('product_id', $product->id)->get();
-    foreach ($images as $image) {
-        $imageName = $image->image_one_name;
-    }
-    ?>
+    @foreach($products as $product)
+        <!-- PRODUCT IMAGES -->
+        <?php
+        $imageName = ProductImage::where('product_id', $product->id)->value('image_one_name');
+        ?>
 
-        <a href="/products/{{ $product->id }}">
-            <div class="small-tiles">
-                <img src="{{ asset('storage/app/productImages/'.$imageName) }}">
+        <div class="small-tiles">
+            <a href="/products/{{ $product->id }}">
+                <img src="{{ asset('storage/app/'.$imageName) }}">
                 {{ $product->name}} - £{{ $product->price }}
-            </div>
-        </a>
+            </a>
+        </div>
+    @endforeach
 
 </div>
-@endforeach
 
 @endsection

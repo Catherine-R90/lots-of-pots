@@ -20,6 +20,10 @@ class Product extends Model
         "stock"
     ];
 
+    public function product_categories() {
+        return $this->belongsTo('App\Models\ProductCategory', 'product_category_id');
+    }
+    
     public function images() {
         return $this->hasMany('App\Models\ProductImage');
     }
@@ -39,10 +43,4 @@ class Product extends Model
     public static function imagesNotInUse() {
         return Product::doesntHave('images')->get();
     } 
-
-    public static function StockLevel() {
-        $stock = Product::pluck('stock');
-
-        return $stock;
-    }
 }

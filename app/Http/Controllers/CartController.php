@@ -7,17 +7,27 @@ use App\Models\Cart;
 use App\Models\Product;
 use App\Models\ProductImage;
 use Session;
+use Jenssegers\Agent\Agent;
 
 class CartController extends Controller
 {
     // VIEWS
     public function CartView() {
+        $agent = new Agent;
         $sessionId = session()->getId();
         $cartItems = Cart::where('session_id', $sessionId)->get();
 
-        return view('cart', [
-            "cartItems" => $cartItems,
-        ]);
+        if($agent->isDesktop()) {
+            return view('cart', [
+                "cartItems" => $cartItems,
+            ]);
+        }
+        if($agent->isMobile()) {
+            return view('mobile_cart',[
+                "cartItems" => $cartItems,
+            ]);
+        }
+        
     }
 
     // FUNCTIONS
@@ -27,12 +37,13 @@ class CartController extends Controller
         $productImage = ProductImage::where('product_id', $id)->value('id');
         $sessionId = session()->getId();
 
-        $cart = Cart::create([
+        Cart::create([
             "product_id" => $product->id,
-            "product_image" => $productImage,
+            "product_image_id" => $productImage,
             "price" => $product->price,
             "quantity" => $quantity,
-            "session_id" => $sessionId
+            "session_id" => $sessionId,
+            "delivery_option" => 0,
         ]);
 
         $product->stock = ($product->stock - $quantity);

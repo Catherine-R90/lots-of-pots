@@ -6,7 +6,7 @@
 
 <div class="boxed-header">
 
-    <h3>Add Products to {{ $recipe->name }}</h3>
+    <h3>Add Products to {{ $recipe->name }} (ctrl and click to select multiples)</h3>
 
 </div>
 

@@ -13,11 +13,8 @@ class RecipeCategoryLinker extends Migration
      */
     public function up()
     {
-        Schema::create('recipe_category_linker', function (Blueprint $table){
-            $table->id();
-            $table->foreignId('recipe_id')->constrained();
-            $table->unsignedBigInteger('recipe_category_id');
-            $table->foreign('recipe_category_id')->references('id')->on('recipe_category');
+        Schema::table('recipes', function (Blueprint $table){
+            $table->foreignId('recipe_category_id')->constraained();
         });
     }
 
@@ -28,6 +25,8 @@ class RecipeCategoryLinker extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('recipe_category_linker');
+        Schema::table('recipes', function (Blueprint $table){
+            $table->dropColumn('recipe_category_id');
+        });
     }
 }

@@ -1,0 +1,143 @@
+nav {
+    padding: 0;
+    margin: 10px;
+
+    .mob_nav {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+        align-items: center;
+
+        #mobile_logo img {
+            height: 150px;
+            width: 150px;
+            padding: 10px;
+        }
+
+        .mobile_icon-text {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            font-size: 40px;
+            padding-right: 40px;
+    
+            img {
+                padding: 10px;
+                height: 70px;
+                width: 70px;
+            }
+        }
+    }
+
+    .mobile_menu, .mobile_submenu {
+        list-style: none;
+    }
+
+    a {
+        text-decoration: none;
+        color: #000000;
+    }
+
+    // ICONS & LOGO
+    .mobile_icon {
+        height: 35px;
+        width: 35px;
+    }
+
+    .mobile_item:not(.button) a:hover, .mobile_item a:hover::after {
+        text-decoration: underline;
+    }
+}
+
+// MOBILE NAV
+.mobile_menu {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+
+    li a {
+        text-decoration: none;
+        display: block;
+        font-size: 50px;   
+    }
+
+    li.mobile_subitem a {
+        text-decoration: none;
+        padding: 5px;
+    }
+
+    .mobile-icon-text {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        font-size: 50px;
+        
+        i {
+            margin-right: 5px;
+            font-size: 40px;
+        }
+    }
+}
+
+.mobile_toggle {
+    order: 1;
+    i {
+        padding: 10px;
+        font-size: 80px;
+    }
+    #close {
+        font-size: 50px;
+    }
+}
+
+.mobile_item.button {
+    order: 2;
+}
+
+.mobile_item {
+    order: 3;
+    width: 100%;
+    text-align: center;
+    display: none;
+    font-size: 70px;
+    padding: 5px;
+}
+
+.active .mobile_item {
+    display: block;
+}
+
+// MOBILE SUBMENU
+.mobile_submenu {
+    display: none;
+}
+
+.mobile_submenu-active .mobile_submenu {
+    display:block;
+}
+
+.has-sub-menu i {
+    font-size: 20px;
+}
+
+.mobile_has-submenu > a::after {
+    font-family: "Font Awesome 5 Free";
+    font-size: 20px;
+    line-height: 25px;
+    font-weight: 900;
+    content: "\f078";
+    color: #000000;
+    // padding-left: 5px;
+}
+
+.mobile_subitem a {
+    padding-top: 5px;
+}
+
+.mobile_submenu-active {
+    font-weight: bold;
+}

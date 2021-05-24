@@ -1,0 +1,19 @@
+.product-tile-mobile {
+
+    a{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: space-around;
+
+        p{
+            font-size: 50px;
+            font-weight: bold;
+            text-align: center;
+        }
+
+        img {
+            width: 70%;
+        }
+    }
+}

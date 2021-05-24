@@ -16,11 +16,11 @@ class Products extends Migration
         Schema::create('products', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('description');
+            $table->string('description', 1000);
             $table->decimal('price', 5, 2);
-            $table->string('details');
+            $table->string('details', 2000);
             $table->integer('stock');
-            // $table->foreignId();
+            $table->timestamps();
         });
     }
 
@@ -31,6 +31,6 @@ class Products extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('products');
+        Schema::drop('products');
     }
 }

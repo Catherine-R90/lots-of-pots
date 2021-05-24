@@ -14,36 +14,35 @@
     }
 }
 
-.small-tiles {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    flex-wrap: wrap;
-    padding-left: 2rem;
-    padding-right: 2rem;
-    padding-bottom: .5rem;
 
-    img {
-        height: 15rem;
-        box-shadow: 0px 4px 6px 0px #404040;
-    }
-}
 
 .tile-groups {
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
     display: flex;
     flex-direction: row;
     justify-content: center;
-    align-items: center;
+    align-items: flex-end;
     flex-wrap: wrap;
-    padding: 1rem;
-}
 
-// SHOP TILES
-.shop-tiles {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly;
-    flex-wrap: wrap;
+    .small-tiles {
+        padding: 0;
+        margin: 0 10px 0 10px;
+        text-align: center;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        flex-wrap: wrap;
+        width: 200px;
+        height: 350px;
+    
+        img {
+            width: 200px;
+            height: fit-content;
+            box-shadow: 0px 4px 6px 0px #404040;
+        }
+    }
 }
 
 // LINKS
@@ -92,27 +91,5 @@ a:hover {
     padding-right: 2rem;
 }
 
-// GREY LINKS
-.grey-link {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
 
-    img {
-        height: 3rem;
-        box-shadow: 0px 4px 6px 0px #404040;
-        margin-right: .5rem;
-    }
-
-    p, a, button, input[type=submit] {
-        padding: .5rem;
-        border: .1rem solid #000000;
-        background-color: #858282;
-        text-align: center;
-        border-radius: .2rem;
-        color: #ffffff;
-        font-weight: bold;
-    }
-}
 

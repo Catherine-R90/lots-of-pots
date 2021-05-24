@@ -17,4 +17,8 @@ class DeliveryAddress extends Model
         'email',
         'user_id'
     ];
+
+    public function orders() {
+        return $this->hasMany('App\Models\Order');
+    }
 }

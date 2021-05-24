@@ -28,7 +28,7 @@ class ContactFormRequest extends FormRequest
             'emailAddress' => 'required|email|max: 255',
             'phone' => 'nullable|numeric',
             'mobile' => 'nullable|numeric',
-            'order-receipt-number' => 'nullable|numeric',
+            'order-receipt-number' => 'nullable',
             'subject' => 'required|max: 255',
             'message' => 'required'
         ];

@@ -11,18 +11,22 @@ use App\Models\RecipeImage;
 use App\Models\Ingredients;
 use App\Models\Product;
 use App\Models\ProductImage;
+use App\Models\Comment;
+use App\Models\CommentImage;
 use App\Http\Requests\AddRecipe;
 use App\Http\Requests\EditRecipe;
 use App\Http\Controllers\IngredientsController;
+use Jenssegers\Agent\Agent;
 
 class RecipeController extends Controller
 {
     // VIEWS
     // RECIPE VIEW
     public function RecipeView($id, $portion = null) {
+        $agent = new Agent;
         $recipe = Recipe::find($id);
-        $images = DB::table('recipe_images')
-                            ->where('recipe_id', $id)
+        $images = RecipeImage::
+                            where('recipe_id', $id)
                             ->get();
         $products = $recipe->products()->get();
         if (count($products) > 0) {
@@ -32,7 +36,7 @@ class RecipeController extends Controller
             $products = null;
         }
         
-        $data = Ingredients::where('recipes_id', $id)->first();
+        $ingredients = Ingredients::where('recipe_id', $id)->get();
 
         if($portion == null) {
             $portion = 1;
@@ -40,62 +44,42 @@ class RecipeController extends Controller
             $portion = $portion;
         }
 
-        $ingredientOneQuant = $data->ingredient_quant_one * $portion;
-        $ingredientTwoQuant = $data->ingredient_quant_two * $portion;
-        $ingredientThreeQuant = $data->ingredient_quant_four * $portion;
-        $ingredientFourQuant = $data->ingredient_quant_four * $portion;
-        $ingredientFiveQuant = $data->ingredient_quant_five * $portion;
-        $ingredientSixQuant = $data->ingredient_quant_six * $portion;
-        $ingredientSevenQuant = $data->ingredient_quant_seven * $portion;
-        $ingredientEightQuant = $data->ingredient_quant_eight * $portion;
-        $ingredientNineQuant = $data->ingredient_quant_nine * $portion;
-        $ingredientTenQuant = $data->ingredient_quant_ten * $portion;
-        $ingredientElevenQuant = $data->ingredient_quant_eleven * $portion;
-        $ingredientTwelveQuant = $data->ingredient_quant_twelve * $portion;
-        $ingredientThirteenQuant = $data->ingredient_quant_thirteen * $portion;
-        $ingredientFourteenQuant = $data->ingredient_quant_fourteen * $portion;
-        $ingredientFifteenQuant = $data->ingredient_quant_fifteen * $portion;
-        $ingredientSixteenQuant = $data->ingredient_quant_sixteen * $portion;
-        $ingredientSeventeenQuant = $data->ingredient_quant_seventeen * $portion;
-        $ingredientEighteenQuant = $data->ingredient_quant_eighteen * $portion;
-        $ingredientNineteenQuant = $data->ingredient_quant_nineteen * $portion;
-        $ingredientTwentyQuant = $data->ingredient_quant_twenty * $portion;
-        
-
-        $ingredients = [
-        $data->ingredient_one." ".$ingredientOneQuant." ".$data->ingredient_one_type,
-        $data->ingredient_two." ".$ingredientTwoQuant." ".$data->ingredient_two_type,
-        $data->ingredient_three." ".$ingredientThreeQuant." ".$data->ingredient_three_type,
-        $data->ingredient_four." ".$ingredientFourQuant." ".$data->ingredient_four_type,
-        $data->ingredient_five." ".$ingredientFiveQuant." ".$data->ingredient_five_type,
-        $data->ingredient_six." ".$ingredientSixQuant." ".$data->ingredient_six_type,
-        $data->ingredient_seven." ".$ingredientSevenQuant." ".$data->ingredient_seven_type,
-        $data->ingredient_eight." ".$ingredientEightQuant." ".$data->ingredient_eight_type,
-        $data->ingredient_nine." ".$ingredientNineQuant." ".$data->ingredient_nine_type,
-        $data->ingredient_ten." ".$ingredientTenQuant." ".$data->ingredient_ten_type,
-        $data->ingredient_eleven." ".$ingredientElevenQuant." ".$data->ingredient_eleven_type,
-        $data->ingredient_twelve." ".$ingredientTwelveQuant." ".$data->ingredient_twelve_type,
-        $data->ingredient_thirteen." ".$ingredientThirteenQuant." ".$data->ingredient_thirteen_type,
-        $data->ingredient_fourteen." ".$ingredientFourteenQuant." ".$data->ingredient_fourteen_type,
-        $data->ingredient_fifteen." ".$ingredientFifteenQuant." ".$data->ingredient_fifteen_type,
-        $data->ingredient_sixteen." ".$ingredientSixteenQuant." ".$data->ingredient_sixteen_type,
-        $data->ingredient_seventeen." ".$ingredientSeventeenQuant." ".$data->ingredient_seventeen_type,
-        $data->ingredient_eighteen." ".$ingredientEighteenQuant." ".$data->ingredient_eighteen_type,
-        $data->ingredient_nineteen." ".$ingredientNineteenQuant." ".$data->ingredient_nineteen_type,
-        $data->ingredient_twenty." ".$ingredientTwentyQuant." ".$data->ingredient_twenty_type,
-        ];
-
         $instructions = preg_split('/[:]/', $recipe->instructions);
-        
-        return view('/recipes/recipe', [
-            "recipe" => $recipe,
-            "images" => $images,
-            "products" => $products,
-            "productImages" => $productImages,
-            "ingredients" => $ingredients,
-            "instructions" => $instructions,
-            "portion" => $portion
-        ]);
+
+        $comments = Comment::where("recipe_id", $recipe->id)->get();
+
+        $userSession = session()->getId();
+
+        if($agent->isDesktop()) {
+            return view('/recipes/recipe', [
+                "recipe" => $recipe,
+                "images" => $images,
+                "products" => $products,
+                "productImages" => $productImages,
+                "ingredients" => $ingredients,
+                "instructions" => $instructions,
+                "portion" => $portion,
+                "comments" => $comments,
+                "userSession" => $userSession,
+                "agent" => $agent
+            ]);
+        }
+
+        if($agent->isMobile()) {
+            return view('/recipes/mobile_recipe', [
+                "recipe" => $recipe,
+                "images" => $images,
+                "products" => $products,
+                "productImages" => $productImages,
+                "ingredients" => $ingredients,
+                "instructions" => $instructions,
+                "portion" => $portion,
+                "comments" => $comments,
+                "userSession" => $userSession,
+                "agent" => $agent
+            ]);
+        }
+
 }
 
     // ADMIN RECIPE VIEW
@@ -183,23 +167,30 @@ class RecipeController extends Controller
     public function AdminAddRecipe(AddRecipe $request) {
         
         // IMAGES
-        $imageOneName = $request->input('image_one_name');
+        $imageName = $request->input('image_name');
 
-        $request->file('image_one')->storeAs('recipeImages', $imageOneName);
+        $request->file('image_one')->storeAs('recipeImages', $imageName);
 
         // CREATE RECIPE
-        $recipe = Recipe::create($request->all());
+        $recipe = Recipe::create([
+            "name" => $request->input('name'),
+            "prep_time" => $request->input('prep_time'),
+            "cook_time" => $request->input('cook_time'),
+            "instructions" => $request->input('instructions'),
+            "description" => $request->input('description'),
+            "recipe_category" => $request->input('recipe_category'),
+            "num_of_ingredients" => $request->input('num_of_ingredients'),
+        ]);
         $recipeId = $recipe->id;
     
         // CREATE RECIPE IMAGE
-        $recipeImage = new RecipeImage;
-        $recipeImage->recipe_id = $recipeId;
-        $recipeImage->image_one_name = $imageOneName;
-        $recipeImage->save();
+        RecipeImage::create([
+            'image_one_name' => $request->input('image_name'),
+            'recipe_id' => $recipeId
+        ]);
 
         return redirect()->action(
-            [RecipeController::class, 'AdminAddRecipeProductView'], ['id' => $recipeId])
-            ->with('status', 'Recipe details and images added!');
+            [RecipeController::class, 'AdminAddRecipeProductView'], ['id' => $recipeId]);
     }
 
     // ADD PRODUCTS TO RECIPE
@@ -210,8 +201,7 @@ class RecipeController extends Controller
         $recipe->products()->attach($products);
 
         return redirect()->action(
-            [IngredientsController::class, 'AdminAddIngredientsView'], ['id' => $recipe->id])
-            ->with('status', 'Recipe details and images added!');
+            [IngredientsController::class, 'AdminAddIngredientsView'], ['id' => $recipe->id]);
     }
 
     // EDIT RECIPE
@@ -286,8 +276,7 @@ class RecipeController extends Controller
         }
 
         return redirect()->action(
-            [RecipeController::class, 'AdminEditRecipeProductView'], ['id' => $recipeId])
-            ->with('status', 'Recipe details and images added!');
+            [RecipeController::class, 'AdminEditRecipeProductView'], ['id' => $recipeId]);
     }
 
     // EDIT PRODUCTS FOR RECIPE
@@ -300,7 +289,8 @@ class RecipeController extends Controller
         }
 
         return redirect()->action(
-            [IngredientsController::class, 'AdminEditIngredientsView'], ['id' => $recipe->id]);
+            [IngredientsController::class, 'AdminEditIngredientsView'], 
+            ['id' => $recipe->id]);
     }
 
     // DELETE RECIPE
@@ -308,9 +298,11 @@ class RecipeController extends Controller
         $id = $request->input('id');
         $recipe = Recipe::find($id);
         $recipe->products()->detach();
-        $ingredients = Ingredients::where('recipes_id', $recipe->id)->first();
+        $ingredients = Ingredients::where('recipe_id', $recipe->id)->get();
         if ($ingredients != null) {
-            $ingredients->delete();
+            foreach($ingredients as $ingredient) {
+                $ingredient->delete();
+            }
         }
         $recipeImageId = RecipeImage::where('recipe_id', $recipe->id)->first();
         if ($recipeImageId != null) {

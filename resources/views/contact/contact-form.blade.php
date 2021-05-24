@@ -23,7 +23,7 @@
 
     <div class="contact-label">
         <label for="orderReceiptNumber">Order/Receipt Number (optional):</label>
-        <input type="number" name="orderReceiptNumber" id="orderReceiptNumber" placeholder="000-000-000">
+        <input type="text" name="orderReceiptNumber" id="orderReceiptNumber" placeholder="lop000000">
     </div>  
 
     <div class="contact-label">

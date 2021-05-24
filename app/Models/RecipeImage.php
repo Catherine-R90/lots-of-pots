@@ -10,8 +10,6 @@ class RecipeImage extends Model
 {
     protected $fillable = [
         'image_one_name',
-        'image_two_name',
-        'image_three_name',
         'recipe_id'
     ];
 

@@ -7,11 +7,19 @@ use App\Notifications\ContactFormMessage;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\ContactFormRequest;
 use App\Models\Recipient;
+use Jenssegers\Agent\Agent;
 
 class ContactController extends Controller
 {
     public function ContactView() {
-        return view('/contact/contact');
+        $agent = new Agent;
+
+        if($agent->isDesktop()) {
+            return view('/contact/contact');
+        }
+        if($agent->isMobile()) {
+            return view('/contact/mobile_contact');
+        }
     }
 
     public function MailContactForm(ContactFormRequest $message, Recipient $recipient) {
