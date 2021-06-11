@@ -13,12 +13,13 @@ class Cart extends Migration
      */
     public function up()
     {
-        Schema::create('cart', function (Blueprint $table){
+        Schema::create('carts', function (Blueprint $table){
             $table->id();
-            $table->unsignedBigInteger('product_id');
-            $table->unsignedBigInteger('product_image');
+            $table->foreignId('product_id')->constrained();
+            $table->foreignId('product_image_id')->constrained();
             $table->decimal('price', 5, 2);
             $table->unsignedBigInteger('quantity');
+            $table->string('session_id');
             $table->timestamps();
         });
     }
@@ -30,6 +31,6 @@ class Cart extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('cart');
+        Schema::dropIfExists('carts');
     }
 }

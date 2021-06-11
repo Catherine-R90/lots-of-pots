@@ -17,6 +17,10 @@ class Recipe extends Model
         "num_of_ingredients"
     ];
 
+    public function ingredients() {
+        return $this->hasMany(Ingredients::class);
+    }
+
     // COMMENTS
     public function comments() {
         return $this->hasMany('App\Models\Comment', 'comment_id');

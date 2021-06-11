@@ -2,9 +2,9 @@
 
 @section('main_content')
 
-<div class="whole-section">
+<div class="whole-recipe">
 
-    <div class="section-left">
+    <div class="recipe-left">
 
             @foreach($images as $image)
                 <img class="recipe-image" src="{{ asset('storage/app/recipeImages/'.$image->image_one_name) }}">
@@ -19,11 +19,11 @@
         @foreach($products as $product)
 
         <a href="/products/{{ $product->id }}">
-            <div class="grey-link">
+            <div class="recipe-product-link">
 
                 @foreach($productImages as $productImage)
                 @if($productImage->product_id == $product->id)
-                    <img src="{{ asset('storage/app/productImages/'.$productImage->image_one_name) }}">
+                    <img src="{{ asset('storage/app/'.$productImage->image_one_name) }}">
                 @endif
                 @endforeach
 
@@ -36,7 +36,7 @@
 
     </div>
 
-    <div class="section-right">
+    <div class="recipe-right">
 
         <div class="recipe-boxed-header">
             <h3>{{ $recipe->name }}</h3>
@@ -52,21 +52,30 @@
             <p>Cooking Time: {{ $recipe->cook_time }} mins</p>
         </div>
 
-        <x-ingredient_portion :portion="$portion" :ingredients="$ingredients" :id="$recipe->id"/>
+        <x-ingredient_portion :agent="$agent" :portion="$portion" :ingredients="$ingredients" :id="$recipe->id" />
 
         <div class="instructions">
             <p>Instructions: </p>
-            <ul>
+            <ol>
                 @foreach($instructions as $instruction)
                     @if($instruction != null)
                     <li>{{ $instruction }}</li>
                     @endif
                 @endforeach
-            </ul>
+            </ol>
         </div>
 
     </div>
 
+
 </div>
+
+    <div class="boxed-header">
+        <h3>Tell us what you think!</h3>
+    </div>
+
+    <x-add_comment :agent="$agent" :id="$recipe->id" />
+
+    <x-comment_section :agent="$agent" :comments="$comments" :userSession="$userSession" />
 
 @endsection

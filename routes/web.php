@@ -143,6 +143,21 @@ Route::get('/admin/recipes/categories/edit', [App\Http\Controllers\RecipeCategor
 // ORDERS
 // ORDERS OVERVIEW
 Route::get('/admin/orders/overview', [App\Http\Controllers\OrderController::Class, 'AdminOrderOverviewView']);
+<<<<<<< HEAD
+
+// INCOMPLETE ORDERS VIEW
+Route::get('/admin/orders/incomplete', [App\Http\Controllers\OrderController::Class, 'AdminIncompleteOrdersView']);
+
+// ORDER BEING PICKED VIEW
+Route::get('/admin/orders/picked', [App\Http\Controllers\OrderController::Class, 'AdminPickedOrdersView']);
+
+// SENT ORDERS VIEW
+Route::get('/admin/orders/sent', [App\Http\Controllers\OrderController::Class, 'AdminSentOrdersView']);
+
+// COMPLETED ORDERS VIEW
+Route::get('/admin/orders/complete', [App\Http\Controllers\OrderController::Class, 'AdminCompleteOrdersView']);
+=======
+>>>>>>> 0831cf0753259b73cb3ece5f6b19efa2ed4e05e9
 
 // ORDER VIEW
 Route::get('/admin/orders/{id}', [App\Http\Controllers\OrderController::Class, 'AdminOrderView']);
@@ -180,6 +195,16 @@ Route::post('/portion-calculator', [App\Http\Controllers\RecipeController::Class
 // CONTACT
 Route::post('/contact', [App\Http\Controllers\ContactController::class, 'MailContactForm']);
 
+
+// COMMENTS
+// POST COMMENT
+Route::post('/comment/add', [App\Http\Controllers\CommentsController::class, 'PostComment']);
+
+// EDIT COMMENT
+Route::post('/comment/edit/{id}', [App\Http\Controllers\CommentsController::class, 'EditComment']);
+
+// DELETE COMMENT
+Route::post('/comment/delete/{id}', [App\Http\Controllers\CommentsController::class, 'DeleteComment']);
 
 // ADMIN
 // PRODUCTS
@@ -242,9 +267,16 @@ Route::post('/recipes/category/delete', [App\Http\Controllers\RecipeCategoryCont
 
 // ORDERS
 // CHANGE ORDER STATUS
+<<<<<<< HEAD
+Route::post('/orders/flag/{id}', [App\Http\Controllers\OrderController::class, 'FlagOrderStatus']);
+
+// DELETE ORDER
+Route::post('/admin/delete-order/{id}', [App\Http\Controllers\OrderController::class, 'DeleteOrder']);
+=======
 Route::post('/orders/flag', [App\Http\Controllers\OrderController::class, 'FlagOrderStatus']);
 
 // DELETE ORDER
 Route::post('/admin/delete-order', [App\Http\Controllers\OrderController::class, 'DeleteOrder']);
+>>>>>>> 0831cf0753259b73cb3ece5f6b19efa2ed4e05e9
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

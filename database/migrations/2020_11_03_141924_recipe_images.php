@@ -15,10 +15,9 @@ class RecipeImages extends Migration
     {
         Schema::create('recipe_images', function (Blueprint $table) {
             $table->id();
-            $table->binary('primary_image');
-            $table->binary('second_image')->nullable();
-            $table->binary('third_image')->nullable();
-            $table->foreignId('recipes_id')->constrained();
+            $table->string('image_name');
+            $table->foreignId('recipe_id')->constrained();
+            $table->timestamps();
         });
     }
 
@@ -29,10 +28,6 @@ class RecipeImages extends Migration
      */
     public function down()
     {
-        Schema::table('recipe_images', function (Blueprint $table){
-            $table->dropForeign(['products_id']);
-        });
-
-        Schema::dropIfExists('recipe_images');
+        Schema::drop('recipe_images');
     }
 }

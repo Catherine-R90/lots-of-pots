@@ -13,9 +13,10 @@ class RecipeCategory extends Migration
      */
     public function up()
     {
-        Schema::create('recipe_category', function (Blueprint $table){
+        Schema::create('recipe_categories', function (Blueprint $table){
             $table->id();
             $table->string('category');
+            $table->timestamps();
         });
     }
 
@@ -26,6 +27,6 @@ class RecipeCategory extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('recipe_category');
+        Schema::dropIfExists('recipe_categories');
     }
 }

@@ -1,0 +1,39 @@
+.mobile-contact {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    .mobile-contact-box {
+        border: 5px solid rgb(26, 25, 25);
+        width: 80%;
+        font-size: 45px;
+        margin: 20px;
+        text-align: center;
+
+        h3 {
+            width: 100%;
+            font-size: 50px;
+            background-color: rgb(26, 25, 25);
+            color: rgb(218, 214, 214);
+            margin: 0;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+    
+        .mobile-icon-group {
+            a {
+                display: flex;
+                flex-direction: row;
+                justify-content: center;
+                align-items: center;
+                font-size: 45px;
+                img {
+                    margin-right: 20px;
+                    height: 100px;
+                    width: 100px;
+                }
+            }
+        }
+    }
+}

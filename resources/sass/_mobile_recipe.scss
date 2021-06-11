@@ -1,0 +1,140 @@
+.mobile-recipe {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+
+    input[type=submit], input[type=file] {
+        padding: 20px;
+        margin: 10px;
+        font-size:40px;
+        border: 5px solid rgb(26, 25, 25);
+        color:rgb(173, 171, 171);
+        background-color: rgb(26, 25, 25);
+        border-radius: 5px;
+    }
+
+    h3 {
+        font-size: 50px;
+        font-weight: bold;
+    }
+
+    img {
+        width: 80%;
+    }
+
+    .mobile-recipe-time {
+        p {
+            font-size: 40px;
+            font-weight: bold;
+            margin: 10px;
+        }
+    }
+
+    .mobile-recipe-desc {
+        margin: 10px;
+        p {
+            padding: 5px;
+            font-size: 40px;
+        }
+    }
+
+    .mobile-ingredients {
+        border:5px solid rgb(26, 25, 25);
+        margin: 30px;
+        background-color: rgb(163, 163, 163);
+
+        label {
+            font-size: 45px;
+        }
+
+        p{
+            font-size: 45px;
+            padding: 0;
+        }
+
+        select {
+            padding: 10px;
+            margin: 10px;
+            font-size: 40px;
+            width: 50%;
+        }
+        
+        ul {
+            text-align: left;
+            font-size: 45px;
+            list-style: none;
+
+            li {
+                padding: 5px;
+            }
+        }
+    }
+
+    .mobile-instructions {
+        margin: 30px;
+
+        p {
+            font-size: 50px;
+            font-weight: bold;
+        }
+
+        ol {
+            text-align: left;
+            font-size: 45px;
+
+            li {
+                padding: 10px;
+            }
+        }
+    }
+
+    .mobile-recipe-product {
+        margin-left: 30px;
+        margin-right: 30px;
+        a {
+            img {
+                width: 40%;
+            }
+
+            p {
+                font-size: 40px;
+                font-weight: bold;
+            }
+        }
+    }
+
+    .mobile-comment-form {
+        form {
+            font-size: 40px;
+
+            textarea {
+                border: 5px solid rgb(26, 25, 25);
+            }
+        }
+    }
+
+    .mobile-comment-section {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        .mobile-comment {
+
+            .mobile-user {
+                font-weight: bold;
+            }
+
+            margin-top: 20px;
+            margin-bottom: 20px;
+            width: 80%;
+            padding: 20px;
+            border: 5px solid rgb(26, 25, 25);
+            background-color: rgb(163, 163, 163);
+            font-size: 45px;
+        }
+    }
+
+}

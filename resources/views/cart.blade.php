@@ -36,7 +36,7 @@ use App\Models\Cart;
 
                     <?php $image = ProductImage::where('product_id', $product->id)->value('image_one_name'); ?>
 
-                    <img src="{{ asset('storage/app/productImages/'.$image) }}">
+                    <img src="{{ asset('storage/app/'.$image) }}">
 
                     <div class="details-quant">
                         
@@ -164,6 +164,15 @@ use App\Models\Cart;
 
         <div class="sub-total">
             <div class="total">
+
+                @foreach($cartItems as $item)
+                    <?php
+                    $name = Product::where('id', $item->product_id)->value('name');
+                    ?>
+                        <p>{{$name}} x {{$item->quantity}}</p>
+                        <b>£{{$item->price * $item->quantity}}</b>
+                @endforeach
+
                 <h3>Subtotal<h3>
                 <h3>£{{ number_format($total, $decimals = 2, $decimal_seperator = ".", $thousand_seperator = ",") }}</h3>
             </div>

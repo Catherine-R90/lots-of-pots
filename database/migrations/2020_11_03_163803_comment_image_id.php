@@ -26,7 +26,7 @@ class CommentImageId extends Migration
     public function down()
     {
         Schema::table('comments', function (Blueprint $table){
-            $table->dropForeign('comment_image_id');
+            $table->dropForeign(['comment_image_id']);
         });
     }
 }

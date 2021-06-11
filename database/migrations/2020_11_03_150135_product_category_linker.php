@@ -13,13 +13,9 @@ class ProductCategoryLinker extends Migration
      */
     public function up()
     {
-        Schema::table('product_category_linker', function (Blueprint $table){
-            $table->dropColumn('category_id');
+        Schema::table('products', function (Blueprint $table){
+            $table->foreignId('product_category_id')->constrained();
         });
-        // Schema::table('product_category_linker', function (Blueprint $table){
-        //     $table->dropForeign(['category_id']);
-        //     $table->foreignId('product_category_id');
-        // });
     }
 
     /**
@@ -29,12 +25,9 @@ class ProductCategoryLinker extends Migration
      */
     public function down()
     {
-        Schema::table('product_category_linker', function (Blueprint $table){
-            $table->bigInteger('category_id');
+        Schema::table('products', function (Blueprint $table){
+            $table->dropForeign(['product_category_id']);
+            $table->dropColumn('product_category_id');
         });
-        // Schema::table('product_recipe_linker', function (Blueprint $table) {
-        //     $table->foreignId('category_id');
-        //     $table->dropForeign(['product_category_id']);
-        // });
     }
 }

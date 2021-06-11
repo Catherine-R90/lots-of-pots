@@ -15,6 +15,7 @@ use App\Models\CartItems;
 use App\Models\Cart;
 use App\Http\Requests\AddProduct;
 use Freshbitsweb\LaravelCartManager\Traits\Cartable;
+use Jenssegers\Agent\Agent;
 
 class ProductController extends Controller
 {
@@ -22,6 +23,7 @@ class ProductController extends Controller
 
     // VIEWS
     public function ProductView($id) {
+        $agent = new Agent;
         $product = Product::find($id);
         $images = ProductImage::
                     where('product_id', $id)
@@ -43,6 +45,7 @@ class ProductController extends Controller
 
         $details = preg_split('/[;]/', $product->details);
 
+        if($agent->isDesktop()) {
             return view('shop/product_page', [
                 "product" => $product,
                 "details" => $details,
@@ -53,6 +56,20 @@ class ProductController extends Controller
                 "recipes" => $recipes,
                 "recipeImages" => $recipeImages
             ]);
+        }
+        if($agent->isMobile()) {
+            return view('shop/mobile_product_page', [
+                "product" => $product,
+                "details" => $details,
+                "imageOne" => $imageOne,
+                "imageTwo" => $imageTwo,
+                "imageThree" => $imageThree,
+                "imageFour" => $imageFour,
+                "recipes" => $recipes,
+                "recipeImages" => $recipeImages
+            ]);
+        }
+            
     }
 
     // ADMIN PRODUCT CONTROLS
@@ -100,22 +117,27 @@ class ProductController extends Controller
     // ADMIN
     // ADD PRODUCT
     public function AdminAddProduct(AddProduct $request) {
-        
-        $imageOneName = $request->input('image_one_name');
-        $imageTwoName = $request->input('image_two_name');
-        $imageThreeName = $request->input('image_three_name');
-        $imageFourName = $request->input('image_four_name');
+        // $imageOneName = $request->input('image_one_name');
+        // $imageTwoName = $request->input('image_two_name');
+        // $imageThreeName = $request->input('image_three_name');
+        // $imageFourName = $request->input('image_four_name');
 
-        $imageOne = $request->file('image_one')->storeAs('productImages', $imageOneName);
+        $imageOneName = $request->file('image_one')->store('productImages');
 
         if ($request->file('image_two') != null) {
-            $imageTwo = $request->file('image_two')->storeAs('productImages', $imageTwoName);
+            $imageTwoName = $request->file('image_two')->store('productImages');
+        } else {
+            $imageTwoName = null;
         }
         if ($request->file('image_three') != null) {
-            $imageThree = $request->file('image_three')->storeAs('productImages', $imageThreeName);
+            $imageThreeName = $request->file('image_three')->store('productImages');
+        } else {
+            $imageThreeName = null;
         }
         if ($request->file('image_four') != null) {
-            $imageFour = $request->file('image_four')->storeAs('productImages', $imageFourName);
+            $imageFourName = $request->file('image_four')->store('productImages');
+        } else {
+            $imageFourName = null;
         }
 
         $product = Product::create($request->all());
@@ -159,22 +181,22 @@ class ProductController extends Controller
 
         $product->save();
 
-        $imageOneName = $request->input('image_one_name');
+
         $imageTwoName = $request->input('image_two_name');
         $imageThreeName = $request->input('image_three_name');
         $imageFourName = $request->input('image_four_name');
 
         if ($request->file('image_one') != null) {
-            $imageOne = $request->file('image_one')->storeAs('productImages', $imageOneName);
+            $imageOneName = $request->file('image_one')->store('productImages');
         }
         if ($request->file('image_two') != null) {
-            $imageTwo = $request->file('image_two')->storeAs('productImages', $imageTwoName);
+            $imageTwoName = $request->file('image_two')->store('productImages');
         }
         if ($request->file('image_three') != null) {
-            $imageThree = $request->file('image_three')->storeAs('productImages', $imageThreeName);
+            $imageThreeName = $request->file('image_three')->store('productImages');
         }
         if ($request->file('image_four') != null) {
-            $imageFour = $request->file('image_four')->storeAs('productImages', $imageFourName);
+            $imageFourName = $request->file('image_four')->store('productImages');
         }
 
         $image = ProductImage::where('product_id', $request->input('id'))->first();

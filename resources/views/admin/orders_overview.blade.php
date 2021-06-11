@@ -8,6 +8,24 @@
     <h3>Manage Orders</h3>
 </div>
 
+<<<<<<< HEAD
+<div class="boxed-link">
+    <a href="/admin/orders/incomplete">View Incomplete Orders</a>
+</div>
+
+<div class="boxed-link">
+    <a href="/admin/orders/picked">View Orders Being Picked</a>
+</div>
+
+<div class="boxed-link">
+    <a href="/admin/orders/sent">View Orders That Have Been Sent</a>
+</div>
+
+<div class="boxed-link">
+    <a href="/admin/orders/complete">View Completed Orders</a>
+</div>
+
+=======
 <div class="boxed-header">
     <h3>Incomplete Orders</h3>
 </div>
@@ -69,5 +87,6 @@ $products = $order->products()->get();
 
 @endif
 @endforeach
+>>>>>>> 0831cf0753259b73cb3ece5f6b19efa2ed4e05e9
 
 @endsection

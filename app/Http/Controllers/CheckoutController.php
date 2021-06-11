@@ -10,27 +10,57 @@ use App\Http\Requests\AddDeliveryAddress;
 use App\Models\Order;
 use App\Models\PayPalPaymentController;
 use Sesson;
+use Jenssegers\Agent\Agent;
 
 class CheckoutController extends Controller
 {
     // VIEWS
     public function AddAddressView() {
+<<<<<<< HEAD
+        $agent = new Agent;
+        $sessionId = session()->getId();
+        $cart = Cart::where('session_id', $sessionId)->get();
+
+        if($agent->isDesktop()) {
+            return view('add_address', [
+                "cart" => $cart
+            ]);
+        }
+        if($agent->isMobile()) {
+            return view('mobile_add_address', 
+            [
+                "cart" => $cart
+            ]);
+        }
+        
+=======
         $sessionId = session()->getId();
         $cart = Cart::where('session_id', $sessionId)->get();
 
         return view('add_address', [
             "cart" => $cart
         ]);
+>>>>>>> 0831cf0753259b73cb3ece5f6b19efa2ed4e05e9
     }
 
     public function CheckoutConfirmationView($id) {
+        $agent = new Agent;
         $order = Order::find($id);
         $products = $order->products()->get();
 
-        return view('checkout_confirm', [
-            'order' => $order,
-            'products' => $products
-        ]);
+        if($agent->isDesktop()) {
+            return view('checkout_confirm', [
+                'order' => $order,
+                'products' => $products
+            ]);
+        }
+        if($agent->isMobile()) {
+            return view('mobile_checkout_confirm', [
+                'order' => $order,
+                'products' => $products
+            ]);
+        }
+        
     }
 
     // FUNCTIONS
@@ -65,11 +95,18 @@ class CheckoutController extends Controller
             'phone_number' => $phone,
             'email' => $email
         ]);
+<<<<<<< HEAD
+
+        $order_number = "lop".random_int(100000, 999999);;
+
+=======
+>>>>>>> 0831cf0753259b73cb3ece5f6b19efa2ed4e05e9
 
         $order = Order::create([
-            'address_id' => $address->id,
+            'delivery_address_id' => $address->id,
             'order_status' => 1,
-            'delivery_option' => $del_option
+            'delivery_option' => $del_option,
+            "order_number" => $order_number
         ]);
 
         foreach ($cart as $item) {

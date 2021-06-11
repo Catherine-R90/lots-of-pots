@@ -15,8 +15,8 @@ class ProductRecipeLinker extends Migration
     {
         Schema::create('product_recipe_linker', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('products_id');
-            $table->foreignId('recipes_id');
+            $table->foreignId('product_id')->constrained();
+            $table->foreignId('recipe_id')->constrained();
         });
     }
 
@@ -27,14 +27,6 @@ class ProductRecipeLinker extends Migration
      */
     public function down()
     {
-        Schema::table('product_recipe_linker', function (Blueprint $table) {
-            $table->dropForeign(['products_id']);
-        });
-        
-        Schema::table('product_recipe_linker', function (Blueprint $table) {
-            $table->dropForeign(['recipes_id']);
-        });
-
-        Schema::dropIfExists('product_recipe_linker');
+        Schema::drop('product_recipe_linker');
     }
 }

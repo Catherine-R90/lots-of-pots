@@ -61,9 +61,8 @@
         <div class="form-label">
             <label>First Image</label>
             <label>Current Image</label>
-            <img src="{{ asset('storage/app/productImages/'.$image->image_one_name) }}">
+            <img src="{{ asset('storage/app/'.$image->image_one_name) }}">
 
-            <input type="text" name="image_one_name" id="image_one_name" placeholder="{{ $image->image_one_name }}">
             <input type="file" name="image_one" id="image_one" accept="image/*">
         </div>
 
@@ -72,10 +71,9 @@
             <label>Second Image</label>
             @if($image->image_two_name != null)
                 <label>Current Image</label>
-                <img src="{{ asset('storage/app/productImages/'.$image->image_two_name) }}">
+                <img src="{{ asset('storage/app/'.$image->image_two_name) }}">
             @endif
 
-            <input type="text" name="image_two_name" id="image_two_name" placeholder="{{ $image->image_two_name }}">
             <input type="file" name="image_two" id="image_two" accept="image/*">
         </div>
 
@@ -84,10 +82,9 @@
             <label>Third Image</label>
             @if($image->image_three_name != null)
                 <label>Current Image</label>
-                <img src="{{ asset('storage/app/productImages/'.$image->image_three_name) }}">
+                <img src="{{ asset('storage/app/'.$image->image_three_name) }}">
             @endif
 
-            <input type="text" name="image_three_name" id="image_three_name" placeholder="{{ $image->image_three_name }}">
             <input type="file" name="image_three" id="image_three">
 
         </div>
@@ -97,10 +94,9 @@
             <label>Fourth Image</label>
             @if($image->image_four_name != null)
                 <label>Current Image</label>
-                <img src="{{ asset('storage/app/productImages/'.$image->image_four_name) }}">
+                <img src="{{ asset('storage/app/'.$image->image_four_name) }}">
             @endif
             
-            <input type="text" name="image_four_name" id="image_four_name" placeholder="{{ $image->image_four_name }}">
             <input type="file" name="image_four" id="image_four" accept="image/*">
 
         </div>

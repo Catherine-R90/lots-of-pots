@@ -67,15 +67,17 @@
 
         <select name="product_category_id" required>
 
-            <?php foreach($categories as $category) { ?>
+            
 
-            <option value="<?php echo $category->id; ?>">
+            @foreach($categories as $category)
 
-                <?php echo $category->category; ?>
+            <option value="{{ $category->id }}">
+
+                {{ $category->category }}
 
             </option>
 
-            <?php } ?>
+            @endforeach
 
         </select>
     </div>
@@ -90,32 +92,24 @@
     <!-- FIRST IMAGE -->
     <div class="form-label">
         <label>First Image</label>
-        <input type="text" name="image_one_name" id="image_one_name" placeholder="First Image Name" required>
-
         <input type="file" name="image_one" accept="image/*" required>
     </div>
 
     <!-- SECOND IMAGE -->
     <div class="form-label">
         <label>Second Image (optional)</label>
-        <input type="text" name="image_two_name" id="image_two_name" placeholder="Second Image Name">
-
         <input type="file" accept="image/*" name="image_two">
     </div>
 
     <!-- THIRD IMAGE -->
     <div class="form-label">
         <label>Third Image (optional)</label>
-        <input type="text" name="image_three_name" id="image_three_name" placeholder="Third Image Name">
-
         <input type="file" accept="image/*" name="image_three">
     </div>
 
     <!-- FOURTH IMAGE -->
     <div class="form-label">
         <label>Fourth Image (optional)</label>
-        <input type="text" name="image_four_name" id="image_three_name" placeholder="Third Image Name">
-
         <input type="file" accept="image/*" name="image_four">
     </div>
 

@@ -15,7 +15,13 @@ class Orders extends Migration
     {
         Schema::create('orders', function (Blueprint $table){
             $table->id();
-            $table->foreignId('user_id')->constrained();
+            $table->foreignId('user_id')
+            ->nullable()
+            ->constrained();
+            $table->unsignedBigInteger('delivery_address_id');
+            $table->unsignedBigInteger('order_status');
+            $table->unsignedBigInteger('delivery_option')->nullable();
+            $table->timestamps();
         });
     }
 
@@ -26,6 +32,9 @@ class Orders extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('orders');
+        Schema::table('orders', function (Blueprint $table){
+            $table->dropForeign(['user_id']);
+        });
+        Schema::drop('orders');
     }
 }

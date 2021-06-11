@@ -8,7 +8,7 @@
 
 <div class="order-confirm">
 
-    <h3>Order Summary</h3>
+    <h3>Order Summary  For Order No. {{$order->order_number}}</h3>
 
         <div class="hr"></div>
 

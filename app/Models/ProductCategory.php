@@ -7,12 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class ProductCategory extends Model
 {
-    protected $attributes = [
-        "category" => null
+    protected $fillable = [
+        "category"
     ];
 
     public function products() {
-        return $this->hasMany('App\Models\Product', 'product_category_id');
+        return $this->hasMany('App\Models\Product', 'id');
     }
 
     public static function CategoriesNotInUse() {

@@ -1,6 +1,5 @@
 <?php 
-use App\Models\RecipeImages;
-use Illuminate\Support\Facades\DB;
+use App\Models\RecipeImage;
 ?>
 
 @extends('ui.whole_page')
@@ -39,12 +38,10 @@ if($sum < 60) {
     $hour = floor($sum/60);
     $minutes = ($sum%60);
 }
-?>
 
-     <!-- RECIPE IMAGES -->
-     <?php
-    $imageName = DB::table('recipe_images')->where('recipe_id', $recipe->id)->value('image_one_name');
-    ?>
+$imageName = RecipeImage::where('recipe_id', $recipe->id)->value('image_one_name');
+
+?>
 
     <a href="/recipes/{{ $recipe->id }}">
         <div class="small-tiles">

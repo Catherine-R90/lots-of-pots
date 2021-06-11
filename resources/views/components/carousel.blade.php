@@ -20,22 +20,22 @@
     <div class="carousel-inner">
 
         <div class="carousel-item active">
-            <img class="d-block w-100" src="{{ asset('storage/app/productImages/'.$imageOne) }}" alt="{{ $imageOne }}">
+            <img class="d-block w-100" src="{{ asset('storage/app/'.$imageOne) }}" alt="{{ $imageOne }}">
         </div>
 
         <div class="carousel-item">
-            <img class="d-block w-100" src="{{ asset('storage/app/productImages/'.$imageTwo) }}" alt="{{ $imageTwo }}">
+            <img class="d-block w-100" src="{{ asset('storage/app/'.$imageTwo) }}" alt="{{ $imageTwo }}">
         </div>
 
         @if($imageThree != null)
         <div class="carousel-item">
-            <img class="d-block w-100" src="{{ asset('storage/app/productImages/'.$imageThree) }}" alt="{{ $imageThree }}">
+            <img class="d-block w-100" src="{{ asset('storage/app/'.$imageThree) }}" alt="{{ $imageThree }}">
         </div>
         @endif
 
         @if($imageFour != null)
         <div class="carousel-item">
-            <img class="d-block w-100"   src="{{ asset('storage/app/productImages/'.$imageFour) }}" alt="{{ $imageFour }}">
+            <img class="d-block w-100"   src="{{ asset('storage/app/'.$imageFour) }}" alt="{{ $imageFour }}">
         </div>
         @endif
 

@@ -18,7 +18,9 @@ class Recipes extends Migration
             $table->string('name');
             $table->integer('prep_time');
             $table->integer('cook_time');
-            $table->string('instructions');
+            $table->string('instructions', 2000);
+            $table->string('description', 2000);
+            $table->timestamps();
         });
     }
 

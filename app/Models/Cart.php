@@ -9,10 +9,11 @@ class Cart extends Model
 {
     protected $fillable = [
         "product_id",
-        "product_image",
+        "product_image_id",
         "price",
         "quantity",
-        "session_id"
+        "session_id",
+        "delivery_option"
     ];
 
     public function products() {

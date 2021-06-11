@@ -7,22 +7,33 @@ use Illuminate\Support\Facades\DB;
 use App\Models\Recipe;
 use App\Models\RecipeCategory;
 use App\Models\RecipeImage;
+use Jenssegers\Agent\Agent;
 
 class RecipeCategoryController extends Controller
 {
     // VIEWS
     public function RecipeCategoryView($id) {
+        $agent = new Agent;
         $allCategories = RecipeCategory::all();
         $category = RecipeCategory::find($id);
-        $recipes = DB::table('recipes')->where('recipe_category', $id)->get();
+        $recipes = Recipe::where('recipe_category', $id)->get();
         $imageNames = RecipeImage::all();
 
-        return view('/recipes/recipe_category', [
-            "allCategories" => $allCategories,
-            "category" => $category,
-            "recipes" => $recipes,
-            "imageNames" => $imageNames,
-        ]);
+        if($agent->isDesktop()) {
+            return view('/recipes/recipe_category', [
+                "allCategories" => $allCategories,
+                "category" => $category,
+                "recipes" => $recipes,
+                "imageNames" => $imageNames,
+            ]);
+        }
+        if($agent->isMobile()) {
+            return view('/recipes/mobile_recipe_category', [
+                "category" => $category,
+                "recipes" => $recipes,
+                "imageNames" => $imageNames,
+            ]);
+        }
     }
 
     // ADMIN RECIPE CATEGORY CONTROLS

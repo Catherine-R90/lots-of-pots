@@ -19,6 +19,10 @@ class DeliveryAddress extends Model
     ];
 
     public function orders() {
+<<<<<<< HEAD
+        return $this->hasMany('App\Models\Order');
+=======
         return $this->belongsTo('App\Models\Order');
+>>>>>>> 0831cf0753259b73cb3ece5f6b19efa2ed4e05e9
     }
 }
