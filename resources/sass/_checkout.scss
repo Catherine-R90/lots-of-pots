@@ -3,9 +3,9 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border: .1rem solid #000000;
-    padding: .5rem;
-    margin: .5rem;
+    border: 1.6px solid #000000;
+    padding: 8px;
+    margin: 9px;
     min-width: 80%;
 
     h3 {
@@ -18,18 +18,18 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        padding: .2rem;
+        padding: 3.2px;
     }
    
 }
 
 .confirm input[type=submit] {
     background-color: #858282;
-    border: .1rem solid #000000;
-    border-radius: .1rem;
+    border: 1.6px solid #000000;
+    border-radius: 1.6px;
     font-size: x-large;
     font-weight: bold;
     font-family: inherit;
-    padding: .5rem;
+    padding: 8px;
     color: #e7e2e2;
 }

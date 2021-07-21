@@ -3,10 +3,10 @@
     display: flex;
     flex-direction: column;
     align-items: center;
-    margin: .5rem;
+    margin: 8px;
 
     textarea {
-        height: 9rem;
+        height: 144px;
         width: 80%;
     }
 
@@ -14,13 +14,13 @@
         display: flex;
         flex-direction: column;
         align-items: center;
-        margin: .5rem;
-        padding: 0.25rem; 
+        margin: 8px;
+        padding: 4px; 
         font-weight: bold;
     }
 
     img {
-        width: 10rem;
+        width: 160px;
     }
     
 }
@@ -36,11 +36,11 @@
         input[type=submit] {
             color: #ffffff;
             font-weight: bold;
-            padding: .5rem;
-            border: .1rem solid #000000;
+            padding: 8px;
+            border: 1.6px solid #000000;
             background-color: #858282;
             text-align: center;
-            border-radius: .2rem;
+            border-radius: 3.2px;
             width:min-content;
         }
     
@@ -54,12 +54,12 @@
         input[type=submit] {
             color: #ffffff;
             font-weight: bold;
-            padding: .5rem;
-            border: .1rem solid #000000;
+            padding: 8px;
+            border: 1.6px solid #000000;
             background-color: #858282;
             text-align: center;
-            border-radius: .2rem;
-            width: 20rem;
+            border-radius: 3.2px;
+            width: 320px;
         }
     
         input[type=submit]:hover {
