@@ -7,12 +7,12 @@
     <div class="recipe-left">
 
             @foreach($images as $image)
-                <img class="recipe-image" src="{{ asset('storage/app/recipeImages/'.$image->image_one_name) }}">
+                <img class="recipe-image" src="{{ asset('storage/app/'.$image->image_one_name) }}">
             @endforeach
 
         @if($products != null)
 
-        <div class="border-title">
+        <div style="margin: 5px 0 5px 0" class="border-title">
             <p>Products featured in this recipe</p>
         </div>
 
@@ -74,8 +74,8 @@
         <h3>Tell us what you think!</h3>
     </div>
 
-    <x-add_comment :agent="$agent" :id="$recipe->id" />
+    <x-add_comment :agent="$agent" :id="$recipe->id" :user=$user/>
 
-    <x-comment_section :agent="$agent" :comments="$comments" :userSession="$userSession" />
+    <x-comment_section :agent="$agent" :comments="$comments" :userSession="$userSession" :user=$user/>
 
 @endsection

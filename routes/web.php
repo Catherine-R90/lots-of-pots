@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -49,20 +50,20 @@ Route::get('/recipes/{id}/{portion?}', [App\Http\Controllers\RecipeController::C
 Route::get('/recipe-category/{id}', [App\Http\Controllers\RecipeCategoryController::Class, 'RecipeCategoryView']);
 
 // LOGIN VIEW
-Route::get('/login', [App\Http\Controllers\UserController::Class, 'LoginView']);
+Route::get('/login', [App\Http\Controllers\UserController::Class, 'UserLoginView']);
 
+// REGISTER VIEW
+Route::get('/register', [App\Http\Controllers\UserController::Class, 'UserRegisterView']);
+
+// EDIT USER DETAILS
+Route::get('/users/details/{id}', [App\Http\Controllers\UserController::class, 'UserDetailsView']);
+
+// FORGOTTEN PASSWORD
+Route::get('/password-reset', [App\Http\Controllers\UserController::class, 'ForgottenPasswordView']);
+
+Route::get('/account/password/reset', [App\Http\Controllers\UserController::class, 'PasswordResetView']);
 
 // CUSTOMER ACCOUNT
-// CUSTOMER ACCOUNT OVERVIEW VIEW
-Route::get('/account/{id}', [App\Http\Controllers\UserController::Class, 'CustomerAccountOverviewView']);
-
-// CUSTOMER ACCOUNT DETAILS VIEW
-Route::get('/account/{id}/details', [App\Http\Controllers\UserController::Class, 'CustomerAccountDetailsView']);
-
-// CUSTOMER ORDER VIEW
-Route::get('/orders/{customer_id}/{order_id}', [App\Http\Controllers\OrderController::Class, 'CustomerOrderView']);
-
-
 // CART VIEW
 Route::get('/cart', [App\Http\Controllers\CartController::Class, 'CartView']);
 
@@ -77,16 +78,27 @@ Route::get('/cancel-payment', [App\Http\Controllers\PayPalPaymentController::cla
 // CHECKOUT CONFIRMATION VIEW
 Route::get('/checkout/confirmation/{id}', [App\Http\Controllers\CheckoutController::Class, 'CheckoutConfirmationView']);
 
-// SEARCH RESULTS VIEW
-Route::get('/search/{search}', [App\Http\Controllers\SearchController::Class, 'SearchResultView']);
-
-
 // ADMIN VIEWS
+// ADMIN LOGIN REDIRECT
+Route::get('/admin', [App\Http\Controllers\UserController::Class, 'AdminLoginView']);
+
+// ADMIN REGISTER
+Route::get('/admin/register', [App\Http\Controllers\UserController::Class, 'AdminRegisterView']);
+
 // ADMIN ACCOUNT OVERVIEW VIEW
-Route::get('/admin/overview', [App\Http\Controllers\UserController::Class, 'AdminAccountOverviewView']);
+Route::get('/admin/overview', [App\Http\Controllers\PageController::Class, 'AdminOverviewView']);
 
 // ADMIN ACCOUNT DETAILS VIEW
 Route::get('/account/admin/{id}/details', [App\Http\Controllers\UserController::Class, 'AdminAccountDetailsView']);
+
+// USERS
+Route::get('/admin/users', [App\Http\Controllers\UserController::class, 'AdminManageUserView']);
+
+Route::get('/admin/users/activated', [App\Http\Controllers\UserController::class, 'AdminActivatedUsersView']);
+
+Route::get('/admin/users/none-activated', [App\Http\Controllers\UserController::class, 'AdminNoneActivatedUsersView']);
+
+Route::get('/admin/users/edit/{id}', [App\Http\Controllers\UserController::class, 'AdminEditUserView']);
 
 // PRODUCTS
 // ADMIN ACCOUNT PRODUCTS OVERVIEW
@@ -143,7 +155,6 @@ Route::get('/admin/recipes/categories/edit', [App\Http\Controllers\RecipeCategor
 // ORDERS
 // ORDERS OVERVIEW
 Route::get('/admin/orders/overview', [App\Http\Controllers\OrderController::Class, 'AdminOrderOverviewView']);
-<<<<<<< HEAD
 
 // INCOMPLETE ORDERS VIEW
 Route::get('/admin/orders/incomplete', [App\Http\Controllers\OrderController::Class, 'AdminIncompleteOrdersView']);
@@ -156,8 +167,6 @@ Route::get('/admin/orders/sent', [App\Http\Controllers\OrderController::Class, '
 
 // COMPLETED ORDERS VIEW
 Route::get('/admin/orders/complete', [App\Http\Controllers\OrderController::Class, 'AdminCompleteOrdersView']);
-=======
->>>>>>> 0831cf0753259b73cb3ece5f6b19efa2ed4e05e9
 
 // ORDER VIEW
 Route::get('/admin/orders/{id}', [App\Http\Controllers\OrderController::Class, 'AdminOrderView']);
@@ -165,16 +174,15 @@ Route::get('/admin/orders/{id}', [App\Http\Controllers\OrderController::Class, '
 
 // POST
 // USERS
-Route::post('/login/{id}', [App\Http\Controllers\UserController::Class, 'Login']);
+Route::post('/logout', [App\Http\Controllers\UserController::Class, 'Logout']);
 
-Route::post('/logout/{id}', [App\Http\Controllers\UserController::Class, 'Logout']);
-
-Route::post('/account/{id}/edit-details', [App\Http\Controllers\UserController::Class, 'EditPersonalDetails']);
-
-Route::post('/account/{id}/edit-address', [App\Http\Controllers\UserController::Class, 'EditDeliveryAddress']);
-
+// RESET PASSWORD
+Route::post('/password/reset', [App\Http\Controllers\UserController::class, 'ResetPassword']);
 
 // CUSTOMER
+// REGISTER 
+Route::post('/register', [App\Http\Controllers\UserController::class, 'RegisterUser']);
+
 // CART
 Route::post('/cart/product/add/{id}', [App\Http\Controllers\CartController::class, 'AddToCart']);
 
@@ -206,7 +214,23 @@ Route::post('/comment/edit/{id}', [App\Http\Controllers\CommentsController::clas
 // DELETE COMMENT
 Route::post('/comment/delete/{id}', [App\Http\Controllers\CommentsController::class, 'DeleteComment']);
 
+// PASSWORD RESET EMAIL
+Route::post('/account/reset', [App\Http\Controllers\UserController::class, 'PasswordResetEmail']);
+
 // ADMIN
+// REGISTER
+Route::post('/admin/register', [App\Http\Controllers\UserController::class, 'RegisterAdmin']);
+
+// LOGIN
+Route::post('/login', [App\Http\Controllers\UserController::class, 'Login']);
+
+// STAFF ACCOUNTS
+Route::post('/admin/users/activate/{id}', [App\Http\Controllers\UserController::class, 'ActivateUser']);
+
+Route::post('/admin/users/delete/{id}', [App\Http\Controllers\UserController::class, 'DeleteUser']);
+
+Route::post('/admin/users/update/{id}', [App\Http\Controllers\UserController::class, 'AdminEditUser']);
+
 // PRODUCTS
 // ADD PRODUCT
 Route::post('/products/add', [App\Http\Controllers\ProductController::class, 'AdminAddProduct']);
@@ -267,16 +291,9 @@ Route::post('/recipes/category/delete', [App\Http\Controllers\RecipeCategoryCont
 
 // ORDERS
 // CHANGE ORDER STATUS
-<<<<<<< HEAD
 Route::post('/orders/flag/{id}', [App\Http\Controllers\OrderController::class, 'FlagOrderStatus']);
 
 // DELETE ORDER
 Route::post('/admin/delete-order/{id}', [App\Http\Controllers\OrderController::class, 'DeleteOrder']);
-=======
-Route::post('/orders/flag', [App\Http\Controllers\OrderController::class, 'FlagOrderStatus']);
-
-// DELETE ORDER
-Route::post('/admin/delete-order', [App\Http\Controllers\OrderController::class, 'DeleteOrder']);
->>>>>>> 0831cf0753259b73cb3ece5f6b19efa2ed4e05e9
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

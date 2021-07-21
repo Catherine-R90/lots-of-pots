@@ -28,7 +28,7 @@ use App\Models\RecipeImage;
 <?php $imageName = RecipeImage::where('recipe_id', $recipe->id)->value('image_one_name'); ?>
 <div class="mobile-home-recipes">
     <a href="/recipes/{{ $recipe->id }}">
-        <img src="{{asset('storage/app/recipeImages/'.$imageName) }}">
+        <img src="{{asset('storage/app/'.$imageName) }}">
         <p>{{ $recipe->name }}</p>
     </a>
 </div>

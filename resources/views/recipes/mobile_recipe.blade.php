@@ -9,7 +9,7 @@
 <div class="mobile-recipe">
 
     @foreach($images as $image)
-        <img class="recipe-image" src="{{ asset('storage/app/recipeImages/'.$image->image_one_name) }}">
+        <img class="recipe-image" src="{{ asset('storage/app/'.$image->image_one_name) }}">
     @endforeach
 
     <div class="mobile-recipe-time">
@@ -64,9 +64,9 @@
 
     <h3>Tell us what you think!</h3>
 
-    <x-add_comment :agent="$agent" :id="$recipe->id" />
+    <x-add_comment :agent="$agent" :id="$recipe->id" :user=$user />
 
-    <x-comment_section :agent="$agent" :comments="$comments" :userSession="$userSession" />
+    <x-comment_section :agent="$agent" :comments="$comments" :userSession="$userSession" :user="$user" />
     
 </div>
 

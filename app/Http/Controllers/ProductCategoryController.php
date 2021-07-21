@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\DB;
 use App\Models\ProductCategory;
 use App\Models\Product;
 use Jenssegers\Agent\Agent;
+use Cartalyst\Sentinel\Native\Facades\Sentinel;
 
 class ProductCategoryController extends Controller
 {
@@ -37,10 +38,19 @@ class ProductCategoryController extends Controller
         $allCategories = ProductCategory::all();
         $categoriesNotInUse = ProductCategory::CategoriesNotInUse();
 
-        return view('/admin/edit_product_categories',  [
-            "allCategories" => $allCategories,
-            "categoriesNotInUse" => $categoriesNotInUse
-        ]);
+        if($user = Sentinel::check()) {
+            if(Sentinel::inRole('admin')) {
+                return view('/admin/products/edit_product_categories',  [
+                    "allCategories" => $allCategories,
+                    "categoriesNotInUse" => $categoriesNotInUse
+                ]);
+            }
+            elseif(Sentinel::inRole('user')) {
+                return redirect()->to('/');
+            }
+        } else {
+            return view('users.admin_login');
+        }
     }
 
     // FUNCTIONS

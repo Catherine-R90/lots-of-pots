@@ -17,6 +17,7 @@ use App\Http\Requests\AddRecipe;
 use App\Http\Requests\EditRecipe;
 use App\Http\Controllers\IngredientsController;
 use Jenssegers\Agent\Agent;
+use Cartalyst\Sentinel\Native\Facades\Sentinel;
 
 class RecipeController extends Controller
 {
@@ -25,9 +26,7 @@ class RecipeController extends Controller
     public function RecipeView($id, $portion = null) {
         $agent = new Agent;
         $recipe = Recipe::find($id);
-        $images = RecipeImage::
-                            where('recipe_id', $id)
-                            ->get();
+        $images = RecipeImage::where('recipe_id', $id)->get();
         $products = $recipe->products()->get();
         if (count($products) > 0) {
             $productImages = ProductImage::all();
@@ -48,7 +47,13 @@ class RecipeController extends Controller
 
         $comments = Comment::where("recipe_id", $recipe->id)->get();
 
-        $userSession = session()->getId();
+        if ($user = Sentinel::check()) {
+            $user = $user;
+            $userSession = null;
+        } else {
+            $userSession = session()->getId();
+            $user = null;
+        }
 
         if($agent->isDesktop()) {
             return view('/recipes/recipe', [
@@ -61,7 +66,8 @@ class RecipeController extends Controller
                 "portion" => $portion,
                 "comments" => $comments,
                 "userSession" => $userSession,
-                "agent" => $agent
+                "agent" => $agent,
+                "user" => $user
             ]);
         }
 
@@ -76,7 +82,8 @@ class RecipeController extends Controller
                 "portion" => $portion,
                 "comments" => $comments,
                 "userSession" => $userSession,
-                "agent" => $agent
+                "agent" => $agent,
+                "user" => $user
             ]);
         }
 
@@ -84,16 +91,35 @@ class RecipeController extends Controller
 
     // ADMIN RECIPE VIEW
     public function AdminRecipeOverviewView() {
-        return view('/admin/recipe_manage_overview');
+        if($user = Sentinel::check()) {
+            if(Sentinel::inRole('admin')) {
+                return view('/admin/recipes/recipe_manage_overview');
+            }
+            elseif(Sentinel::inRole('user')) {
+                return redirect()->to('/');
+            }
+        } else {
+            return view('users.admin_login');
+        }
     }
 
     public function AdminAddRecipeView() {
         $categories = RecipeCategory::all();
         $products = Product::all();
-        return view('/admin/add_recipe',[
-            "categories" => $categories,
-            "products" => $products
-        ]);
+
+        if($user = Sentinel::check()) {
+            if(Sentinel::inRole('admin')) {
+                return view('/admin/add_recipe',[
+                    "categories" => $categories,
+                    "products" => $products
+                ]);
+            }
+            elseif(Sentinel::inRole('user')) {
+                return redirect()->to('/');
+            }
+        } else {
+            return view('users.admin_login');
+        }
     }
 
     // ADD RECIPE PRODUCTS VIEW
@@ -101,28 +127,57 @@ class RecipeController extends Controller
         $recipe = Recipe::find($id);
         $products = Product::all();
 
-        return view('admin/add_recipe_product', [
-            "recipe" => $recipe,
-            "products" => $products
-        ]);
+        if($user = Sentinel::check()) {
+            if(Sentinel::inRole('admin')) {
+                return view('admin/recipes/add_recipe_product', [
+                    "recipe" => $recipe,
+                    "products" => $products
+                ]);
+            }
+            elseif(Sentinel::inRole('user')) {
+                return redirect()->to('/');
+            }
+        } else {
+            return view('users.admin_login');
+        }
     }
 
     // DELETE RECIPE VIEW
     public function AdminDeleteRecipeView() {
         $recipes = Recipe::all();
 
-        return view('/admin/delete_recipe',[
-        "recipes" => $recipes,
-        ]);
+        if($user = Sentinel::check()) {
+            if(Sentinel::inRole('admin')) {
+                return view('/admin/recipes/delete_recipe',[
+                    "recipes" => $recipes,
+                    ]);
+            }
+            elseif(Sentinel::inRole('user')) {
+                return redirect()->to('/');
+            }
+        } else {
+            return view('users.admin_login');
+        }
     }
 
     // SELECT RECIPE TO EDIT VIEW
     public function AdminSelectRecipeEditView() {
         $recipes = Recipe::all();
+        $categories = RecipeCategory::all();
 
-        return view('/admin/select_recipe_edit', [
-            "recipes" => $recipes,
-        ]);
+        if($user = Sentinel::check()) {
+            if(Sentinel::inRole('admin')) {
+                return view('/admin/recipes/select_recipe_edit', [
+                    "recipes" => $recipes,
+                    "categories" => $categories
+                ]);
+            }
+            elseif(Sentinel::inRole('user')) {
+                return redirect()->to('/');
+            }
+        } else {
+            return view('users.admin_login');
+        }
     }
 
     // EDIT RECIPE VIEW
@@ -131,11 +186,20 @@ class RecipeController extends Controller
         $categories = RecipeCategory::all();
         $products = Product::all();
 
-        return view('/admin/edit_recipe', [
-            "recipe" => $recipe,
-            "categories" => $categories,
-            "products" => $products
-        ]);
+        if($user = Sentinel::check()) {
+            if(Sentinel::inRole('admin')) {
+                return view('/admin/recipes/edit_recipe', [
+                    "recipe" => $recipe,
+                    "categories" => $categories,
+                    "products" => $products
+                ]);
+            }
+            elseif(Sentinel::inRole('user')) {
+                return redirect()->to('/');
+            }
+        } else {
+            return view('users.admin_login');
+        }
     }
 
     // EDIT RECIPE PRODUCTS
@@ -143,10 +207,19 @@ class RecipeController extends Controller
         $recipe = Recipe::find($id);
         $products = Product::all();
 
-        return view('/admin/edit_recipe_product', [
-            "recipe" => $recipe,
-            "products" => $products
-        ]);
+        if($user = Sentinel::check()) {
+            if(Sentinel::inRole('admin')) {
+                return view('/admin/recipes/edit_recipe_product', [
+                    "recipe" => $recipe,
+                    "products" => $products
+                ]);
+            }
+            elseif(Sentinel::inRole('user')) {
+                return redirect()->to('/');
+            }
+        } else {
+            return view('users.admin_login');
+        }
     } 
 
 
@@ -167,9 +240,7 @@ class RecipeController extends Controller
     public function AdminAddRecipe(AddRecipe $request) {
         
         // IMAGES
-        $imageName = $request->input('image_name');
-
-        $request->file('image_one')->storeAs('recipeImages', $imageName);
+        $imageName = $request->file('image_one')->store('recipeImages');
 
         // CREATE RECIPE
         $recipe = Recipe::create([
@@ -185,7 +256,7 @@ class RecipeController extends Controller
     
         // CREATE RECIPE IMAGE
         RecipeImage::create([
-            'image_one_name' => $request->input('image_name'),
+            'image_one_name' => $imageName,
             'recipe_id' => $recipeId
         ]);
 
@@ -260,8 +331,9 @@ class RecipeController extends Controller
             ]);
 
         // UPDATE IMAGES
-        if ($request->input('image_one_name')!= null) {
-            $imageOneName = $request->input('image_one_name');
+        // SAVE IMAGES
+        if ($request->file('image_one') != null) {
+            $imageOneName = $request->file('image_one')->store('recipeImages');
         } else {
             $imageOneName = $image->image_one_name;
         }
@@ -270,13 +342,10 @@ class RecipeController extends Controller
             ['recipe_id' => $recipeId],
             ['image_one_name' => $imageOneName]
         );
-        // SAVE IMAGES
-        if ($request->file('image_one') != null) {
-            $request->file('image_one')->storeAs('recipeImages', $imageOneName);
-        }
 
         return redirect()->action(
-            [RecipeController::class, 'AdminEditRecipeProductView'], ['id' => $recipeId]);
+            [RecipeController::class, 'AdminEditRecipeProductView'], 
+            ['id' => $recipeId]);
     }
 
     // EDIT PRODUCTS FOR RECIPE

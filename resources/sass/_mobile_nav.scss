@@ -9,12 +9,12 @@ nav {
         align-items: center;
 
         #mobile_logo img {
-            height: 150px;
-            width: 150px;
+            height: 200px;
+            width: 200px;
             padding: 10px;
         }
 
-        .mobile_icon-text {
+        .mobile-icon-text {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -43,13 +43,9 @@ nav {
         height: 35px;
         width: 35px;
     }
-
-    .mobile_item:not(.button) a:hover, .mobile_item a:hover::after {
-        text-decoration: underline;
-    }
 }
 
-// MOBILE NAV
+// MOBILE DROPDOWN
 .mobile_menu {
     display: flex;
     flex-wrap: wrap;
@@ -57,6 +53,11 @@ nav {
     justify-content: space-between;
     align-items: center;
     width: 100%;
+
+    .sub-mobile-icon-text {
+        margin: 0;
+        padding: 0;
+    }
 
     li a {
         text-decoration: none;
@@ -67,19 +68,6 @@ nav {
     li.mobile_subitem a {
         text-decoration: none;
         padding: 5px;
-    }
-
-    .mobile-icon-text {
-        display: flex;
-        flex-direction: row;
-        justify-content: center;
-        align-items: center;
-        font-size: 50px;
-        
-        i {
-            margin-right: 5px;
-            font-size: 40px;
-        }
     }
 }
 
@@ -131,7 +119,6 @@ nav {
     font-weight: 900;
     content: "\f078";
     color: #000000;
-    // padding-left: 5px;
 }
 
 .mobile_subitem a {

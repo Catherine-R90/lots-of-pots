@@ -31,7 +31,6 @@ class AddRecipe extends FormRequest
             'recipe_category' => 'required',
             'description' => 'required',
             'num_of_ingredients' => 'required|numeric',
-            'image_name' => 'required|unique:App\Models\RecipeImage,image_one_name',
             'image_one' => 'required',
         ];
     }

@@ -71,7 +71,7 @@ use App\Models\Cart;
 
     <div class="small-tiles">
         <a href="/recipes/{{ $recipe->id }}">
-            <img src=" {{asset('storage/app/recipeImages/'.$imageName) }}" alt="{{ $imageName }}">
+            <img src=" {{asset('storage/app/'.$imageName) }}" alt="{{ $imageName }}">
             {{ $recipe->name }}
         </a>
     </div>

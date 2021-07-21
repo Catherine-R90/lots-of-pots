@@ -3,7 +3,12 @@ use App\Models\ProductCategory;
 use App\Models\RecipeCategory;
 use App\Models\Cart;
 use Jenssegers\Agent\Agent;
+use Cartalyst\Sentinel\Native\Facades\Sentinel;
+
 $agent = new Agent();
+if($user = Sentinel::check()) {
+    $user = $user;
+}
 ?>
 
 <html>
@@ -19,9 +24,11 @@ $agent = new Agent();
 
 <body>
 
-<?php $cartItems = Cart::where('session_id', session()->getId())->get(); ?>
-<?php $categories = ProductCategory::all(); ?>
-<?php $recipeCategories = RecipeCategory::all(); ?>
+<?php 
+$cartItems = Cart::where('session_id', session()->getId())->get(); 
+$categories = ProductCategory::all(); 
+$recipeCategories = RecipeCategory::all(); 
+?>
 
 @if($agent->isDesktop() == true)
 
@@ -116,13 +123,45 @@ $agent = new Agent();
             </div>
         </a>
         @endif
+
+        @if($user = Sentinel::check())
+
+            
+
+            <div class="dropdown">
+
+                <div class="drop-button">
+                    Hello {{ $user->first_name }}
+                </div>
+
+                <div class="dropdown-content">
+
+                    <div class="dropdown-link">
+                        <form method="POST" action="/logout">
+                            @csrf
+                            <input type="submit" value="Logout">
+                        </form>
+                    </div>
+
+                    <div class="dropdown-link">
+                        <a href="/users/details/{{ $user->id }}">View Account</a>
+                    </div>
+
+                </div>
+
+            </div>
+            
+        @endif
+
 </nav>
 
     <hr>
+            
+
 
 @else
 
-<x-mobile_nav :cartItems="$cartItems" :categories="$categories" :recipeCategories="$recipeCategories"/>
+<x-mobile_nav :cartItems="$cartItems" :categories="$categories" :recipeCategories="$recipeCategories" :user="$user" />
 
 @endif
     
@@ -133,13 +172,13 @@ $agent = new Agent();
 
 </body>
 
-<hr>
+
 
 <!-- FOOTER -->
 @if($agent->isDesktop())
 <footer>
 
-    
+    <hr>
 
     <!-- SOCIAL MEDIA LINKS -->
     <div class="footer-icon-group">

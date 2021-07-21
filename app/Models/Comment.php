@@ -15,6 +15,10 @@ class Comment extends Model
         "user_session"
     ];
 
+    public function user() {
+        return $this->hasOne('App\Models\User');
+    }
+    
     public function comment_image() {
         return $this->hasOne('App\Models\CommentImage');
     }

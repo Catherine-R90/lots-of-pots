@@ -36,9 +36,9 @@ $imageName = RecipeImage::where('recipe_id', $recipe->id)->value('image_one_name
 
             <a href="/recipes/{{ $recipe->id }}">
 
-                <img src="{{asset('storage/app/recipeImages/'.$imageName) }}">
+                <img src="{{asset('storage/app/'.$imageName) }}">
                 
-                <h3>{{$recipe->name}}</h3>
+                <h3><b>{{$recipe->name}}</b></h3>
                 
                 @if($sum < 60)
                     <p>Cooking time - {{ $cooking_time }} minutes</p>

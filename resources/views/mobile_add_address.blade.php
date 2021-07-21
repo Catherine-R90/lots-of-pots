@@ -66,11 +66,6 @@ use App\Models\Product;
             <input type="email" id="email" name="email">
         </div>
 
-
-
-
-
-
         <h3>Order Summary</h3>
         @foreach($cart as $item)
         <?php $products = Product::where('id', $item->product_id)->get(); 
@@ -102,6 +97,8 @@ use App\Models\Product;
         <p>Postage</p>
         <b>£{{ number_format($del_option, $decimals = 2, $decimal_seperator = ".", $thousand_seperator = ",") }}</b>
 
+            <br>
+            
         <?php 
         $total = array_sum($sum) + $del_option; ?>
 

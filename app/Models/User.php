@@ -17,22 +17,21 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name',
+        'first_name',
+        'last_name',
         'email',
         'password',
-        'role',
+        'permissions',
+        'created_at',
+        'updated_at',
     ];
-
-    public static function CustomerRole() {
-        return self::where('role', 0)->get();
-    }
-
-    public static function AdminRole() {
-        return self::where('role', 1)->get();
-    }
 
     public function comment() {
         return $this->hasMany('App\Models\Comment', 'comment_id');
+    }
+
+    public function role() {
+        return $this->hasOne('App\Models\Role');
     }
 
     /**

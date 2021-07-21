@@ -11,12 +11,13 @@ use App\Models\Order;
 use App\Models\PayPalPaymentController;
 use Sesson;
 use Jenssegers\Agent\Agent;
+use Illuminate\Support\Facades\Mail;
+use App\Mail\OrderConfirm;
 
 class CheckoutController extends Controller
 {
     // VIEWS
     public function AddAddressView() {
-<<<<<<< HEAD
         $agent = new Agent;
         $sessionId = session()->getId();
         $cart = Cart::where('session_id', $sessionId)->get();
@@ -33,20 +34,15 @@ class CheckoutController extends Controller
             ]);
         }
         
-=======
-        $sessionId = session()->getId();
-        $cart = Cart::where('session_id', $sessionId)->get();
-
-        return view('add_address', [
-            "cart" => $cart
-        ]);
->>>>>>> 0831cf0753259b73cb3ece5f6b19efa2ed4e05e9
     }
 
     public function CheckoutConfirmationView($id) {
         $agent = new Agent;
         $order = Order::find($id);
         $products = $order->products()->get();
+        $deliveryAddress = DeliveryAddress::where('id', $order->delivery_address_id)->first();
+
+        Mail::to($deliveryAddress->email)->send(new OrderConfirm($order, $deliveryAddress));
 
         if($agent->isDesktop()) {
             return view('checkout_confirm', [
@@ -95,12 +91,16 @@ class CheckoutController extends Controller
             'phone_number' => $phone,
             'email' => $email
         ]);
-<<<<<<< HEAD
 
-        $order_number = "lop".random_int(100000, 999999);;
+        $order_number = "lop".random_int(100000, 999999);
 
-=======
->>>>>>> 0831cf0753259b73cb3ece5f6b19efa2ed4e05e9
+        $existing_nums = Order::all();
+        
+        foreach($existing_nums as $existing) {
+            if($existing->order_number == $order_number) {
+                $order_number = "lop".random_int(100000, 999999);
+            }
+        }
 
         $order = Order::create([
             'delivery_address_id' => $address->id,

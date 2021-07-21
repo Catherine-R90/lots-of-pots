@@ -25,10 +25,6 @@ class Order extends Model
     }
 
     public function address() {
-<<<<<<< HEAD
         return $this->belongsTo('App\Models\DeliveryAddress', 'delivery_address_id');
-=======
-        return $this->belongsTo('App\Models\DeliveryAddress');
->>>>>>> 0831cf0753259b73cb3ece5f6b19efa2ed4e05e9
     }
 }

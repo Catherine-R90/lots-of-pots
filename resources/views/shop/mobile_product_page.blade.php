@@ -18,7 +18,7 @@
 
     <p class="mobile-price">£{{$product->price}}</p>
 
-    <form name="add_to_cart" method="POST" action="/cart/product/add/{{ $product->id }}">
+    <form class="mobile-form" name="add_to_cart" method="POST" action="/cart/product/add/{{ $product->id }}">
         @csrf
 
             @if($product->stock > 0)

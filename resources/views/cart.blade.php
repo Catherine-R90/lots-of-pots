@@ -12,8 +12,8 @@ use App\Models\Cart;
 
 @if(count($cartItems) == 0)
 
-    <div class="boxed-header">
-        <h3>Your cart is empty</h3>
+    <div class="alert">
+        <h1>Your cart is empty</h1>
     </div>
 
 @else
@@ -51,7 +51,7 @@ use App\Models\Cart;
                             
                             <div class="form-label">
                                 <label>Quantity</label>
-                                <input type="number" name="quantity">
+                                <input type="number" name="quantity" value="{{ $item->quantity }}" min=0 max={{ $product->stock }}>
                 
                                 <div class="grey-link">
                                     <input type="submit" value="Update Cart">
@@ -169,14 +169,16 @@ use App\Models\Cart;
                     <?php
                     $name = Product::where('id', $item->product_id)->value('name');
                     ?>
-                        <p>{{$name}} x {{$item->quantity}}</p>
-                        <b>£{{$item->price * $item->quantity}}</b>
+                        <p>{{$name}} x {{$item->quantity}}: </p>
+                        <b> £{{$item->price * $item->quantity}}</b>
                 @endforeach
+            
+            </div>
 
+            <div class="total">
                 <h3>Subtotal<h3>
                 <h3>£{{ number_format($total, $decimals = 2, $decimal_seperator = ".", $thousand_seperator = ",") }}</h3>
             </div>
-
             <div class="hr"></div>
 
             @if($item->delivery_option != null)

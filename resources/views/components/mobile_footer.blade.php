@@ -2,6 +2,8 @@
 
     <footer>
 
+        <hr>
+
     <div class="mobile-footer-icon-group">
 
         <a href="/https://www.facebook.com/">
