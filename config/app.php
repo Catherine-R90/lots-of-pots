@@ -175,6 +175,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         Jenssegers\Agent\AgentServiceProvider::class,
+        Cartalyst\Sentinel\Laravel\SentinelServiceProvider::class,
     ],
 
     /*
@@ -227,11 +228,10 @@ return [
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
         'PayPal' => Srmklive\Paypal\Facades\PayPal::class,
-<<<<<<< HEAD
         'Agent' => Jenssegers\Agent\Facades\Agent::class,
-=======
-
->>>>>>> 0831cf0753259b73cb3ece5f6b19efa2ed4e05e9
+        'Activation' => Cartalyst\Sentinel\Laravel\Facades\Activation::class,
+        'Reminder'   => Cartalyst\Sentinel\Laravel\Facades\Reminder::class,
+        'Sentinel'   => Cartalyst\Sentinel\Laravel\Facades\Sentinel::class,
     ],
 
 ];

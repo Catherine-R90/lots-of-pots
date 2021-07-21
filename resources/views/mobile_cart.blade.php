@@ -179,10 +179,14 @@ use App\Models\Cart;
                 <b>£{{$item->price * $item->quantity}}</b>
             @endforeach
 
+                <hr>
+
             <h3>Subtotal</h3>
 
             <p>£{{ number_format($total, $decimals = 2, $decimal_seperator = ".", $thousand_seperator = ",") }}</p>
 
+                <hr>
+                    
             @if($total < 50 && $del_option == 0)
                 <b>You no longer qualify for free shipping. Either choose a new delivery option or increase your order to £50 to recieve free shipping.</b>            
             @else

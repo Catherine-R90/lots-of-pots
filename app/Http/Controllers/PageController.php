@@ -9,6 +9,7 @@ use App\Models\Recipe;
 use App\Models\Product;
 use App\Models\ProductImage;
 use Jenssegers\Agent\Agent;
+use Cartalyst\Sentinel\Native\Facades\Sentinel;
 class PageController extends Controller
 {
     public function HomepageView() {
@@ -48,14 +49,29 @@ class PageController extends Controller
     }
 
     public function ReturnsAndRefundsView() {
-        return "Hello returns and refunds view!";
+        return view('policies');
     }
 
     public function PrivacyPolicyView() {
-        return "Hello privacy policy view!";
+        return view("privacy_policy");
     }
 
     public function TermsAndConditionsView() {
-        return "Hello terms and conditions view!";
+        return view("t&c");
+    }
+
+    public function AdminOverviewView() {
+        if($user = Sentinel::check()) {
+            if(Sentinel::inRole('admin')) {
+                return view('admin.admin_overview', [
+                    'user' => $user,
+                ]);
+            }
+            elseif(Sentinel::inRole('user')) {
+                return redirect()->to('/');
+            }
+        } else {
+            return view('users.admin_login');
+        }
     }
 }

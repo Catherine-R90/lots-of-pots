@@ -16,6 +16,7 @@ use App\Models\Cart;
 use App\Http\Requests\AddProduct;
 use Freshbitsweb\LaravelCartManager\Traits\Cartable;
 use Jenssegers\Agent\Agent;
+use Cartalyst\Sentinel\Native\Facades\Sentinel;
 
 class ProductController extends Controller
 {
@@ -72,24 +73,54 @@ class ProductController extends Controller
             
     }
 
-    // ADMIN PRODUCT CONTROLS
+    // ADMIN PRODUCT VIEWS
     public function AdminProductsOverviewView() {
-        return view('/admin/product_manage_overview');
+        if($user = Sentinel::check()) {
+            if(Sentinel::inRole('admin')) {
+                return view('/admin/product_manage_overview');
+            }
+            elseif(Sentinel::inRole('user')) {
+                return redirect()->to('/');
+            }
+        } else {
+            return view('users.admin_login');
+        }
     }
 
     public function AdminAddProductView() {
         $categories = ProductCategory::all();
 
-        return view('/admin/add_product', [
-            "categories" => $categories
-        ]);
+        if($user = Sentinel::check()) {
+            if(Sentinel::inRole('admin')) {
+                return view('admin.products.add_product', [
+                    "categories" => $categories
+                ]);
+            }
+            elseif(Sentinel::inRole('user')) {
+                return redirect()->to('/');
+            }
+        } else {
+            return view('users.admin_login');
+        }
     }
 
     public function AdminEditProductOverviewView() {
         $products = Product::all();
-        return view('/admin/edit_product_overview', [
-            "products" => $products
-        ]);
+        $categories = ProductCategory::all();
+
+        if($user = Sentinel::check()) {
+            if(Sentinel::inRole('admin')) {
+                return view('/admin/products/edit_product_overview', [
+                    "products" => $products,
+                    "categories" => $categories
+                ]);
+            }
+            elseif(Sentinel::inRole('user')) {
+                return redirect()->to('/');
+            }
+        } else {
+            return view('users.admin_login');
+        }
     }
 
     public function AdminEditProductView($id) {
@@ -97,31 +128,44 @@ class ProductController extends Controller
         $categories = ProductCategory::all();
         $images = ProductImage::where('product_id', $product->id)->get();
 
-        return view('/admin/edit_product', [
-            "product" => $product,
-            "categories" => $categories,
-            "images" => $images
-        ]);
+        if($user = Sentinel::check()) {
+            if(Sentinel::inRole('admin')) {
+                return view('/admin/products/edit_product', [
+                    "product" => $product,
+                    "categories" => $categories,
+                    "images" => $images
+                ]);
+            }
+            elseif(Sentinel::inRole('user')) {
+                return redirect()->to('/');
+            }
+        } else {
+            return view('users.admin_login');
+        }
     }
 
     public function AdminDeleteProductView() {
         $products = Product::all();
         $images = ProductImage::all();
 
-        return view('/admin/delete_product', [
-            "products" => $products,
-            "images" => $images
-        ]);
+        if($user = Sentinel::check()) {
+            if(Sentinel::inRole('admin')) {
+                return view('/admin/products/delete_product', [
+                    "products" => $products,
+                    "images" => $images
+                ]);
+            }
+            elseif(Sentinel::inRole('user')) {
+                return redirect()->to('/');
+            }
+        } else {
+            return view('users.admin_login');
+        }
     }
 
-    // ADMIN
+    // ADMIN FUNCTIONS
     // ADD PRODUCT
     public function AdminAddProduct(AddProduct $request) {
-        // $imageOneName = $request->input('image_one_name');
-        // $imageTwoName = $request->input('image_two_name');
-        // $imageThreeName = $request->input('image_three_name');
-        // $imageFourName = $request->input('image_four_name');
-
         $imageOneName = $request->file('image_one')->store('productImages');
 
         if ($request->file('image_two') != null) {

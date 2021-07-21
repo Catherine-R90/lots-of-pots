@@ -92,6 +92,8 @@ use App\Models\Product;
             <p>{{$product->name}} x {{$item->quantity}}</p>
             <b>£{{ number_format($price, $decimals =2, $decimal_seperator = ".", $thousand_seperator = "," )}}</b>
 
+                <hr>
+
             <?php $sum[] = $item->price * $item->quantity; 
             if($item->delivery_option == 1) {
                 $del_option = 0;
@@ -107,6 +109,8 @@ use App\Models\Product;
 
             <p>Postage</p>
             <b>£{{ number_format($del_option, $decimals = 2, $decimal_seperator = ".", $thousand_seperator = ",") }}</b>
+
+                <hr>
 
             <?php 
             $total = array_sum($sum) + $del_option; ?>

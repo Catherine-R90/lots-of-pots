@@ -4,9 +4,9 @@
 
 <x-delivery_banner/>
 
-<div class="whole-section">
+<div class="product-whole">
 
-    <div class="section-left">
+    <div class="product-left">
 
     <!-- IMAGES -->
     @if($imageTwo == null)
@@ -27,28 +27,28 @@
         <p>Recipes featuring this product</p>
     </div>
 
-    @foreach($recipes as $recipe)
+        @foreach($recipes as $recipe)
 
-    <a href="/recipes/{{ $recipe->id }}">
-        <div class="grey-link">
+        <a href="/recipes/{{ $recipe->id }}">
+            <div class="product-recipe">
 
-            @foreach($recipeImages as $recipeImage)
-            @if($recipeImage->recipe_id == $recipe->id)
-                <img src="{{ asset('storage/app/recipeImages/'.$recipeImage->image_one_name) }}">
-            @endif
-            @endforeach
+                @foreach($recipeImages as $recipeImage)
+                @if($recipeImage->recipe_id == $recipe->id)
+                    <img src="{{ asset('storage/app/'.$recipeImage->image_one_name) }}">
+                @endif
+                @endforeach
 
-            <p>{{ $recipe->name }}</p>
-        </div>
-    </a>
+                <p>{{ $recipe->name }}</p>
 
+            </div>
+        </a>
     @endforeach
 
     @endif
 
     </div>
 
-    <div class="section-right">
+    <div class="product-right">
 
         <div class="boxed-header">
             <h3>{{ $product->name }}</h3>
@@ -67,13 +67,9 @@
                     <div class="price-quant">
                         <div class="price-form-label">
 
-                        @if($product->stock > 0)
                             <label for="quantity">Quantity</label>
                             <input type="number" id="quantity" name="quantity" value="1">
                             In stock
-                        @else
-                            <p class="notification">Out of stock</p>
-                        @endif
                             
                         </div>
 

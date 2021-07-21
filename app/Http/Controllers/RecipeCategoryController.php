@@ -8,6 +8,7 @@ use App\Models\Recipe;
 use App\Models\RecipeCategory;
 use App\Models\RecipeImage;
 use Jenssegers\Agent\Agent;
+use Cartalyst\Sentinel\Native\Facades\Sentinel;
 
 class RecipeCategoryController extends Controller
 {
@@ -36,15 +37,24 @@ class RecipeCategoryController extends Controller
         }
     }
 
-    // ADMIN RECIPE CATEGORY CONTROLS
+    // ADMIN RECIPE CATEGORY VIEWS
     public function AdminEditRecipeCategoryView() {
         $allCategories = RecipeCategory::all();
         $categoriesNotInUse = RecipeCategory::CategoriesNotInUse();
 
-        return view('/admin/edit_recipe_categories', [
-            "allCategories" => $allCategories,
-            "categoriesNotInUse" => $categoriesNotInUse
-        ]);
+        if($user = Sentinel::check()) {
+            if(Sentinel::inRole('admin')) {
+                return view('/admin/recipes/edit_recipe_categories', [
+                    "allCategories" => $allCategories,
+                    "categoriesNotInUse" => $categoriesNotInUse
+                ]);
+            }
+            elseif(Sentinel::inRole('user')) {
+                return redirect()->to('/');
+            }
+        } else {
+            return view('users.admin_login');
+        }
     }
 
     // FUNCTIONS

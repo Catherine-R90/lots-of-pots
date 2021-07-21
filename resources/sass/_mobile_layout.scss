@@ -80,7 +80,6 @@
 
 
 .mobile-form {
-    border: 5px solid rgb(26, 25, 25);
     width: 80%;
     font-size: 45px;
     margin: 20px;
@@ -89,16 +88,41 @@
     margin-right: auto;
 
     input[type=submit],
-    input[type=file],
-    button {
+    input[type=file] {
+        width: fit-content;
         font-family: serif;
         padding: 20px;
         margin: 10px;
         font-size:50px;
         border: 5px solid rgb(26, 25, 25);
         color:rgb(173, 171, 171);
+        border-radius: 5px;
+    }
+
+    button {
+        font-family: serif;
+        padding: 20px;
+        margin: 10px;
+        width: fit-content;
+        font-size:50px;
+        border: 5px solid rgb(26, 25, 25);
+        color:rgb(173, 171, 171);
         background-color: rgb(26, 25, 25);
         border-radius: 5px;
+    }
+
+    input[type=text],
+    input[type=tel],
+    input[type=number],
+    input[type=email],
+    input[type=password],
+    textarea {
+        font-size: 45px;
+        border: 3px solid rgb(26, 25, 25);
+        width: 90%;
+        height: 80px;
+        padding: 20px;
+        margin: 20px;
     }
 
     h3 {
@@ -118,21 +142,29 @@
         align-items: center;
     }
 
-    input[type=text],
-    input[type=tel],
-    input[type=number],
-    input[type=email],
-    textarea {
-        font-size: 45px;
-        border: 3px solid rgb(26, 25, 25);
-        width: 90%;
-        height: 80px;
-        padding: 20px;
-        margin: 20px;
-    }
-
     textarea {
         height: 300px;
+    }
+}
+
+.mobile-link {
+    a,
+    button,
+    input[type=submit] {
+        display: block;
+        text-align: center;
+        font-family: serif;
+        padding: 20px;
+        width: fit-content;
+        margin-left: auto;
+        margin-right: auto;
+        margin-top: 5px;
+        margin-bottom: 5px;
+        font-size:50px;
+        border: 5px solid rgb(26, 25, 25);
+        color:rgb(173, 171, 171);
+        background-color: rgb(26, 25, 25);
+        border-radius: 5px;
     }
 }
 

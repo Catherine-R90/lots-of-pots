@@ -7,24 +7,29 @@ use App\Http\Requests\CommentRequest;
 use App\Models\Comment;
 use App\Models\CommentImage;
 use App\Models\Recipe;
+use Cartalyst\Sentinel\Native\Facades\Sentinel;
 
 class CommentsController extends Controller
 {
-    public function CommentsView() {
-
-    }
-
     public function PostComment(Request $request){
         $recipeId = $request->input('recipe_id');
         $commentText = $request->input('comment');
         $sessionId = session()->getId();
 
-        $comment = Comment::create([
-            "recipe_id" => $recipeId,
-            "comment" => $commentText,
-            "user_session" => $sessionId,
-        ]);
-
+        if($user = Sentinel::check()) {
+            $comment = Comment::create([
+                "recipe_id" => $recipeId,
+                "comment" => $commentText,
+                "user_id" => $user->id,
+            ]);
+        } else {
+            $comment = Comment::create([
+                "recipe_id" => $recipeId,
+                "comment" => $commentText,
+                "user_session" => $sessionId,
+            ]);
+        }
+        
         if($request->file('comment_image') != null) {
             $imageName = $request->file('comment_image')->store('commentImages');
             $commentImage = CommentImage::create([
@@ -43,10 +48,15 @@ class CommentsController extends Controller
         $comment = Comment::find($id);
         $oldImage = CommentImage::where("comment_id", $id)->first();
         $commentText = $request->input('comment');
-        $sessionId = session()->getId();
 
-        $comment->comment = $commentText;
-        $comment->user_session = $sessionId;
+        if($user = Sentinel::check()) {
+            $comment->comment = $commentText;
+        } else {
+            $sessionId = session()->getId();
+            $comment->user_session = $sessionId;
+            $comment->comment = $commentText;
+        } 
+        
         $comment->save();
 
         if($request->file('comment_image') != null) {
@@ -69,7 +79,9 @@ class CommentsController extends Controller
         $comment->comment_image_id = null;
         $comment->save();
         $commentImage = CommentImage::where('comment_id', $id)->first();
-        $commentImage->delete();
+        if($commentImage !=  null) {
+            $commentImage->delete();
+        }    
         $comment->delete();
         return redirect()->back();
     }
