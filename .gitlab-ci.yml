@@ -1,7 +1,7 @@
 image: php:latest
 services:
   - mysql:latest
- variables:
+variables:
    MYSQL_DATABASE: lotsofpots
    MYSQL_ROOT_PASSWORD: password
 cache:
