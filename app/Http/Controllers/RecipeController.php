@@ -109,7 +109,7 @@ class RecipeController extends Controller
 
         if($user = Sentinel::check()) {
             if(Sentinel::inRole('admin')) {
-                return view('/admin/add_recipe',[
+                return view('admin.recipes.add_recipe',[
                     "categories" => $categories,
                     "products" => $products
                 ]);
@@ -129,7 +129,7 @@ class RecipeController extends Controller
 
         if($user = Sentinel::check()) {
             if(Sentinel::inRole('admin')) {
-                return view('admin/recipes/add_recipe_product', [
+                return view('admin.recipes.add_recipe_product', [
                     "recipe" => $recipe,
                     "products" => $products
                 ]);
@@ -209,7 +209,7 @@ class RecipeController extends Controller
 
         if($user = Sentinel::check()) {
             if(Sentinel::inRole('admin')) {
-                return view('/admin/recipes/edit_recipe_product', [
+                return view('admin.recipes.edit_recipe_product', [
                     "recipe" => $recipe,
                     "products" => $products
                 ]);

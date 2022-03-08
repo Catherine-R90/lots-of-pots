@@ -77,7 +77,7 @@ class ProductController extends Controller
     public function AdminProductsOverviewView() {
         if($user = Sentinel::check()) {
             if(Sentinel::inRole('admin')) {
-                return view('/admin/product_manage_overview');
+                return view('admin.products.product_manage_overview');
             }
             elseif(Sentinel::inRole('user')) {
                 return redirect()->to('/');
