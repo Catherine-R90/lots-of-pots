@@ -2,28 +2,30 @@
 # https://docs.gitlab.com/ee/development/cicd/templates.html
 # This specific template is located at:
 # https://gitlab.com/gitlab-org/gitlab/-/blob/master/lib/gitlab/ci/templates/Laravel.gitlab-ci.yml
+
 # Official framework image. Look for the different tagged releases at:
 # https://hub.docker.com/r/library/php
 image: php:latest
+
 # Pick zero or more services to be used on all builds.
 # Only needed when using a docker container to run your tests in.
 # Check out: http://docs.gitlab.com/ee/ci/docker/using_docker_images.html#what-is-a-service
 services:
   - mysql:latest
+
 variables:
-<<<<<<< HEAD
-  MYSQL_DATABASE: project_name
-  MYSQL_ROOT_PASSWORD: secret
+  MYSQL_DATABASE: lotsofpots
+  MYSQL_ROOT_PASSWORD: password
+
 # This folder is cached between builds
 # https://docs.gitlab.com/ee/ci/yaml/index.html#cache
-=======
-   MYSQL_DATABASE: lotsofpots
-   MYSQL_ROOT_PASSWORD: password
->>>>>>> a98461b4c87110ee048ad258f6b6a3a0f4582498
 cache:
   paths:
     - vendor/
     - node_modules/
+
+# This is a basic example for a gem or script which doesn't use
+# services such as redis or postgres
 before_script:
   # Update packages
   - apt-get update -yqq
@@ -47,9 +49,9 @@ before_script:
   # Copy over testing configuration.
   # Don't forget to set the database config in .env.testing correctly
   # DB_HOST=mysql
-  # DB_DATABASE=project_name
+  # DB_DATABASE=lotsofpots
   # DB_USERNAME=root
-  # DB_PASSWORD=secret
+  # DB_PASSWORD=password
   - cp .env.testing .env
   # Run npm build
   # comment this out if you don't have a frontend build
@@ -63,6 +65,7 @@ before_script:
   - php artisan migrate
   # Run database seed
   - php artisan db:seed
+
 test:
   script:
     # run laravel tests
