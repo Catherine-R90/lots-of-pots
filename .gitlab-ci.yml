@@ -11,10 +11,15 @@ image: php:latest
 services:
   - mysql:latest
 variables:
+<<<<<<< HEAD
   MYSQL_DATABASE: project_name
   MYSQL_ROOT_PASSWORD: secret
 # This folder is cached between builds
 # https://docs.gitlab.com/ee/ci/yaml/index.html#cache
+=======
+   MYSQL_DATABASE: lotsofpots
+   MYSQL_ROOT_PASSWORD: password
+>>>>>>> a98461b4c87110ee048ad258f6b6a3a0f4582498
 cache:
   paths:
     - vendor/
