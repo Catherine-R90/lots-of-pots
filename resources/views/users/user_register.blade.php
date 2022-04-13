@@ -64,16 +64,16 @@
     </div>
 
     @if($errors->any())
-    <div class="mobile-alert">
+        <div class="mobile-alert">
 
-        <ul>
+            <ul>
 
-        @foreach ($errors->all() as $error)
-            <li>{{ $error }}</li>
-        @endforeach
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
 
-        </ul>
-    </div>
+            </ul>
+        </div>
     @endif
 
     <form class="mobile-form" method="POST" action="/register">

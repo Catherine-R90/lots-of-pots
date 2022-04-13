@@ -14,14 +14,11 @@ use App\Models\RecipeImage;
 use App\Models\CartItems;
 use App\Models\Cart;
 use App\Http\Requests\AddProduct;
-use Freshbitsweb\LaravelCartManager\Traits\Cartable;
 use Jenssegers\Agent\Agent;
 use Cartalyst\Sentinel\Native\Facades\Sentinel;
 
 class ProductController extends Controller
 {
-    use Cartable;
-
     // VIEWS
     public function ProductView($id) {
         $agent = new Agent;
